@@ -38,21 +38,3 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.enable(userID));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
