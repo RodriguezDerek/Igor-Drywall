@@ -54,7 +54,8 @@ public class User implements UserDetails {
     private Role role;
 
     @Column(name = "is_enabled")
-    private boolean isEnabled = false;
+    private boolean isEnabled = false;    //false: b/c user must first be accepted by admin in order to login to dashboard to use features (production)
+                                        //true: b/c to test if jwt token is working (testing)
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
