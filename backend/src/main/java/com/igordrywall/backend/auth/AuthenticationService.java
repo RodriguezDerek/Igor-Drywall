@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -102,6 +101,7 @@ public class AuthenticationService {
         if(optionalUser.isPresent()){
             User existingUser = optionalUser.get();
             existingUser.setEnabled(true);
+            existingUser.setDateAdded(LocalDate.now());
             userRepository.save(existingUser);
 
             return GenericResponse.builder()
@@ -212,7 +212,7 @@ public class AuthenticationService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .dateAdded(user.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .dateAdded(user.getDateAdded())
                 .build();
     }
 }

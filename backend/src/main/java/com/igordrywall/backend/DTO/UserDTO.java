@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @Data
 @Builder
@@ -30,6 +32,5 @@ public class UserDTO {
     @NotEmpty(message = "Role is required")
     private Role role;
 
-    @NotEmpty(message = "Date is required")
-    private String dateAdded;
+    private LocalDate dateAdded;
 }

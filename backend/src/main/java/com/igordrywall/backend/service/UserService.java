@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +35,7 @@ public class UserService implements UserDetailsService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .dateAdded(user.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .dateAdded(user.getDateAdded())
                 .build();
     }
 
