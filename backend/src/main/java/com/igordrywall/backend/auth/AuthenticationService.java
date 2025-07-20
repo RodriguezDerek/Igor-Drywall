@@ -17,7 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -33,7 +35,7 @@ public class AuthenticationService {
     @Value("${frontend.reset.link}")
     private String frontendResetURL;
 
-    public AuthenticationResponse register(RegisterRequest request){
+    public GenericResponse register(RegisterRequest request){
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 
         if(optionalUser.isEmpty()){
@@ -47,16 +49,16 @@ public class AuthenticationService {
                     .build();
 
             userRepository.save(newUser);
-            String token = jwtService.generateToken(newUser);
 
-            return AuthenticationResponse.builder()
-                    .token(token)
-                    .role(newUser.getRole())
+            return GenericResponse.builder()
                     .message("Account created successfully. Awaiting administrator approval.")
+                    .status(HttpStatus.CREATED.value())
+                    .timeStamp(LocalDateTime.now())
                     .build();
         }
 
         throw new EmailAlreadyExistsException("This email is already associated with an existing account.");
+        //Frontend gets the message and resets the page to login page
     }
 
     public AuthenticationResponse login(AuthenticationRequest request){
@@ -75,11 +77,13 @@ public class AuthenticationService {
         }
 
         String token = jwtService.generateToken(user);
+        UserDTO userDTO = toUserDTO(user);
 
         return AuthenticationResponse.builder()
                 .token(token)
                 .role(user.getRole())
                 .message("Login successful. Welcome back!")
+                .userDTO(userDTO)
                 .build();
     }
 
@@ -198,6 +202,17 @@ public class AuthenticationService {
                 .message("Password reset successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
+                .build();
+    }
+
+    public UserDTO toUserDTO(User user){
+        return UserDTO.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .dateAdded(user.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
 }

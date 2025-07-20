@@ -14,4 +14,5 @@ public class AuthenticationResponse {
     private String token;
     private Role role;
     private String message;
+    private UserDTO userDTO;
 }

@@ -15,7 +15,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request){
+    public ResponseEntity<GenericResponse> register(@Valid @RequestBody RegisterRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(authenticationService.register(request));
     }
 
