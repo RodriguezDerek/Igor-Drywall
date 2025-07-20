@@ -1,10 +1,6 @@
-package com.igordrywall.backend.controller;
+package com.igordrywall.backend.auth;
 
-import com.igordrywall.backend.DTO.AuthenticationRequest;
-import com.igordrywall.backend.DTO.AuthenticationResponse;
-import com.igordrywall.backend.DTO.GenericResponse;
-import com.igordrywall.backend.DTO.RegisterRequest;
-import com.igordrywall.backend.service.AuthenticationService;
+import com.igordrywall.backend.DTO.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,5 +32,15 @@ public class AuthenticationController {
     @PutMapping("/authorize/enable/{userID}")
     public ResponseEntity<GenericResponse> enable(@PathVariable Integer userID){
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.enable(userID));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<GenericResponse> forgotPassword(@Valid @RequestBody EmailRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.processForgotPassword(request));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<GenericResponse> resetPassword(@Valid @RequestBody ResetRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.processResetPassword(request));
     }
 }

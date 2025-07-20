@@ -55,4 +55,37 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(EmailMessageErrorException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleEmailMessageErrorException(EmailMessageErrorException exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvalidOrExpiredTokenException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleInvalidOrExpiredTokenException(InvalidOrExpiredTokenException exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(TokenNotEqualException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleTokenNotEqualException(TokenNotEqualException exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }

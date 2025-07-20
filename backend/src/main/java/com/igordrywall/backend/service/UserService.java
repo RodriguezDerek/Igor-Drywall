@@ -1,5 +1,6 @@
 package com.igordrywall.backend.service;
 
+import com.igordrywall.backend.DTO.GenericResponse;
 import com.igordrywall.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

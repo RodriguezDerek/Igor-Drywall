@@ -57,6 +57,9 @@ public class User implements UserDetails {
     private boolean isEnabled = false;    //false: b/c user must first be accepted by admin in order to login to dashboard to use features (production)
                                         //true: b/c to test if jwt token is working (testing)
 
+    @Column(name = "reset_token")
+    private String resetToken;      //Used for Reset/Forgot Password feature
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

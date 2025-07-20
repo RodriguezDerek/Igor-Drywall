@@ -38,6 +38,7 @@ public class DataInitializer {
                         .role(Role.ADMIN)
                         .isEnabled(true)
                         .build();
+
                 userRepository.save(admin);
                 System.out.println("Admin account created");
             }
