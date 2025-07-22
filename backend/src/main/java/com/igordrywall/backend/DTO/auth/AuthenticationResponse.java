@@ -1,5 +1,6 @@
-package com.igordrywall.backend.DTO;
+package com.igordrywall.backend.DTO.auth;
 
+import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

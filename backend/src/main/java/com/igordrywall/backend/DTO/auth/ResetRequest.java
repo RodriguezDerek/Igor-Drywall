@@ -1,4 +1,4 @@
-package com.igordrywall.backend.DTO;
+package com.igordrywall.backend.DTO.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

@@ -88,4 +88,26 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleProjectNotFoundException(ProjectNotFoundException exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(ProjectAlreadyExistsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleProjectAlreadyExistsException(ProjectAlreadyExistsException exception){
+        return ErrorMessage.builder()
+                .message(exception.getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }

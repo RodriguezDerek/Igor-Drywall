@@ -1,4 +1,4 @@
-package com.igordrywall.backend.DTO;
+package com.igordrywall.backend.DTO.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

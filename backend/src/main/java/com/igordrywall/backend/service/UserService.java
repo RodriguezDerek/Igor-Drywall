@@ -1,8 +1,8 @@
 package com.igordrywall.backend.service;
 
-import com.igordrywall.backend.DTO.GenericResponse;
-import com.igordrywall.backend.DTO.UpdateUserRequest;
-import com.igordrywall.backend.DTO.UserDTO;
+import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.user.UpdateUserRequest;
+import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.exception.UserNotFoundException;
 import com.igordrywall.backend.model.User;
 import com.igordrywall.backend.repository.UserRepository;

@@ -44,25 +44,21 @@ public class Project {
     private String team;
 
     @Column(name = "client_name")
-    private String clientName = "No client name provided";
+    private String clientName;
 
     @Column(name = "client_phone_number")
-    private String clientPhoneNumber = "No client phone number provided";
+    private String clientPhoneNumber;
 
     @Column(name = "contractor_name")
-    private String contractorName = "No contractor name provided";
+    private String contractorName;
 
     @Column(name = "contractor_phone_number")
-    private String contractorPhoneNumber = "No contractor phone number provided";
+    private String contractorPhoneNumber;
 
     @Column(name = "description")
-    private String description = "No description provided";
+    private String description;
 
     @Min(value = 0, message = "Drywall amount can't be negative")
     @Column(name = "total_drywall")
     private Integer totalDrywall = 0;
-
-    @Min(value = 0, message = "Cost can't be negative")
-    @Column(name = "total_cost")
-    private Integer totalCost = 0;
 }

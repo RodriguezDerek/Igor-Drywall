@@ -1,8 +1,8 @@
 package com.igordrywall.backend.controller;
 
-import com.igordrywall.backend.DTO.GenericResponse;
-import com.igordrywall.backend.DTO.UpdateUserRequest;
-import com.igordrywall.backend.DTO.UserDTO;
+import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.user.UpdateUserRequest;
+import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

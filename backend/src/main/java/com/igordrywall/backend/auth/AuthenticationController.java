@@ -1,6 +1,7 @@
 package com.igordrywall.backend.auth;
 
-import com.igordrywall.backend.DTO.*;
+import com.igordrywall.backend.DTO.auth.*;
+import com.igordrywall.backend.DTO.common.GenericResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

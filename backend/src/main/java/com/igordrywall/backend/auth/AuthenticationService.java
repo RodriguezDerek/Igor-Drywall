@@ -1,6 +1,8 @@
 package com.igordrywall.backend.auth;
 
-import com.igordrywall.backend.DTO.*;
+import com.igordrywall.backend.DTO.auth.*;
+import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.email.EmailService;
 import com.igordrywall.backend.exception.*;
 import com.igordrywall.backend.jwt.JWTService;

@@ -1,4 +1,4 @@
-package com.igordrywall.backend.DTO;
+package com.igordrywall.backend.DTO.auth;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailRequest {
+public class AuthenticationRequest {
     @NotEmpty(message = "Email is required")
     private String email;
+
+    @NotEmpty(message = "Password is required")
+    private String password;
 }
