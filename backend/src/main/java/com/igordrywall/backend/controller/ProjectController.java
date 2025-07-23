@@ -1,10 +1,7 @@
 package com.igordrywall.backend.controller;
 
 import com.igordrywall.backend.DTO.common.GenericResponse;
-import com.igordrywall.backend.DTO.project.CreateProjectRequest;
-import com.igordrywall.backend.DTO.project.ProjectDTO;
-import com.igordrywall.backend.DTO.project.ProjectSummaryDTO;
-import com.igordrywall.backend.DTO.project.UpdateProjectRequest;
+import com.igordrywall.backend.DTO.project.*;
 import com.igordrywall.backend.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +32,11 @@ public class ProjectController {
     @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectDTO> findProject(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProject(id));
+    }
+
+    @GetMapping("/projects/schedule")
+    public ResponseEntity<List<ProjectCalendarDTO>> getProjectsByMonth(@RequestParam Integer year, @RequestParam Integer month){
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsByMonth(year, month));
     }
 
     @PutMapping("/projects/{id}")

@@ -1,10 +1,7 @@
 package com.igordrywall.backend.service;
 
 import com.igordrywall.backend.DTO.common.GenericResponse;
-import com.igordrywall.backend.DTO.project.CreateProjectRequest;
-import com.igordrywall.backend.DTO.project.ProjectDTO;
-import com.igordrywall.backend.DTO.project.ProjectSummaryDTO;
-import com.igordrywall.backend.DTO.project.UpdateProjectRequest;
+import com.igordrywall.backend.DTO.project.*;
 import com.igordrywall.backend.exception.ProjectAlreadyExistsException;
 import com.igordrywall.backend.exception.ProjectNotFoundException;
 import com.igordrywall.backend.model.Project;
@@ -13,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -136,6 +134,21 @@ public class ProjectService {
                 .message("Project updated successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
+                .build();
+    }
+
+    public List<ProjectCalendarDTO> getProjectsByMonth(Integer year, Integer month) {
+        LocalDate startOfMonth = LocalDate.of(year, month, 1);
+        LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
+        List<Project> projectList = projectRepository.findByStartDateBetween(startOfMonth, endOfMonth);
+        return projectList.stream().map(this::toProjectCalendarDTO).toList();
+    }
+
+    public ProjectCalendarDTO toProjectCalendarDTO(Project project){
+        return ProjectCalendarDTO.builder()
+                .name(project.getName())
+                .address(project.getAddress())
+                .team(project.getTeam())
                 .build();
     }
 }
