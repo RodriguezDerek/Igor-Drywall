@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
+
     private final ProjectService projectService;
 
     @PostMapping("/add")
@@ -37,6 +38,16 @@ public class ProjectController {
     @GetMapping("/projects/schedule")
     public ResponseEntity<List<ProjectCalendarDTO>> getProjectsByMonth(@RequestParam Integer year, @RequestParam Integer month){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsByMonth(year, month));
+    }
+
+    @GetMapping("/projects/graph")
+    public ResponseEntity<YearlyDrywallProjects> getProjectsGraph(@RequestParam Integer year){
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsGraphData(year));
+    }
+
+    @GetMapping("/projects/dashboard")
+    public ResponseEntity<ProjectDashboardDTO> getDashboard(){
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectDashboardInfo());
     }
 
     @PutMapping("/projects/{id}")
