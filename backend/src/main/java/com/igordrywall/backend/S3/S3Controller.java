@@ -1,6 +1,6 @@
 package com.igordrywall.backend.S3;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class S3Controller {
     private final S3Service s3Service;
 
     @PostMapping("/upload/{projectId}")
-    public ResponseEntity<GenericResponse> uploadFile(@PathVariable Integer projectId, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<GenericResponseDTO> uploadFile(@PathVariable Integer projectId, @RequestParam("file") MultipartFile file) {
         return ResponseEntity.status(HttpStatus.CREATED).body(s3Service.uploadFile(file, projectId));
     }
 
@@ -39,7 +39,7 @@ public class S3Controller {
     }
 
     @DeleteMapping("/delete/{projectId}")
-    public ResponseEntity<GenericResponse> deleteFile(@PathVariable Integer projectId, @RequestParam String filename) {
+    public ResponseEntity<GenericResponseDTO> deleteFile(@PathVariable Integer projectId, @RequestParam String filename) {
         return ResponseEntity.status(HttpStatus.OK).body(s3Service.deleteFile(projectId, filename));
     }
 }

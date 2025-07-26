@@ -1,6 +1,6 @@
 package com.igordrywall.backend.service;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.project.*;
 import com.igordrywall.backend.exception.ProjectAlreadyExistsException;
 import com.igordrywall.backend.exception.ProjectNotFoundException;
@@ -30,7 +30,7 @@ public class ProjectService {
         return projectList.stream().map(this::toProjectSummaryDTO).toList();
     }
 
-    public GenericResponse deleteProject(Integer id) {
+    public GenericResponseDTO deleteProject(Integer id) {
         Optional<Project> optionalProject = projectRepository.findById(id);
 
         if(optionalProject.isEmpty()){
@@ -39,14 +39,14 @@ public class ProjectService {
 
         projectRepository.delete(optionalProject.get());
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Project deleted successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
 
-    public GenericResponse addProject(CreateProjectRequest request) {
+    public GenericResponseDTO addProject(CreateProjectRequestDTO request) {
         Optional<Project> optionalProject = projectRepository.findByNameIgnoreCaseAndAddressIgnoreCase(
                 request.getName(), request.getAddress());
 
@@ -70,7 +70,7 @@ public class ProjectService {
 
         projectRepository.save(project);
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Project created successfully")
                 .status(HttpStatus.CREATED.value())
                 .timeStamp(LocalDateTime.now())
@@ -112,7 +112,7 @@ public class ProjectService {
                 .build();
     }
 
-    public GenericResponse updateProject(Integer id, UpdateProjectRequest request) {
+    public GenericResponseDTO updateProject(Integer id, UpdateProjectRequestDTO request) {
         Optional<Project> optionalProject = projectRepository.findById(id);
 
         if(optionalProject.isEmpty()){
@@ -134,7 +134,7 @@ public class ProjectService {
 
         projectRepository.save(project);
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Project updated successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
@@ -157,8 +157,8 @@ public class ProjectService {
                 .build();
     }
 
-    public YearlyDrywallProjects getProjectsGraphData(Integer year){
-        return YearlyDrywallProjects.builder()
+    public YearlyDrywallProjectsDTO getProjectsGraphData(Integer year){
+        return YearlyDrywallProjectsDTO.builder()
                 .januaryProjects(getCountByMonthHelper(year, 1))
                 .februaryProjects(getCountByMonthHelper(year, 2))
                 .marchProjects(getCountByMonthHelper(year, 3))

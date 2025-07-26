@@ -1,6 +1,7 @@
 package com.igordrywall.backend.DTO.auth;
 
-import jakarta.validation.constraints.NotEmpty;
+import com.igordrywall.backend.DTO.user.UserDTO;
+import com.igordrywall.backend.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResetRequest {
-    @NotEmpty(message = "Token is required")
+public class AuthenticationResponseDTO {
     private String token;
-
-    @NotEmpty(message = "Password is required")
-    private String newPassword;
+    private Role role;
+    private String message;
+    private UserDTO userDTO;
 }

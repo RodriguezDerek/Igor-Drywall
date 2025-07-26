@@ -1,7 +1,7 @@
 package com.igordrywall.backend.auth;
 
 import com.igordrywall.backend.DTO.auth.*;
-import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.email.EmailService;
 import com.igordrywall.backend.exception.*;
@@ -36,7 +36,7 @@ public class AuthenticationService {
     @Value("${frontend.reset.link}")
     private String frontendResetURL;
 
-    public GenericResponse register(RegisterRequest request){
+    public GenericResponseDTO register(RegisterRequestDTO request){
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 
         if(optionalUser.isEmpty()){
@@ -51,7 +51,7 @@ public class AuthenticationService {
 
             userRepository.save(newUser);
 
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("Account created successfully. Awaiting administrator approval.")
                     .status(HttpStatus.CREATED.value())
                     .timeStamp(LocalDateTime.now())
@@ -62,7 +62,7 @@ public class AuthenticationService {
         //Frontend gets the message and resets the page to login page
     }
 
-    public AuthenticationResponse login(AuthenticationRequest request){
+    public AuthenticationResponseDTO login(AuthenticationRequestDTO request){
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 
         if(optionalUser.isEmpty()){
@@ -80,7 +80,7 @@ public class AuthenticationService {
         String token = jwtService.generateToken(user);
         UserDTO userDTO = toUserDTO(user);
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDTO.builder()
                 .token(token)
                 .role(user.getRole())
                 .message("Login successful. Welcome back!")
@@ -88,16 +88,16 @@ public class AuthenticationService {
                 .build();
     }
 
-    public GenericResponse logout(){
+    public GenericResponseDTO logout(){
         //The frontend deletes the JWT (from localStorage or cookies) and Backend just returns a success message.
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Logout successful.")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
 
-    public GenericResponse enable(Integer userID) {
+    public GenericResponseDTO enable(Integer userID) {
         Optional<User> optionalUser = userRepository.findById(userID);
 
         if(optionalUser.isPresent()){
@@ -106,7 +106,7 @@ public class AuthenticationService {
             existingUser.setDateAdded(LocalDate.now());
             userRepository.save(existingUser);
 
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("User account has been activated successfully.")
                     .status(HttpStatus.OK.value())
                     .timeStamp(LocalDateTime.now())
@@ -116,7 +116,7 @@ public class AuthenticationService {
         throw new UserNotFoundException("Unable to find user.");
     }
 
-    public GenericResponse processForgotPassword(EmailRequest request){
+    public GenericResponseDTO processForgotPassword(EmailRequestDTO request){
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 
         if(optionalUser.isEmpty()){
@@ -171,14 +171,14 @@ public class AuthenticationService {
             throw new EmailMessageErrorException("Failed to send reset email.");
         }
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Forgot password email successfully sent")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
 
-    public GenericResponse processResetPassword(ResetRequest request){
+    public GenericResponseDTO processResetPassword(ResetRequestDTO request){
         String email;
         try{
             email = jwtService.extractUsername(request.getToken());
@@ -200,7 +200,7 @@ public class AuthenticationService {
         user.setResetToken(null);
         userRepository.save(user);
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("Password reset successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())

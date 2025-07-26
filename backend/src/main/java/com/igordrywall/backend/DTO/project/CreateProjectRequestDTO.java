@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProjectRequest {
+public class CreateProjectRequestDTO {
     @NotEmpty(message = "Project name is required")
     private String name;
 

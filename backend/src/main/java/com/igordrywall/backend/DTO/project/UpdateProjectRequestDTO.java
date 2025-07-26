@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateProjectRequest {
+public class UpdateProjectRequestDTO {
 
     @NotBlank(message = "Project name is required")
     private String name;

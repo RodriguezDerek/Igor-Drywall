@@ -1,6 +1,6 @@
 package com.igordrywall.backend.controller;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.project.*;
 import com.igordrywall.backend.service.ProjectService;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/add")
-    public ResponseEntity<GenericResponse> addProject(@Valid @RequestBody CreateProjectRequest request){
+    public ResponseEntity<GenericResponseDTO> addProject(@Valid @RequestBody CreateProjectRequestDTO request){
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.addProject(request));
     }
 
@@ -41,7 +41,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/graph")
-    public ResponseEntity<YearlyDrywallProjects> getProjectsGraph(@RequestParam Integer year){
+    public ResponseEntity<YearlyDrywallProjectsDTO> getProjectsGraph(@RequestParam Integer year){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsGraphData(year));
     }
 
@@ -51,12 +51,12 @@ public class ProjectController {
     }
 
     @PutMapping("/projects/{id}")
-    public ResponseEntity<GenericResponse> updateProject(@PathVariable Integer id, @Valid @RequestBody UpdateProjectRequest request){
+    public ResponseEntity<GenericResponseDTO> updateProject(@PathVariable Integer id, @Valid @RequestBody UpdateProjectRequestDTO request){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.updateProject(id, request));
     }
 
     @DeleteMapping("/projects/{id}")
-    public ResponseEntity<GenericResponse> deleteProject(@PathVariable Integer id){
+    public ResponseEntity<GenericResponseDTO> deleteProject(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.deleteProject(id));
     }
 }

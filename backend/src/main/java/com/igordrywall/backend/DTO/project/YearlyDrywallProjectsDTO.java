@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class YearlyDrywallProjects {
+public class YearlyDrywallProjectsDTO {
     Integer januaryProjects;
     Integer februaryProjects;
     Integer marchProjects;

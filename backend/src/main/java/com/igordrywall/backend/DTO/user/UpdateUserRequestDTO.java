@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserRequest {
+public class UpdateUserRequestDTO {
 
     @NotBlank(message = "First name is required")
     private String firstName;

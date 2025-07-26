@@ -1,6 +1,6 @@
 package com.igordrywall.backend.S3;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class S3Service {
     @Value("${aws.bucket.name}")
     private String bucketName;
 
-    public GenericResponse uploadFile(MultipartFile file, Integer projectId) {
+    public GenericResponseDTO uploadFile(MultipartFile file, Integer projectId) {
         try{
             String key = "projects/" + projectId + "/" + file.getOriginalFilename();
             s3Client.putObject(
@@ -34,14 +34,14 @@ public class S3Service {
                             .build(),
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize())
             );
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("File uploaded successfully")
                     .status(HttpStatus.CREATED.value())
                     .timeStamp(LocalDateTime.now())
                     .build();
 
         } catch (Exception e) {
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("Failed to upload file: " + e.getMessage())
                     .status(HttpStatus.BAD_REQUEST.value())
                     .timeStamp(LocalDateTime.now())
@@ -81,7 +81,7 @@ public class S3Service {
     }
 
 
-    public GenericResponse deleteFile(Integer projectId, String filename) {
+    public GenericResponseDTO deleteFile(Integer projectId, String filename) {
         try {
             String key = "projects/" + projectId + "/" + filename;
 
@@ -90,13 +90,13 @@ public class S3Service {
                     .key(key)
                     .build());
 
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("File deleted successfully")
                     .status(HttpStatus.OK.value())
                     .timeStamp(LocalDateTime.now())
                     .build();
         } catch (Exception e) {
-            return GenericResponse.builder()
+            return GenericResponseDTO.builder()
                     .message("Failed to delete file: " + e.getMessage())
                     .status(HttpStatus.BAD_REQUEST.value())
                     .timeStamp(LocalDateTime.now())

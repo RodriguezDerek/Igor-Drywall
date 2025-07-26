@@ -1,7 +1,7 @@
 package com.igordrywall.backend.service;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
-import com.igordrywall.backend.DTO.user.UpdateUserRequest;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
+import com.igordrywall.backend.DTO.user.UpdateUserRequestDTO;
 import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.exception.UserNotFoundException;
 import com.igordrywall.backend.model.User;
@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    public GenericResponse updateUser(Integer id, UpdateUserRequest request) {
+    public GenericResponseDTO updateUser(Integer id, UpdateUserRequestDTO request) {
         Optional<User> optionalUser = userRepository.findById(id);
 
         if(optionalUser.isEmpty()){
@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
         user.setEmail(request.getEmail());
         userRepository.save(user);
 
-        return GenericResponse.builder()
+        return GenericResponseDTO.builder()
                 .message("User updated successfully")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())

@@ -1,7 +1,7 @@
 package com.igordrywall.backend.controller;
 
-import com.igordrywall.backend.DTO.common.GenericResponse;
-import com.igordrywall.backend.DTO.user.UpdateUserRequest;
+import com.igordrywall.backend.DTO.common.GenericResponseDTO;
+import com.igordrywall.backend.DTO.user.UpdateUserRequestDTO;
 import com.igordrywall.backend.DTO.user.UserDTO;
 import com.igordrywall.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GenericResponse> updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequest request){
+    public ResponseEntity<GenericResponseDTO> updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequestDTO request){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id, request));
     }
 }
