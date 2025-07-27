@@ -37,7 +37,7 @@ function Register() {
         }
         
         try {
-            const response = await fetch("", {
+            const response = await fetch("http://localhost:8080/api/v1/auth/register", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,10 +53,10 @@ function Register() {
             const data = await response.json();
             if(response.ok){
                 setSuccessMessage("Account created successfully! Redirecting...");
+                console.log("Registration successful:", data);
                 setTimeout(() => {
                         window.location.href = "/login";
                     }, 2000); // wait 2 seconds before redirecting
-                window.location.href = "/login";
             } else {
                 setErrorMessage(data.message || "An error occurred during registration.");
             }
