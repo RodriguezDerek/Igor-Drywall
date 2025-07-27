@@ -12,6 +12,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -19,13 +20,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleValidationException(MethodArgumentNotValidException exception){
+    public ErrorMessage handleValidationException(MethodArgumentNotValidException ex) {
+        List<String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> fieldError.getDefaultMessage())
+                .toList();
+
+        String errorMessage = String.join("; ", errors);
+
         return ErrorMessage.builder()
-                .message(exception.getMessage())
+                .message(errorMessage)
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
     @ResponseBody
