@@ -8,7 +8,7 @@ function ErrorToast({ message, onClose }) {
       <span className="text-sm font-medium">{message}</span>
       <button
         onClick={onClose}
-        className="ml-4 font-bold text-xl hover:text-red-200"
+        className="ml-4 font-bold text-xl hover:text-red-200 cursor-pointer"
         aria-label="Close"
       >
         &times;
