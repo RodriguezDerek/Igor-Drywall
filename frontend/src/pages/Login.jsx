@@ -91,7 +91,7 @@ function Login() {
                 {/* Forgot Password aligned right */}
                 <div className="text-right">
                     <button type="button" className="text-sm text-red-700 hover:underline mb-6 cursor-pointer"> 
-                        <Link to="/forgot-password">Forgot Password</Link>
+                        <Link to="/forgot-password">Forgot Password?</Link>
                     </button>
                 </div>
 

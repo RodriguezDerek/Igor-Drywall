@@ -15,3 +15,33 @@
   animation: slideInFade 0.4s ease-out forwards;
 }
 
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #1f2937; 
+  font-weight: 500;
+  transition: color 0.3s ease;
+  height: 84px; 
+  display: flex;
+  align-items: center;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #dc2626; 
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #dc2626; 
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
