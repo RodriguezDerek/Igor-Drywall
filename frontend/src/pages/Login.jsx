@@ -41,8 +41,10 @@ function Login() {
             const data = await response.json();
 
             if(response.ok){
+              console.log(data);
               localStorage.setItem("token", data.token);
               localStorage.setItem("role", data.role);
+              localStorage.setItem("userId", data.userId);
 
               setSuccessMessage(data.message)
               setTimeout(() => {

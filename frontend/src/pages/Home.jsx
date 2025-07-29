@@ -1,7 +1,9 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import ProfileModal from '../components/ProfileModal';
 
 function Home() {
+
   return (
     <>
       <Navbar />
