@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import ErrorToast from '../components/ErrorToast';
+import SuccessToast from '../components/SuccessToast';
 
 function ResetPassword(){
     const [searchParams] = useSearchParams();
