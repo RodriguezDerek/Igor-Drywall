@@ -14,18 +14,18 @@ function Navbar() {
                 </div>
 
                 <div className="hidden md:flex space-x-10">
-                    <Link to="/home" className="nav-link text-gray-900 hover:text-red-600 font-medium cursor-pointer">Home</Link>
-                    <Link to="/about" className="nav-link text-gray-900 hover:text-red-600 font-medium cursor-pointer">About</Link>
-                    <Link to="/service" className="nav-link text-gray-900 hover:text-red-600 font-medium cursor-pointer">Services</Link>
-                    <Link to="/project" className="nav-link text-gray-900 hover:text-red-600 font-medium cursor-pointer">Projects</Link>
+                    <Link to="/home" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">Home</Link>
+                    <Link to="/about" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">About</Link>
+                    <Link to="/service" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">Services</Link>
+                    <Link to="/project" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">Projects</Link>
                 </div>
 
                 {isLoggedIn() ? (
                     <ProfileIcon />
                 ) : (
                     <div className="hidden md:flex items-center space-x-4">
-                        <Link to="/register" className="px-4 py-2 text-red-700 border border-red-700 rounded hover:bg-red-50 transition cursor-pointer">Register</Link>
-                        <Link to="/login" className="px-6 py-2 bg-red-700 text-white rounded hover:bg-red-800 transition cursor-pointer">Login</Link>
+                        <Link to="/register" className="px-4 py-2 custom-red-color-font border custom-red-color-border rounded hover:bg-red-50 transition cursor-pointer">Register</Link>
+                        <Link to="/login" className="px-6 py-2 custom-red-color-font text-white rounded hover:custom-red-color-background transition cursor-pointer">Login</Link>
                     </div>
                 
                 )}
