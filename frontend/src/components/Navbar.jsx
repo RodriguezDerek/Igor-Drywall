@@ -25,7 +25,7 @@ function Navbar() {
                 ) : (
                     <div className="hidden md:flex items-center space-x-4">
                         <Link to="/register" className="px-4 py-2 custom-red-color-font border custom-red-color-border rounded hover:bg-red-50 transition cursor-pointer">Register</Link>
-                        <Link to="/login" className="px-6 py-2 custom-red-color-font text-white rounded hover:custom-red-color-background transition cursor-pointer">Login</Link>
+                        <Link to="/login" className="px-6 py-2 text-white rounded custom-red-color-background transition cursor-pointer">Login</Link>
                     </div>
                 
                 )}

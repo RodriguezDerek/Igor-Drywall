@@ -60,7 +60,7 @@ function Home() {
             
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/hammer_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
@@ -70,7 +70,7 @@ function Home() {
 
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/wrench_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
@@ -80,7 +80,7 @@ function Home() {
 
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/tape_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
@@ -90,7 +90,7 @@ function Home() {
 
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/building_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
@@ -100,7 +100,7 @@ function Home() {
 
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/water_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
@@ -110,7 +110,7 @@ function Home() {
 
             <div className="border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
-                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/trash_icon.png" className="w-10 h-6"/>
                 </div>
               </div>
