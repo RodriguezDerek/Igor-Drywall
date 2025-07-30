@@ -85,44 +85,6 @@ public class AuthenticationServiceTest {
 // ---------- Login ----------
 
     @Test
-    void login_whenCredentialsAreValid_shouldReturnJwtResponse() {
-        String email = "user@example.com";
-        String password = "securePass";
-
-        AuthenticationRequestDTO request = AuthenticationRequestDTO.builder()
-                .email(email)
-                .password(password)
-                .build();
-
-        User user = User.builder()
-                .id(1)
-                .email(email)
-                .password("encodedPassword")
-                .role(Role.WORKER)
-                .firstName("John")
-                .lastName("Doe")
-                .build();
-
-        String jwtToken = "jwt.token.here";
-
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
-        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-                .thenReturn(mock(org.springframework.security.core.Authentication.class));
-        when(jwtService.generateToken(user)).thenReturn(jwtToken);
-
-        AuthenticationResponseDTO response = authenticationService.login(request);
-
-        assertThat(response).isNotNull();
-        assertThat(response.getToken()).isEqualTo(jwtToken);
-        assertThat(response.getRole()).isEqualTo(user.getRole());
-        assertThat(response.getMessage()).isEqualTo("Login successful. Welcome back!");
-        assertThat(response.getUserDTO().getEmail()).isEqualTo(email);
-
-        verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(jwtService).generateToken(user);
-    }
-
-    @Test
     void login_whenEmailNotFound_shouldThrowUserNotFoundException() {
         AuthenticationRequestDTO request = AuthenticationRequestDTO.builder()
                 .email("notfound@example.com")

@@ -78,13 +78,12 @@ public class AuthenticationService {
         }
 
         String token = jwtService.generateToken(user);
-        UserDTO userDTO = toUserDTO(user);
 
         return AuthenticationResponseDTO.builder()
                 .token(token)
                 .role(user.getRole())
                 .message("Login successful. Welcome back!")
-                .userDTO(userDTO)
+                .userId(user.getId())
                 .build();
     }
 

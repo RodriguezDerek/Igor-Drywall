@@ -19,6 +19,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
+    }
+
     @GetMapping("/all-enabled-users")
     public ResponseEntity<List<UserDTO>> getEnabledUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getEnabledUsers());

@@ -68,4 +68,23 @@ public class UserService implements UserDetailsService {
         List<User> userList = userRepository.findAllByIsEnabledFalse();
         return userList.stream().map(this::toUserDTO).toList();
     }
+
+    public UserDTO getUserById(Integer id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if(optionalUser.isEmpty()){
+            throw new UserNotFoundException("User not found");
+        }
+
+        User user = optionalUser.get();
+
+        return UserDTO.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .dateAdded(user.getDateAdded())
+                .build();
+    }
 }

@@ -15,5 +15,5 @@ public class AuthenticationResponseDTO {
     private String token;
     private Role role;
     private String message;
-    private UserDTO userDTO;
+    private Integer userId;
 }
