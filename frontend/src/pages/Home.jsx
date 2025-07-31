@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ImageSlider from '../components/ImageSlider';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -9,13 +10,13 @@ function Home() {
     <>
         <Navbar />
         {/* Hero Section */}
-        <div className="relative bg-cover bg-center h-160 flex items-center" style={{ backgroundImage: "url('/home_images/hero.png')" }}>
+        <div className="relative bg-cover bg-center h-140 flex items-center" style={{ backgroundImage: "url('/home_images/hero.png')" }}>
           
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/70 z-10"></div>
 
           {/* Content */}
-          <div className="relative z-10 max-w-3xl text-white px-8 pl-40">
+          <div className="slide-in-slow relative z-10 max-w-3xl text-white px-8 pl-40">
             <h1 className="text-5xl font-bold leading-tight">Building Better Walls <br/>for your <span className="custom-red-color-text">Future</span></h1>
             <p className="mt-6 text-base text-gray-200">We deliver high-quality drywall services with unmatched precision, reliability, and meticulous attention to detail. Whether you're renovating your home or outfitting a commercial space, our expert team ensures every project is completed to the highest standards.</p>
             <div className="mt-8 flex space-x-4">
@@ -26,10 +27,10 @@ function Home() {
         </div>
 
         {/* About Section */}
-        <div className="flex flex-col lg:flex-row items-center justify-between px-8 lg:px-20 py-16 bg-white pt-30">
+        <div className="flex flex-col lg:flex-row items-center justify-between px-8 lg:px-20 py-16 bg-white pt-16">
 
           {/* Text Section */}
-          <div className="max-w-xl pl-10">
+          <div className="slide-in-right-slow max-w-xl pl-10">
             <p className="custom-red-color-text font-semibold mb-2">About Us</p>
             <h2 className="text-4xl font-bold leading-tight mb-6">Committed to Excellence in Craftsmanship and Service</h2>
             <p className="text-gray-600 mb-8">Igor Drywall is your trusted partner for expert drywall installation and repair. With years of experience, we deliver quality craftsmanship, reliable service, and solutions tailored to every project. From small repairs to full renovations, our skilled team is committed to your satisfaction. At Igor Drywall, we build more than walls—we build trust and lasting quality.</p>
@@ -37,15 +38,13 @@ function Home() {
           </div>
 
           {/* Image Slider Section */}
-          <div className="relative mt-12 lg:mt-0 lg:ml-12 flex-shrink-0 bg-red-300 w-150 h-100">
-
-          </div>
+          <ImageSlider />
 
         </div>
 
         {/* Services Section */}
-        <section className="bg-white py-16 px-4 sm:px-6 lg:px-20 mt-10">
-          <div className="max-w-7xl mx-auto mb-10">
+        <section className="bg-white py-16 px-4 sm:px-6 lg:px-20 mt-2 mb-6">
+          <div className="slide-in-slow max-w-7xl mx-auto mb-10">
             <div className="flex items-center gap-3">
               <div className="w-13 h-1 custom-red-color-bg"></div>
               <div>
@@ -58,7 +57,7 @@ function Home() {
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-slow border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/hammer_icon.png" className="w-10 h-6"/>
@@ -68,7 +67,7 @@ function Home() {
               <p className="text-gray-600 text-sm">Professional drywall installation tailored to fit projects of all sizes, ensuring clean lines, secure fitting, and high-quality finishes that serve as the perfect foundation for painting or texturing.</p>
             </div>
 
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-medium border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/wrench_icon.png" className="w-10 h-6"/>
@@ -78,7 +77,7 @@ function Home() {
               <p className="text-gray-600 text-sm">Dependable and efficient drywall repair services for all types of damage, including holes, dents, cracks, and wear from everyday use—restoring your walls to a smooth, like-new condition.</p>
             </div>
 
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-fast border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/tape_icon.png" className="w-10 h-6"/>
@@ -88,7 +87,7 @@ function Home() {
               <p className="text-gray-600 text-sm">Expert taping and multi-layer coating techniques that eliminate seams and create a flawless surface, ready for final paint or wall covering, giving your space a polished and professional appearance.</p>
             </div>
 
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-slow border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/building_icon.png" className="w-10 h-6"/>
@@ -98,7 +97,7 @@ function Home() {
               <p className="text-gray-600 text-sm">Custom drywall solutions designed specifically for commercial spaces, with a focus on meeting building codes, accommodating large-scale layouts, and minimizing disruption to daily operations.</p>
             </div>
 
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-medium border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/water_icon.png" className="w-10 h-6"/>
@@ -108,7 +107,7 @@ function Home() {
               <p className="text-gray-600 text-sm">Specialized repair services for drywall damaged by leaks, floods, or humidity—removing compromised sections and replacing them with structurally sound, mold-resistant materials.</p>
             </div>
 
-            <div className="border border-gray-200 rounded-md p-6 text-left">
+            <div className="slide-in-fast border border-gray-200 rounded-md p-6 text-left">
               <div className="bg-red-100 p-3 inline-block rounded mb-4">
                 <div className="w-6 h-6 text-red-700 flex justify-center align-center" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <img src="/home_images/trash_icon.png" className="w-10 h-6"/>
@@ -119,7 +118,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="slide-in-medium mt-10 flex justify-center">
             <Link to="/service" className="custom-red-color-background text-white px-6 py-2 rounded-md text-sm transition">Explore More</Link>
           </div>
         </section>

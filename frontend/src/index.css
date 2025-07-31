@@ -15,6 +15,67 @@
   animation: slideInFade 0.4s ease-out forwards;
 }
 
+@keyframes slideInLeftFast {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeftMedium {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeftSlow {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-fast {
+  animation: slideInLeftFast 0.4s ease-out forwards;
+}
+
+.slide-in-medium {
+  animation: slideInLeftMedium 0.8s ease-out forwards;
+}
+
+.slide-in-slow {
+  animation: slideInLeftSlow 1.2s ease-out forwards;
+}
+
+@keyframes slideInRightSlow {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right-slow {
+  animation: slideInRightSlow 1.2s ease-out forwards;
+}
+
+
 .nav-link {
   position: relative;
   text-decoration: none;
