@@ -1,11 +1,16 @@
 import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Project() {
   return (
-    <div>
-      <h1>Welcome to the Project Page</h1>
-      <p>This page contains details about the project.</p>
-    </div>
+    <>
+      <Navbar />
+
+      
+
+      <Footer />
+    </>
   );
 }
 export default Project;

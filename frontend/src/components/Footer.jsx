@@ -19,7 +19,7 @@ function Footer() {
 
             {/* Services */}
             <div>
-                <h3 className="text-white font-semibold text-lg mb-3 border-b border-red-700 inline-block pb-1">Services</h3>
+                <h3 className="text-white font-semibold text-lg mb-3 border-b custom-red-color-border inline-block pb-1">Services</h3>
                 <ul className="mt-4 space-y-2 text-sm text-gray-300">
                     <li>Drywall Installation</li>
                     <li>Drywall Repair</li>
@@ -32,20 +32,20 @@ function Footer() {
 
             {/* Working Hours */}
             <div>
-                <h3 className="text-white font-semibold text-lg mb-3 border-b border-red-700 inline-block pb-1">Working Hours</h3>
+                <h3 className="text-white font-semibold text-lg mb-3 border-b custom-red-color-border inline-block pb-1">Working Hours</h3>
                 <ul className="mt-4 space-y-2 text-sm text-gray-300">
                     <li><span className="font-bold text-white">Monday:</span> 7am - 4pm</li>
                     <li><span className="font-bold text-white">Tuesday:</span> 7am - 4pm</li>
                     <li><span className="font-bold text-white">Wednesday:</span> 7am - 4pm</li>
                     <li><span className="font-bold text-white">Thursday:</span> 7am - 4pm</li>
                     <li><span className="font-bold text-white">Friday - Saturday:</span> 7am - 3pm</li>
-                    <li><span className="font-bold text-white">Sunday:</span> <span className="text-red-500">Closed</span></li>
+                    <li><span className="font-bold text-white">Sunday:</span> <span className="custom-red-color-text">Closed</span></li>
                 </ul>
             </div>
 
             {/* Contact Us */}
             <div>
-                <h3 className="text-white font-semibold text-lg mb-3 border-b border-red-700 inline-block pb-1">Contact Us</h3>
+                <h3 className="text-white font-semibold text-lg mb-3 border-b custom-red-color-border inline-block pb-1">Contact Us</h3>
                 <ul className="mt-4 space-y-3 text-sm text-gray-300">
                     <li className="flex items-center gap-2">
                     {/* icon here */}

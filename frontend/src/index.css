@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+
 @keyframes slideInFade {
   0% {
     opacity: 0;
@@ -73,6 +94,21 @@
 
 .slide-in-right-slow {
   animation: slideInRightSlow 1.2s ease-out forwards;
+}
+
+@keyframes slideInRightMedium {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right-medium {
+  animation: slideInRightSlow 0.8s ease-out forwards;
 }
 
 

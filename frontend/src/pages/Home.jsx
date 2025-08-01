@@ -13,7 +13,7 @@ function Home() {
         <div className="relative bg-cover bg-center h-140 flex items-center" style={{ backgroundImage: "url('/home_images/hero.png')" }}>
           
           {/* Overlay */}
-          <div className="absolute inset-0 bg-black/70 z-10"></div>
+          <div className="absolute inset-0 bg-black/85 z-10"></div>
 
           {/* Content */}
           <div className="slide-in-slow relative z-10 max-w-3xl text-white px-8 pl-40">
