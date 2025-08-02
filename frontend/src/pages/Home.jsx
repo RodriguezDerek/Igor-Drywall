@@ -20,8 +20,8 @@ function Home() {
             <h1 className="text-5xl font-bold leading-tight">Building Better Walls <br/>for your <span className="custom-red-color-text">Future</span></h1>
             <p className="mt-6 text-base text-gray-200">We deliver high-quality drywall services with unmatched precision, reliability, and meticulous attention to detail. Whether you're renovating your home or outfitting a commercial space, our expert team ensures every project is completed to the highest standards.</p>
             <div className="mt-8 flex space-x-4">
-              <Link to="/service" className="custom-red-color-background text-white font-semibold px-6 py-3 rounded shadow transition">Our Services</Link>
-              <Link to="/project" className="border border-white text-white font-semibold px-6 py-3 rounded hover:bg-white hover:text-black transition">View Projects</Link>
+              <Link to="/service" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="custom-red-color-background text-white font-semibold px-6 py-3 rounded shadow transition">Our Services</Link>
+              <Link to="/project" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="border border-white text-white font-semibold px-6 py-3 rounded hover:bg-white hover:text-black transition">View Projects</Link>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@ function Home() {
             <p className="custom-red-color-text font-semibold mb-2">About Us</p>
             <h2 className="text-4xl font-bold leading-tight mb-6">Committed to Excellence in Craftsmanship and Service</h2>
             <p className="text-gray-600 mb-8">Igor Drywall is your trusted partner for expert drywall installation and repair. With years of experience, we deliver quality craftsmanship, reliable service, and solutions tailored to every project. From small repairs to full renovations, our skilled team is committed to your satisfaction. At Igor Drywall, we build more than walls—we build trust and lasting quality.</p>
-            <Link to="/about" className="custom-red-color-background text-white font-semibold px-6 py-3 rounded">Discover More</Link>
+            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="custom-red-color-background text-white font-semibold px-6 py-3 rounded">Discover More</Link>
           </div>
 
           {/* Image Slider Section */}
@@ -119,7 +119,7 @@ function Home() {
           </div>
 
           <div className="slide-in-medium mt-10 flex justify-center">
-            <Link to="/service" className="custom-red-color-background text-white px-6 py-2 rounded-md text-sm transition">Explore More</Link>
+            <Link to="/service" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="custom-red-color-background text-white px-6 py-2 rounded-md text-sm transition">Explore More</Link>
           </div>
         </section>
 

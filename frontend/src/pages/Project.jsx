@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import ProjectGallery from "../components/ProjectGallery";
 import Footer from "../components/Footer";
@@ -13,42 +13,72 @@ function Project() {
     description: "Full drywall installation for a new home. Smooth finish throughout bedrooms, hallways, and main living space.",
     location: "Westbrook, CT",
     date: "03/05/2024 - 03/22/2024",
-    image: "/project_images/project1.webp"
+    image: "/project_images/project1.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   },
   {
     title: "Modern Farmhouse Build",
     description: "Installed drywall and achieved a seamless finish in all interior living spaces with a vaulted ceiling.",
     location: "Old Saybrook, CT",
     date: "01/10/2024 - 01/25/2024",
-    image: "/project_images/project2.webp"
+    image: "/project_images/project2.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   },
   {
     title: "Downtown Office Renovation",
     description: "Complete drywall and ceiling renovation for a commercial space in downtown Hartford.",
     location: "Hartford, CT",
     date: "02/01/2024 - 02/15/2024",
-    image: "/project_images/project3.webp"
+    image: "/project_images/project3.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   },
   {
     title: "Luxury Condo Units",
     description: "Drywall finishing for 12 high-end condo units, including curved walls and recessed lighting areas.",
     location: "New Haven, CT",
     date: "03/01/2024 - 04/01/2024",
-    image: "/project_images/project1.webp"
+    image: "/project_images/project1.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   },
   {
     title: "Riverside Cabin Remodel",
     description: "Upgraded insulation and drywall in a rustic cabin with exposed beams and custom cuts.",
     location: "Chester, CT",
     date: "02/20/2024 - 03/05/2024",
-    image: "/project_images/project2.webp"
+    image: "/project_images/project2.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   },
   {
     title: "Historic Townhouse Refinish",
     description: "Restored plaster and added drywall accents in a 19th-century townhouse preservation project.",
     location: "Essex, CT",
     date: "01/15/2024 - 01/30/2024",
-    image: "/project_images/project3.webp"
+    image: "/project_images/project3.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
+  },
+  {
+    title: "Modern Office Buildout",
+    description: "Installed drywall and acoustic ceiling tiles in a multi-suite office complex with open floor plans.",
+    location: "Hartford, CT",
+    date: "04/10/2024 - 05/02/2024",
+    image: "/project_images/project3.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
+  },
+  {
+    title: "Coastal Home Renovation",
+    description: "Replaced outdated drywall and applied moisture-resistant finishes in a beachside property.",
+    location: "Old Saybrook, CT",
+    date: "03/25/2024 - 04/15/2024",
+    image: "/project_images/project2.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
+  },
+  {
+    title: "Retail Space Expansion",
+    description: "Constructed new partitions and completed seamless drywall finishing in a commercial storefront.",
+    location: "Branford, CT",
+    date: "02/05/2024 - 02/25/2024",
+    image: "/project_images/project1.webp",
+    images: ["/images/pic1.jpeg", "/images/pic2.jpeg", "/images/pic3.jpeg", "/images/pic4.jpeg"]
   }];
 
   return (
@@ -96,7 +126,13 @@ function Project() {
       </section>
 
       {/* Modal */}
-      <ProjectGallery project={projects[activeModal]} isOpen={activeModal !== null} onClose={() => setActiveModal(null)}/>
+      {activeModal !== null && (
+        <ProjectGallery
+          project={projects[activeModal]}
+          isOpen={true}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
 
       <Footer />
     </>

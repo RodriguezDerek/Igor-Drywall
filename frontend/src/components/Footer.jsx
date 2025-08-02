@@ -65,7 +65,7 @@ function Footer() {
         </div>
 
         {/* Bottom Line */}
-        <div className="border-t border-gray-700 py-4 text-center text-sm text-gray-400 relative z-20 pt-6 pb-6">Copyright © 2025 - All rights reserved</div>
+        <div className="border-t border-gray-600 py-4 text-center text-sm text-gray-400 relative z-20 pt-6 pb-6">Copyright © 2025 - All rights reserved</div>
 
     </footer>
   );

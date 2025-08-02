@@ -76,7 +76,7 @@ function Login() {
             <div className="w-full max-w-md">
 
               {/* Header */}
-              <h1 className="text-center text-5xl font-semibold text-red-700 mb-3">Sign In</h1>
+              <h1 className="text-center text-5xl font-semibold custom-red-color-text mb-3">Sign In</h1>
               <p className="text-center text-md font-normal mb-16">Please enter your details</p>
 
               {/* Form fields */}
@@ -92,17 +92,17 @@ function Login() {
 
                 {/* Forgot Password aligned right */}
                 <div className="text-right">
-                    <button type="button" className="text-sm text-red-700 hover:underline mb-6 cursor-pointer"> 
+                    <button type="button" className="text-sm custom-red-color-font hover:underline mb-6 cursor-pointer"> 
                         <Link to="/forgot-password">Forgot Password?</Link>
                     </button>
                 </div>
 
                 {/* Submit button */}
-                <button type="submit" className="bg-red-700 text-white py-3 px-6 rounded-md w-full mt-4 font-medium text-md cursor-pointer">Submit</button>
+                <button type="submit" className="custom-red-color-background text-white py-3 px-6 rounded-md w-full mt-4 font-medium text-md cursor-pointer">Submit</button>
 
                 {/* Footer link */}
                 <p className="text-sm mt-10 text-center font-medium">Don't have an account?{' '}
-                  <Link to="/register" className="text-red-700 font-medium hover:underline">Sign Up!</Link>
+                  <Link to="/register" className="custom-red-color-font font-medium hover:underline">Sign Up!</Link>
                   </p>
 
               </form>

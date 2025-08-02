@@ -79,10 +79,10 @@ function Register() {
                 </Link>
 
                 {/* Header */}
-                <h1 className="text-center text-4xl font-semibold text-red-700 mb-6 mt-14">Create your account</h1>
+                <h1 className="text-center text-4xl font-semibold custom-red-color-text mb-6 mt-14">Create your account</h1>
 
                 {/* Alert box */}
-                <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded-xl mb-6">
+                <div className="bg-red-100 border custom-red-color-border custom-red-color-text px-3 py-2 rounded-xl mb-6">
                     <strong className="text-center block mb-1 text-base">🚧 For Employees Only</strong>
                     <p className='justify-self-center text-center text-sm w-140 pb-1'>This sign-up form is intended for Igor Drywall employees only. If you are not affiliated with Igor Drywall, please do not attempt to create an account. Unauthorized access may be removed without notice.</p>
                 </div>
@@ -117,10 +117,10 @@ function Register() {
                     </div>
 
 
-                    <button type="submit" className="bg-red-700 text-white py-3 px-20 rounded-md w-full mt-6 font-medium text-md cursor-pointer">Submit</button>
+                    <button type="submit" className="custom-red-color-background text-white py-3 px-20 rounded-md w-full mt-6 font-medium text-md cursor-pointer">Submit</button>
 
                     <p className="text-sm mt-2 text-center font-medium">Already have an account?{' '}
-                        <Link to="/login" className="text-red-700 font-medium">Sign In</Link>
+                        <Link to="/login" className="custom-red-color-font font-medium">Sign In</Link>
                     </p>
 
                 </form>

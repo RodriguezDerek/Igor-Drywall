@@ -178,11 +178,10 @@ body {
   background-color: #920B15;
 }
 
-.custom-red-color-bg {
-  background-color: #920B15;
-}
-
-
 .custom-red-color-background:hover {
   background-color: #b71c1c; 
+}
+
+.custom-red-color-bg {
+  background-color: #920B15;
 }
