@@ -1,8 +1,12 @@
 import React from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
+import ProjectGallery from "../components/ProjectGallery";
 import Footer from "../components/Footer";
 
 function Project() {
+  const [activeModal, setActiveModal] = useState(null);
+
   const projects = [
   {
     title: "The Hawthorne Residence",
@@ -83,13 +87,17 @@ function Project() {
                   <span>{project.date}</span>
                 </div>
               </div>
-              <button className="cursor-pointer custom-red-color-font font-semibold text-sm mt-3 inline-flex items-center gap-1">View More<span className="ml-1">→</span></button>
+              <button onClick={() => setActiveModal(index)} className="cursor-pointer custom-red-color-font font-semibold text-sm mt-3 inline-flex items-center gap-1">View More<span className="ml-1">→</span></button>
             </div>
           </div>
         ))}
 
         </div>
       </section>
+
+      {/* Modal */}
+      <ProjectGallery project={projects[activeModal]} isOpen={activeModal !== null} onClose={() => setActiveModal(null)}/>
+
       <Footer />
     </>
   );
