@@ -44,16 +44,19 @@ function Home() {
 
         {/* Services Section */}
         <section className="bg-white py-16 px-4 sm:px-6 lg:px-20 mt-2 mb-6">
-          <div className="slide-in-slow max-w-7xl mx-auto mb-10">
+          <div className="slide-in-slow max-w-7xl ml-0 mb-10">
             <div className="flex items-center gap-3">
               <div className="w-13 h-1 custom-red-color-bg"></div>
               <div>
-                <h2 className="text-3xl font-semibold text-gray-900 leading-snug">Drywall <span className="custom-red-color-text">Services</span></h2>
-                <h3 className="text-3xl font-semibold text-gray-900 leading-snug">That Fit Your Project</h3>
+                <h2 className="text-3xl font-semibold text-gray-900 leading-snug">
+                  Drywall <span className="custom-red-color-text">Services</span>
+                </h2>
+                <h3 className="text-3xl font-semibold text-gray-900 leading-snug">
+                  That Fit Your Project
+                </h3>
               </div>
             </div>
           </div>
-
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             
