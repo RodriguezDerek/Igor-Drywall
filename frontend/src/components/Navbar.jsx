@@ -24,7 +24,8 @@ function Navbar() {
           </div>
 
           {/* Right-side login/register or profile */}
-          {isLoggedIn() ? (
+          {/* CHANGE true BACK TO isLoggedIn() */}
+          {true ? ( 
             <ProfileIcon />
           ) : (
             <div className="hidden md:flex items-center space-x-4 pr-4 mr-20">
