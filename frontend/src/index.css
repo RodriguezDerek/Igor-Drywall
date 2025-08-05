@@ -185,3 +185,21 @@ body {
 .custom-red-color-bg {
   background-color: #920B15;
 }
+
+.custom-red-hover-effect {
+  background-color: white;
+  color: #101828;
+}
+
+.custom-red-hover-effect:hover {
+  background-color: #FFDDDD;
+  color: #920B15
+}
+
+.custom-logout {
+  color:#1f2937
+}
+
+.custom-logout:hover {
+  color:#920B15
+}

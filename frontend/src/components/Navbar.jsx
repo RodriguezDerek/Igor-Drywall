@@ -16,7 +16,7 @@ function Navbar() {
           </div>
 
           {/* Navigation links */}
-          <div className="hidden md:flex space-x-10">
+          <div className="hidden md:flex space-x-10 mr-10">
             <Link to="/home" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">Home</Link>
             <Link to="/about" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">About</Link>
             <Link to="/service" className="nav-link text-gray-900 hover:custom-red-color-font font-medium cursor-pointer">Services</Link>
@@ -24,8 +24,7 @@ function Navbar() {
           </div>
 
           {/* Right-side login/register or profile */}
-          {/* CHANGE true BACK TO isLoggedIn() */}
-          {true ? ( 
+          {isLoggedIn() ? ( 
             <ProfileIcon />
           ) : (
             <div className="hidden md:flex items-center space-x-4 pr-4 mr-20">

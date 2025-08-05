@@ -41,7 +41,6 @@ function Login() {
             const data = await response.json();
 
             if(response.ok){
-              console.log(data);
               localStorage.setItem("token", data.token);
               localStorage.setItem("role", data.role);
               localStorage.setItem("userId", data.userId);
@@ -49,7 +48,7 @@ function Login() {
               setSuccessMessage(data.message)
               setTimeout(() => {
                         window.location.href = "/home";
-                    }, 2000); // wait 2 seconds before redirecting
+                    }, 1000); // wait 2 seconds before redirecting
 
             } else {
               setErrorMessage(data.message || "An error occurred when signing in.")

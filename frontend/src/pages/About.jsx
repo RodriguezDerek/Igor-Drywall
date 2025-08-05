@@ -7,7 +7,7 @@ function About() {
     <>
         <Navbar />
 
-        <section className="slide-in-medium flex flex-col md:flex-row items-stretch justify-center gap-12 px-6 md:px-20 py-16 bg-white rounded-3xl">
+        <section className="slide-in-medium flex flex-col md:flex-row items-stretch justify-center gap-12 px-6 md:px-20 py-16 bg-white">
             {/* Text Section */}
             <div className="md:w-5/12 flex flex-col justify-center">
                 <h4 className="custom-red-color-text font-semibold text-sm mb-2">About Us</h4>
@@ -32,46 +32,38 @@ function About() {
 
                 {/* Card 1 */}
                 <div className="max-w-xs w-full h-84 border border-gray-400 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col">
-                <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
-                    <img src="/maroon_icons/maroon_hammer.png" alt="Hammer icon" className="w-5 h-5" />
-                </div>
-                <h3 className="pt-4 font-semibold text-xl mb-3">Quality Workmanship</h3>
-                <p className="text-gray-700 text-base leading-relaxed">
-                    We don't cut corners. Every detail matters, and we take pride in delivering clean, smooth, and durable results that stand the test of time — because true craftsmanship leaves no shortcuts.
-                </p>
+                    <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
+                        <img src="/maroon_icons/maroon_hammer.png" alt="Hammer icon" className="w-5 h-5" />
+                    </div>
+                    <h3 className="pt-4 font-semibold text-xl mb-3">Quality Workmanship</h3>
+                    <p className="text-gray-700 text-base leading-relaxed">We don't cut corners. Every detail matters, and we take pride in delivering clean, smooth, and durable results that stand the test of time — because true craftsmanship leaves no shortcuts.</p>
                 </div>
 
                 {/* Card 2 */}
                 <div className="max-w-xs w-full h-84 border border-gray-400 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col">
-                <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
-                    <img src="/maroon_icons/maroon_clock.png" alt="Clock icon" className="w-5 h-5" />
-                </div>
-                <h3 className="pt-4 font-semibold text-xl mb-3">Reliability</h3>
-                <p className="text-gray-700 text-base leading-relaxed">
-                    When we say we'll be there, we mean it. From meeting deadlines to keeping you informed, you can count on us to be consistent, dependable, and professional from day one.
-                </p>
+                    <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
+                        <img src="/maroon_icons/maroon_clock.png" alt="Clock icon" className="w-5 h-5" />
+                    </div>
+                    <h3 className="pt-4 font-semibold text-xl mb-3">Reliability</h3>
+                    <p className="text-gray-700 text-base leading-relaxed">When we say we'll be there, we mean it. From meeting deadlines to keeping you informed, you can count on us to be consistent, dependable, and professional from day one.</p>
                 </div>
 
                 {/* Card 3 */}
                 <div className="max-w-xs w-full h-84 border border-gray-400 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col">
-                <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
-                    <img src="/maroon_icons/maroon_talk.png" alt="Communication icon" className="w-5 h-5" />
-                </div>
-                <h3 className="pt-4 font-semibold text-xl mb-3">Clear Communication</h3>
-                <p className="text-gray-700 text-base leading-relaxed">
-                    A successful project starts with trust and transparency. We keep the conversation open — always listening, explaining, and making sure you're comfortable and confident every step of the way.
-                </p>
+                    <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
+                        <img src="/maroon_icons/maroon_talk.png" alt="Communication icon" className="w-5 h-5" />
+                    </div>
+                    <h3 className="pt-4 font-semibold text-xl mb-3">Clear Communication</h3>
+                    <p className="text-gray-700 text-base leading-relaxed">A successful project starts with trust and transparency. We keep the conversation open — always listening, explaining, and making sure you're comfortable and confident every step of the way.</p>
                 </div>
 
                 {/* Card 4 */}
                 <div className="max-w-xs w-full h-84 border border-gray-400 rounded-xl p-6 shadow-sm hover:shadow-md transition flex flex-col">
-                <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
-                    <img src="/maroon_icons/maroon_building.png" alt="Respect icon" className="w-5 h-5" />
-                </div>
-                <h3 className="pt-4 font-semibold text-xl mb-3">Respect for Your Space</h3>
-                <p className="text-gray-700 text-base leading-relaxed">
-                    Whether we're in your home or on a job site, we treat the space with care. That means working cleanly, safely, and with respect — leaving behind only quality work, not a mess.
-                </p>
+                    <div className="bg-red-100 w-10 h-10 flex items-center justify-center rounded-full mb-4">
+                        <img src="/maroon_icons/maroon_building.png" alt="Respect icon" className="w-5 h-5" />
+                    </div>
+                    <h3 className="pt-4 font-semibold text-xl mb-3">Respect for Your Space</h3>
+                    <p className="text-gray-700 text-base leading-relaxed">Whether we're in your home or on a job site, we treat the space with care. That means working cleanly, safely, and with respect — leaving behind only quality work, not a mess.</p>
                 </div>
 
             </div>
