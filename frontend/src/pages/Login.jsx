@@ -56,6 +56,7 @@ function Login() {
 
         } catch(error){
             setErrorMessage("An error occurred while signing in your account. Please try again later.");
+            return;
         }
     }
 

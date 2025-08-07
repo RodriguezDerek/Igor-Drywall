@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { getUserId } from '../util/auth';
 import MyProfile from './MyProfile';
 import AccountSettings from './AccountSettings';
-import ErrorToast from './ErrorToast';
 import { Link } from 'react-router';
 
 function ProfileModal({ close }) {
@@ -70,8 +69,13 @@ function ProfileModal({ close }) {
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.5-2 4.5-4.5S14.7 3 12 3 7.5 5 7.5 7.5 9.3 12 12 12zm0 1.5c-3 0-9 1.5-9 4.5V21h18v-3c0-3-6-4.5-9-4.5z"/></svg>
                         </div>
                         <div>
-                            <h4 className="font-semibold text-sm">Rodriguez, Igor</h4>
-                            <p className="text-sm text-gray-500">emailname@gmail.com</p>
+                            <h4 className="font-semibold text-sm">
+                                {userData ? `${userData.lastName}, ${userData.firstName}` : 'Loading...'}
+                            </h4>
+
+                            <p className="text-xs text-gray-500">
+                                {userData ? `${userData.email}` : 'Loading...'}
+                            </p>
                         </div>
                     </div>
 
@@ -124,7 +128,7 @@ function ProfileModal({ close }) {
                     </button>
                 </div>
 
-                {isAccountSettingsOpen && <AccountSettings />}
+                {isAccountSettingsOpen && <AccountSettings userInfo={userData}/>}
                 {isMyProfileOpen && <MyProfile userInfo={userData} />}
 
             </div>
