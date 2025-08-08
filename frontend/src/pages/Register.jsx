@@ -11,6 +11,7 @@ function Register() {
         firstName: '',
         lastName: '',
         email: '',
+        phoneNumber: '',     // Added phoneNumber here
         password: '',
         confirmPassword: ''
     });
@@ -26,8 +27,21 @@ function Register() {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.password.trim() || !formData.confirmPassword.trim()) {
+        if (
+            !formData.firstName.trim() || 
+            !formData.lastName.trim() || 
+            !formData.email.trim() || 
+            !formData.phoneNumber.trim() ||  
+            !formData.password.trim() || 
+            !formData.confirmPassword.trim()
+        ) {
             setErrorMessage("All fields are required.");
+            return;
+        }
+
+        const phoneRegex = /^\+?[0-9\-\s]{7,20}$/;
+        if (!phoneRegex.test(formData.phoneNumber)) {
+            setErrorMessage("Phone number must be 7-20 characters and may contain +, numbers, spaces, or dashes.");
             return;
         }
 
@@ -46,6 +60,7 @@ function Register() {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
+                    phoneNumber: formData.phoneNumber,  
                     password: formData.password
                 })
             })
@@ -93,29 +108,32 @@ function Register() {
                     <div className="flex gap-4">
                         <div className="flex-1">
                             <label className="block mb-1">First name</label>
-                            <input name="firstName" type="text" value={formData.firstName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1"/>
+                            <input name="firstName" type="text" value={formData.firstName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your first name"/>
                         </div>
                         <div className="flex-1">
                             <label className="block mb-1">Last name</label>
-                            <input name="lastName" type="text" value={formData.lastName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1"/>
+                            <input name="lastName" type="text" value={formData.lastName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your last name"/>
                         </div>
                     </div>
 
                     <div>
                         <label className="block mb-1">Email</label>
-                        <input name="email" type="email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1"/>
+                        <input name="email" type="email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="you@example.com"/>
                     </div>
 
+                    <div>
+                        <label className="block mb-1">Phone Number</label>
+                        <input name="phoneNumber" type="tel" value={formData.phoneNumber} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="e.g. 123-456-7890"/>
+                    </div>
 
                     <div className="flex-1">
                         <label className="block mb-1">Password</label>
-                        <input name="password" type="password" value={formData.password} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2"/>
+                        <input name="password" type="password" value={formData.password} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" placeholder="Create a password"/>
                     </div>
                     <div className="flex-1">
                         <label className="block mb-1">Confirm Password</label>
-                        <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2"/>
+                        <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" placeholder="Confirm your password"/>
                     </div>
-
 
                     <button type="submit" className="custom-red-color-background text-white py-3 px-20 rounded-md w-full mt-6 font-medium text-md cursor-pointer">Submit</button>
 

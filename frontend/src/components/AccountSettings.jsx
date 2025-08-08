@@ -1,61 +1,71 @@
 import React from "react";
 import { useState } from "react";
-import { getUserId } from "../util/auth"
+import { getUserId } from "../util/auth";
 import ModalErrorToast from "./ModalErrorToast"; 
 import ModalSuccessToast from "./ModalSuccessToast";
 
-function AccountSettings( {userInfo} ){
+function AccountSettings({ userInfo }) {
     const [newFirstName, setNewFirstName] = useState(userInfo ? userInfo.firstName : "");
     const [newLastName, setNewLastName] = useState(userInfo ? userInfo.lastName : "");
     const [newEmail, setNewEmail] = useState(userInfo ? userInfo.email : "");
+    const [newPhoneNumber, setNewPhoneNumber] = useState(userInfo ? userInfo.phoneNumber : "");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    
 
-    function handleFirstNameChange(e){
+    function handleFirstNameChange(e) {
         setNewFirstName(e.target.value);
     }
 
-    function handleLastNameChange(e){
+    function handleLastNameChange(e) {
         setNewLastName(e.target.value);
     }
 
-    function handleEmailChange(e){
+    function handleEmailChange(e) {
         setNewEmail(e.target.value);
     }
-    
-    async function handleSubmit(e){
+
+    function handlePhoneNumberChange(e) {
+        setNewPhoneNumber(e.target.value);
+    }
+
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        if(!newFirstName.trim() || !newLastName.trim() || !newEmail.trim()){
-            setErrorMessage("Fields cannot be empty.");
-            return;
+        if (!newFirstName.trim() || !newLastName.trim() || !newEmail.trim()) {
+        setErrorMessage("Fields cannot be empty.");
+        return;
         }
 
         const userId = getUserId();
-        
-        if(userId){
+
+        if (userId) {
             try {
+                
                 const response = await fetch(`http://localhost:8080/api/v1/users/update/${userId}`, {
-                    method: 'PUT',
+                    method: "PUT",
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                     body: JSON.stringify({
                         firstName: newFirstName,
                         lastName: newLastName,
-                        email: newEmail
-                    })
+                        email: newEmail,
+                        phoneNumber: newPhoneNumber,
+                    }),
                 });
 
                 const data = await response.json();
 
-                if(response.ok){
-                    setSuccessMessage(data.message || "Account settings updated successfully.");
+                if (response.ok) {
+                    localStorage.clear()
+                    setSuccessMessage("Successfully updated Information please log in again");
+                    setTimeout(() => {
+                        window.location.href = "/home";
+                    }, 1000); // wait 2 seconds before redirecting
 
                 } else {
-                    setErrorMessage(data.message || "An error occurred when updating account settings.")
+                    setErrorMessage(data.message || "An error occurred when updating account settings.");
                     return;
                 }
 
@@ -63,6 +73,7 @@ function AccountSettings( {userInfo} ){
                 setErrorMessage("Failed to update account settings.");
                 return;
             }
+
         } else {
             setErrorMessage("User not found.");
             return;
@@ -71,39 +82,43 @@ function AccountSettings( {userInfo} ){
 
     if (!userInfo) {
         return <p className="text-center text-gray-500">Loading profile...</p>;
-    } 
+    }
 
-    return(
+    return (
         <>
-            <div className="flex flex-col items-center justify-center h-[88%] p-6">
-                <div className="text-xl font-semibold text-gray-900 mb-6">Account Settings</div>
-                <div className="w-full max-w-xl rounded-lg">
-                    <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col items-center justify-center h-[88%] p-4">
+            <div className="text-lg font-semibold text-gray-900 mb-4">Account Settings</div>
+            <div className="w-full max-w-md rounded-lg">
+                <div className="flex flex-col gap-y-3">
+                    <div className="flex items-center gap-3">
+                        <label className="w-24 text-xs text-gray-700 font-semibold">First Name</label>
+                        <input type="text" onChange={handleFirstNameChange} value={newFirstName} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                    </div>
 
-                        <div className="flex items-center gap-4">
-                            <label className="w-32 text-sm text-gray-700 font-semibold">First Name</label>
-                            <input type="text" onChange={handleFirstNameChange} value={newFirstName} className="border border-gray-400 rounded-md px-3 py-1 text-sm w-full" />
-                        </div>
+                    <div className="flex items-center gap-3">
+                        <label className="w-24 text-xs text-gray-700 font-semibold">Last Name</label>
+                        <input type="text" onChange={handleLastNameChange} value={newLastName} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                    </div>
 
-                        <div className="flex items-center gap-4">
-                            <label className="w-32 text-sm text-gray-700 font-semibold">Last Name</label>
-                            <input type="text" onChange={handleLastNameChange} value={newLastName} className="border border-gray-400 rounded-md px-3 py-1 text-sm w-full" />
-                        </div>
+                    <div className="flex items-center gap-3">
+                        <label className="w-24 text-xs text-gray-700 font-semibold">Email</label>
+                        <input type="text" onChange={handleEmailChange} value={newEmail} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                    </div>
 
-                        <div className="flex items-center gap-4">
-                            <label className="w-32 text-sm text-gray-700 font-semibold">Email</label>
-                            <input type="text" onChange={handleEmailChange} value={newEmail} className="border border-gray-400 rounded-md px-3 py-1 text-sm w-full" />
-                        </div>
+                    <div className="flex items-center gap-3">
+                        <label className="w-24 text-xs text-gray-700 font-semibold">Phone Number</label>
+                        <input type="text" onChange={handlePhoneNumberChange} value={newPhoneNumber} placeholder="e.g. +1 555 123 4567" className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                    </div>
 
-                        <div className="flex justify-end mt-4">
-                            <button onClick={handleSubmit} className="custom-red-color-background text-white text-sm font-medium px-5 py-1.5 rounded-md cursor-pointer">Submit</button>
-                        </div>
-
+                    <div className="flex justify-end mt-3">
+                        <button onClick={handleSubmit} className="custom-red-color-background text-white text-xs font-medium px-4 py-1 rounded-md cursor-pointer">Submit</button>
                     </div>
                 </div>
             </div>
-            <ModalErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
-            <ModalSuccessToast message={successMessage} onClose={() => setSuccessMessage("")} />
+        </div>
+
+        <ModalErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
+        <ModalSuccessToast message={successMessage} onClose={() => setSuccessMessage("")} />
         </>
     );
 }

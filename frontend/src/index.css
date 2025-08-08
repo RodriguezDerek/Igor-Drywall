@@ -203,3 +203,12 @@ body {
 .custom-logout:hover {
   color:#920B15
 }
+
+.custom-dashboard-hover-bg:hover {
+  background-color: #920B15;
+}
+
+.custom-dashboard-hover-text:hover {
+  background-color: #920B15;
+  color: white
+}

@@ -8,6 +8,9 @@ import Project from './pages/Project';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Overview from './pages/Overview';
+import ProjectSchedule from './pages/ProjectSchedule';
+import CurrentProjects from './pages/CurrentProjects';
+import Team from './pages/Team';
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />}/>
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/overview" element={<Overview />} />
+          <Route path="/schedule" element={<ProjectSchedule />} />
+          <Route path="/projects" element={<CurrentProjects />} />
+          <Route path="/team" element={<Team />} />
         </Routes>
       </Router>
     </>
