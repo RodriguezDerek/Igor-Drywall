@@ -25,14 +25,18 @@ public class DataInitializer {
     @Value("${admin.password}")
     private String adminPassword;
 
+    @Value("${admin.phoneNumber}")
+    private String phoneNumber;
+
     @Bean
     public CommandLineRunner initAdmin(){
         return args -> {
             if(userRepository.findByEmail(adminEmail).isEmpty()){
                 User admin = User.builder()
-                        .firstName("igor")
-                        .lastName("rodriguez")
+                        .firstName("Igor")
+                        .lastName("Rodriguez")
                         .email(adminEmail)
+                        .phoneNumber(phoneNumber)
                         .password(passwordEncoder.encode(adminPassword))
                         .dateAdded(LocalDate.now())
                         .role(Role.ADMIN)

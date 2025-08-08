@@ -3,6 +3,7 @@ package com.igordrywall.backend.service;
 import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.user.UpdateUserRequestDTO;
 import com.igordrywall.backend.DTO.user.UserDTO;
+import com.igordrywall.backend.exception.PhoneNumberIsTakenException;
 import com.igordrywall.backend.exception.UserNotFoundException;
 import com.igordrywall.backend.model.User;
 import com.igordrywall.backend.repository.UserRepository;
@@ -36,6 +37,7 @@ public class UserService implements UserDetailsService {
                 .email(user.getEmail())
                 .role(user.getRole())
                 .dateAdded(user.getDateAdded())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 
@@ -47,9 +49,15 @@ public class UserService implements UserDetailsService {
         }
 
         User user = optionalUser.get();
+
+        if(userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
+            throw new PhoneNumberIsTakenException("Someone has this phone number");
+        }
+
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
+        user.setPhoneNumber(request.getPhoneNumber());
         userRepository.save(user);
 
         return GenericResponseDTO.builder()
@@ -85,6 +93,21 @@ public class UserService implements UserDetailsService {
                 .email(user.getEmail())
                 .role(user.getRole())
                 .dateAdded(user.getDateAdded())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+    }
+
+    public GenericResponseDTO removeUser(Integer userID) {
+        if(userRepository.findById(userID).isEmpty()){
+            throw new UserNotFoundException("User with ID not found");
+        }
+
+        userRepository.deleteById(userID);
+
+        return GenericResponseDTO.builder()
+                .message("User removed successfully.")
+                .timeStamp(LocalDateTime.now())
+                .status(HttpStatus.OK.value())
                 .build();
     }
 }

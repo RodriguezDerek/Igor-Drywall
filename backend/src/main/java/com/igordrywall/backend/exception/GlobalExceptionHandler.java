@@ -184,4 +184,15 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(PhoneNumberIsTakenException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handlePhoneNumberIsTakenException(PhoneNumberIsTakenException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }

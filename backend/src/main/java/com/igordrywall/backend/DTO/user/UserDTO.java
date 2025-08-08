@@ -1,9 +1,7 @@
 package com.igordrywall.backend.DTO.user;
 
 import com.igordrywall.backend.role.Role;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +30,9 @@ public class UserDTO {
     private Role role;
 
     private LocalDate dateAdded;
+
+    @NotBlank(message = "Phone number is required")
+    @Size(max = 20, message = "Phone number must not be longer than 20 characters")
+    @Pattern(regexp = "^\\+?[0-9\\-\\s]{7,20}$", message = "Invalid phone number format")
+    private String phoneNumber;
 }

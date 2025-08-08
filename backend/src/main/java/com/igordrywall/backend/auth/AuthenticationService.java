@@ -37,29 +37,32 @@ public class AuthenticationService {
     private String frontendResetURL;
 
     public GenericResponseDTO register(RegisterRequestDTO request){
-        Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 
-        if(optionalUser.isEmpty()){
-            User newUser = User.builder()
-                    .firstName(request.getFirstName())
-                    .lastName(request.getLastName())
-                    .email(request.getEmail())
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .role(Role.WORKER)
-                    .isEnabled(false)
-                    .build();
-
-            userRepository.save(newUser);
-
-            return GenericResponseDTO.builder()
-                    .message("Account created successfully. Awaiting administrator approval.")
-                    .status(HttpStatus.CREATED.value())
-                    .timeStamp(LocalDateTime.now())
-                    .build();
+        if(userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new EmailAlreadyExistsException("This email is already associated with an existing account.");
         }
 
-        throw new EmailAlreadyExistsException("This email is already associated with an existing account.");
-        //Frontend gets the message and resets the page to login page
+        if(userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
+            throw new PhoneNumberIsTakenException("Phone Number already is taken");
+        }
+
+        User newUser = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.WORKER)
+                .isEnabled(false)
+                .build();
+
+        userRepository.save(newUser);
+
+        return GenericResponseDTO.builder()
+                .message("Account created successfully. Awaiting administrator approval.")
+                .status(HttpStatus.CREATED.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
     }
 
     public AuthenticationResponseDTO login(AuthenticationRequestDTO request){

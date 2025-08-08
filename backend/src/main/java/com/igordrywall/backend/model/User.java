@@ -2,9 +2,7 @@ package com.igordrywall.backend.model;
 
 import com.igordrywall.backend.role.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +39,12 @@ public class User implements UserDetails {
     @Email(message = "Email must be valid")
     @NotBlank(message = "Email is required and must be unique")
     private String email;
+
+    @NotBlank(message = "Phone number is required")
+    @Size(max = 20, message = "Phone number must not be longer than 20 characters")
+    @Pattern(regexp = "^\\+?[0-9\\-\\s]{7,20}$", message = "Invalid phone number format")
+    @Column(unique = true)
+    private String phoneNumber;
 
     @Column(name = "password", nullable = false)
     @NotBlank(message = "Password is required")

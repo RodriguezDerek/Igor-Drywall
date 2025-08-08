@@ -20,22 +20,27 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
     }
 
     @GetMapping("/all-enabled-users")
-    public ResponseEntity<List<UserDTO>> getEnabledUsers(){
+    public ResponseEntity<List<UserDTO>> getEnabledUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getEnabledUsers());
     }
 
     @GetMapping("/all-pending-users")
-    public ResponseEntity<List<UserDTO>>  getPendingUsers(){
+    public ResponseEntity<List<UserDTO>> getPendingUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getPendingUsers());
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GenericResponseDTO> updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequestDTO request){
+    public ResponseEntity<GenericResponseDTO> updateUser(@PathVariable Integer id, @Valid @RequestBody UpdateUserRequestDTO request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id, request));
+    }
+
+    @DeleteMapping("/remove/{userID}")
+    public ResponseEntity<GenericResponseDTO> deleteUser(@PathVariable Integer userID) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.removeUser(userID));
     }
 }

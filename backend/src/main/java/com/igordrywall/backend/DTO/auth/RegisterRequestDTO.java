@@ -1,8 +1,6 @@
 package com.igordrywall.backend.DTO.auth;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +23,9 @@ public class RegisterRequestDTO {
 
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @NotBlank(message = "Phone number is required")
+    @Size(max = 20, message = "Phone number must not be longer than 20 characters")
+    @Pattern(regexp = "^\\+?[0-9\\-\\s]{7,20}$", message = "Invalid phone number format")
+    private String phoneNumber;
 }
