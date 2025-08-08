@@ -195,4 +195,15 @@ public class GlobalExceptionHandler {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)  // 403 Forbidden
+    public ErrorMessage handleIllegalStateException(IllegalStateException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .status(HttpStatus.FORBIDDEN.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 }

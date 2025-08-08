@@ -7,6 +7,7 @@ import com.igordrywall.backend.exception.PhoneNumberIsTakenException;
 import com.igordrywall.backend.exception.UserNotFoundException;
 import com.igordrywall.backend.model.User;
 import com.igordrywall.backend.repository.UserRepository;
+import com.igordrywall.backend.role.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,6 +50,10 @@ public class UserService implements UserDetailsService {
         }
 
         User user = optionalUser.get();
+
+        if(user.getRole().equals(Role.ADMIN)){
+            throw new IllegalStateException("Admin user info cannot be changed.");
+        }
 
         if(userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
             throw new PhoneNumberIsTakenException("Someone has this phone number");
