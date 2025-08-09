@@ -3,6 +3,7 @@ package com.igordrywall.backend.service;
 import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.user.UpdateUserRequestDTO;
 import com.igordrywall.backend.DTO.user.UserDTO;
+import com.igordrywall.backend.exception.EmailAlreadyExistsException;
 import com.igordrywall.backend.exception.PhoneNumberIsTakenException;
 import com.igordrywall.backend.exception.UserNotFoundException;
 import com.igordrywall.backend.model.User;
@@ -55,12 +56,19 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("Admin user info cannot be changed.");
         }
 
-        if(userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
+        if(!optionalUser.get().getPhoneNumber().equals(request.getPhoneNumber()) && userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
             throw new PhoneNumberIsTakenException("Someone has this phone number");
         }
 
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
+        if(!user.getEmail().equals(request.getEmail()) && userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new EmailAlreadyExistsException("This email is already associated with an existing account.");
+        }
+
+        String capitalizedFirstName  = request.getFirstName().substring(0, 1).toUpperCase() + request.getFirstName().substring(1).toLowerCase();
+        String capitalizedLastName  = request.getLastName().substring(0, 1).toUpperCase() + request.getLastName().substring(1).toLowerCase();
+
+        user.setFirstName(capitalizedFirstName);
+        user.setLastName(capitalizedLastName);
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
         userRepository.save(user);

@@ -46,9 +46,12 @@ public class AuthenticationService {
             throw new PhoneNumberIsTakenException("Phone Number already is taken");
         }
 
+        String capitalizedFirstName  = request.getFirstName().substring(0, 1).toUpperCase() + request.getFirstName().substring(1).toLowerCase();
+        String capitalizedLastName  = request.getLastName().substring(0, 1).toUpperCase() + request.getLastName().substring(1).toLowerCase();
+
         User newUser = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .firstName(capitalizedFirstName)
+                .lastName(capitalizedLastName)
                 .email(request.getEmail())
                 .phoneNumber(request.getPhoneNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
