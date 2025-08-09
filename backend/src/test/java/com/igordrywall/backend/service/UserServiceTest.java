@@ -59,15 +59,19 @@ class UserServiceTest {
                 .firstName("Old")
                 .lastName("Name")
                 .email("old@example.com")
+                .phoneNumber("1112223333")
+                .role(Role.WORKER)
                 .build();
 
         UpdateUserRequestDTO request = UpdateUserRequestDTO.builder()
                 .firstName("New")
                 .lastName("User")
                 .email("new@example.com")
+                .phoneNumber("1234567890")
                 .build();
 
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.findByPhoneNumber("1234567890")).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         GenericResponseDTO response = userService.updateUser(1, request);

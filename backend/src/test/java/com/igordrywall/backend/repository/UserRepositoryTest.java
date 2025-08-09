@@ -26,6 +26,7 @@ public class UserRepositoryTest {
                 .email("derek@gmail.com")
                 .password("derek123")
                 .role(Role.WORKER)
+                .phoneNumber("203-300-7000")
                 .isEnabled(true)
                 .build();
 
@@ -47,6 +48,7 @@ public class UserRepositoryTest {
                 .email("jane@example.com")
                 .password("pass123")
                 .role(Role.WORKER)
+                .phoneNumber("203-300-7000")
                 .isEnabled(true)
                 .build();
 
@@ -56,6 +58,7 @@ public class UserRepositoryTest {
                 .email("john@example.com")
                 .password("pass456")
                 .role(Role.WORKER)
+                .phoneNumber("203-300-7001")
                 .isEnabled(false)
                 .build();
 
@@ -77,6 +80,7 @@ public class UserRepositoryTest {
                 .lastName("Bright")
                 .email("alice@example.com")
                 .password("pass789")
+                .phoneNumber("203-300-7000")
                 .role(Role.ADMIN)
                 .isEnabled(true)
                 .build();
@@ -85,6 +89,7 @@ public class UserRepositoryTest {
                 .firstName("Bob")
                 .lastName("Dark")
                 .email("bob@example.com")
+                .phoneNumber("203-300-7001")
                 .password("pass321")
                 .role(Role.WORKER)
                 .isEnabled(false)
@@ -108,6 +113,7 @@ public class UserRepositoryTest {
                 .lastName("L1")
                 .email("one@example.com")
                 .password("one")
+                .phoneNumber("203-300-7000")
                 .role(Role.WORKER)
                 .isEnabled(true)
                 .build();
@@ -118,6 +124,7 @@ public class UserRepositoryTest {
                 .email("two@example.com")
                 .password("two")
                 .role(Role.WORKER)
+                .phoneNumber("203-200-7000")
                 .isEnabled(false)
                 .build();
 
@@ -126,6 +133,7 @@ public class UserRepositoryTest {
                 .lastName("L3")
                 .email("three@example.com")
                 .password("three")
+                .phoneNumber("203-100-7000")
                 .role(Role.WORKER)
                 .isEnabled(true)
                 .build();
