@@ -45,7 +45,7 @@ function AccountSettings({ userInfo }) {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     },
                     body: JSON.stringify({
                         firstName: newFirstName,
@@ -55,6 +55,12 @@ function AccountSettings({ userInfo }) {
                     }),
                 });
 
+                if (response.status === 401) {
+                    localStorage.clear();
+                    window.location.href = "/home";
+                    return
+                }
+
                 const data = await response.json();
 
                 if (response.ok) {
@@ -62,7 +68,7 @@ function AccountSettings({ userInfo }) {
                     setSuccessMessage("Successfully updated Information please log in again");
                     setTimeout(() => {
                         window.location.href = "/home";
-                    }, 1000); // wait 2 seconds before redirecting
+                    }, 1000); // wait 1 seconds before redirecting
 
                 } else {
                     setErrorMessage(data.message || "An error occurred when updating account settings.");

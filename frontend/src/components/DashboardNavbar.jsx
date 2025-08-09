@@ -21,6 +21,12 @@ function Sidebar() {
                           'Authorization': `Bearer ${localStorage.getItem("token")}`
                       }
                   });
+
+                  if (response.status === 401) {
+                    localStorage.clear();
+                    window.location.href = "/home";
+                    return
+                  }
   
                   const data = await response.json();
                   setUserData(data);
@@ -34,7 +40,7 @@ function Sidebar() {
   
       useEffect(() => {
           fetchUserData();
-      }, [getUserId()]);
+      }, []);
 
   return (
     <>

@@ -42,6 +42,12 @@ function ProfileModal({ close }) {
                     }
                 });
 
+                if (response.status === 401) {
+                    localStorage.clear();
+                    window.location.href = "/home";
+                    return
+                }
+
                 const data = await response.json();
                 setUserData(data);
 

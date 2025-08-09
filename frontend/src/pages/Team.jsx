@@ -22,11 +22,20 @@ function Team(){
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
             });
-            
-            const data = await response.json();
 
+            if (response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/home";
+                return
+            }
+
+            const data = await response.json();
+            
             if(response.ok){
                 setSuccessMessage(data.message)
+                fetchEnabledUsers();
+                fetchPendingUsers();
+
             } else{
                 setErrorMessage(data.message || "Failed to remove user");
             }
@@ -46,10 +55,12 @@ function Team(){
                 }
             });
 
-            const data = await response.json();
-
             if(response.ok){
+                const data = await response.json();
                 setSuccessMessage(data.message)
+                fetchEnabledUsers();
+                fetchPendingUsers();
+
             } else{
                 setErrorMessage(data.message || "Failed to remove user");
             }
@@ -70,6 +81,12 @@ function Team(){
                 }
             });
 
+            if (response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/home";
+                return
+            }
+
             const data = await response.json();
             setEnabledUsers(data);
 
@@ -88,6 +105,12 @@ function Team(){
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
             });
+
+            if (response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/home";
+                return
+            }
 
             const data = await response.json();
             setPendingUsers(data);
@@ -193,7 +216,7 @@ function Team(){
                                                 <td className="px-4 py-3">{user.phoneNumber}</td>
                                                 <td className="px-4 py-3">
                                                     <button onClick={() => enabledUser(user.id)} className="custom-red-color-background text-white px-3 py-1 rounded-lg cursor-pointer text-sm">Accept</button>
-                                                    <button onClick={() => removeUser(user.id)} className="bg-white border-1 custom-red-color-border custom-red-color-text px-3 py-1 ml-2 rounded-lg cursor-pointer text-sm hover:bg-[hover:#FFDDDD]">Decline</button>
+                                                    <button onClick={() => removeUser(user.id)} className="bg-white border-1 custom-red-color-border custom-red-color-text px-3 py-1 ml-2 rounded-lg cursor-pointer text-sm hover:bg-[#FFDDDD]">Decline</button>
                                                 </td>
                                             </tr>
                                         ))
