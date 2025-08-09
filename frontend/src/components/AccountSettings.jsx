@@ -32,8 +32,8 @@ function AccountSettings({ userInfo }) {
         e.preventDefault();
 
         if (!newFirstName.trim() || !newLastName.trim() || !newEmail.trim()) {
-        setErrorMessage("Fields cannot be empty.");
-        return;
+            setErrorMessage("Fields cannot be empty.");
+            return;
         }
 
         const userId = getUserId();
