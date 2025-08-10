@@ -41,8 +41,8 @@ public class User implements UserDetails {
     private String email;
 
     @NotBlank(message = "Phone number is required")
-    @Size(max = 20, message = "Phone number must not be longer than 20 characters")
-    @Pattern(regexp = "^\\+?[0-9\\-\\s]{7,20}$", message = "Invalid phone number format")
+    @Size(max = 25, message = "Phone number must not be longer than 25 characters")
+    @Pattern(regexp = "^[0-9\\s\\-\\+\\(\\)]+$", message = "Phone number can contain only digits, spaces, +, -, and parentheses")
     @Column(unique = true)
     private String phoneNumber;
 
