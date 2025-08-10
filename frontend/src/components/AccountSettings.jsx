@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getUserId } from "../util/auth";
 import ModalErrorToast from "./ModalErrorToast"; 
 import ModalSuccessToast from "./ModalSuccessToast";
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 function AccountSettings({ userInfo }) {
     const [newFirstName, setNewFirstName] = useState(userInfo ? userInfo.firstName : "");
@@ -35,12 +36,22 @@ function AccountSettings({ userInfo }) {
             setErrorMessage("Fields cannot be empty.");
             return;
         }
+        
+        const phoneNumberPattern = /^[0-9\s\-\+\(\)]+$/;
+        if (!phoneNumberPattern.test(newPhoneNumber.trim())) {
+            setErrorMessage("Phone number can contain only digits, spaces, +, -, and parentheses.");
+            return;
+        }
+
+        if (newPhoneNumber.trim().length > 25) {
+            setErrorMessage("Phone number is too long.");
+            return;
+        }
 
         const userId = getUserId();
 
         if (userId) {
             try {
-                
                 const response = await fetch(`http://localhost:8080/api/v1/users/update/${userId}`, {
                     method: "PUT",
                     headers: {
@@ -61,17 +72,18 @@ function AccountSettings({ userInfo }) {
                     return
                 }
 
-                const data = await response.json();
-
                 if (response.ok) {
+                    const data = await response.json();
                     localStorage.clear()
-                    setSuccessMessage("Successfully updated Information please log in again");
+                    setSuccessMessage(data.message);
+                    
                     setTimeout(() => {
                         window.location.href = "/home";
                     }, 1000); // wait 1 seconds before redirecting
 
                 } else {
-                    setErrorMessage(data.message || "An error occurred when updating account settings.");
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.message || "An error occurred when updating account settings.");
                     return;
                 }
 

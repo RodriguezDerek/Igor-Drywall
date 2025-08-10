@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorToast from '../components/ErrorToast';
 import SuccessToast from '../components/SuccessToast';
-import { isValidPhoneNumber } from 'libphonenumber-js';
 
 function Register() {
     const [errorMessage, setErrorMessage] = useState("");
@@ -12,7 +11,7 @@ function Register() {
         firstName: '',
         lastName: '',
         email: '',
-        phoneNumber: '',     // Added phoneNumber here
+        phoneNumber: '', 
         password: '',
         confirmPassword: ''
     });
@@ -33,8 +32,14 @@ function Register() {
             return;
         }
 
-        if (!isValidPhoneNumber(formData.phoneNumber, 'US')) {
-            setErrorMessage("Please enter a valid phone number.");
+        const phoneNumberPattern = /^[0-9\s\-\+\(\)]+$/;
+        if (!phoneNumberPattern.test(formData.phoneNumber.trim())) {
+            setErrorMessage("Phone number can contain only digits, spaces, +, -, and parentheses.");
+            return;
+        }
+
+        if (formData.phoneNumber.length > 25) {
+            setErrorMessage("Phone number is too long.");
             return;
         }
 

@@ -4,7 +4,6 @@ import { getUserId, getUserRole } from '../util/auth';
 import ErrorToast from "./ErrorToast"
 import { Link } from "react-router-dom";
 
-
 function Sidebar() {
   const [userData, setUserData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
