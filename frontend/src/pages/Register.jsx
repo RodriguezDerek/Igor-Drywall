@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorToast from '../components/ErrorToast';
 import SuccessToast from '../components/SuccessToast';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 function Register() {
     const [errorMessage, setErrorMessage] = useState("");
@@ -27,21 +28,13 @@ function Register() {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        if (
-            !formData.firstName.trim() || 
-            !formData.lastName.trim() || 
-            !formData.email.trim() || 
-            !formData.phoneNumber.trim() ||  
-            !formData.password.trim() || 
-            !formData.confirmPassword.trim()
-        ) {
+        if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.phoneNumber.trim() ||  !formData.password.trim() || !formData.confirmPassword.trim()) {
             setErrorMessage("All fields are required.");
             return;
         }
 
-        const phoneRegex = /^\+?[0-9\-\s]{7,20}$/;
-        if (!phoneRegex.test(formData.phoneNumber)) {
-            setErrorMessage("Phone number must be 7-20 characters and may contain +, numbers, spaces, or dashes.");
+        if (!isValidPhoneNumber(formData.phoneNumber, 'US')) {
+            setErrorMessage("Please enter a valid phone number.");
             return;
         }
 
@@ -65,18 +58,18 @@ function Register() {
                 })
             })
 
-            const data = await response.json();
-
             if(response.ok){
+                const data = await response.json();
                 setSuccessMessage(data.message);
-                setTimeout(() => {
-                        window.location.href = "/login";
-                    }, 2000); // wait 2 seconds before redirecting
-
+                setErrorMessage("");
+                setTimeout(() => {window.location.href = "/login";}, 2000); // wait 2 seconds before redirecting
             } else {
-                setErrorMessage(data.message || "An error occurred during registration.");
+                const errorData = await response.json();
+                setErrorMessage(errorData.message || "An error occurred during registration.");
             }
+            
         } catch (error) {
+            console.error("Registration error:", error);
             setErrorMessage("An error occurred while creating your account. Please try again later.");
         }
     }

@@ -3,22 +3,23 @@ import { useState, useEffect } from 'react';
 import { getUserId } from '../util/auth';
 import MyProfile from './MyProfile';
 import AccountSettings from './AccountSettings';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import ModalErrorToast from "./ModalErrorToast"; 
 
 function ProfileModal({ close }) {
     const [isMyProfileOpen, setIsMyProfileOpen] = useState(true);
-    const [isAccountSettingsOpen, setAccountIsSettingsOpen] = useState(false);
+    const [isAccountSettingsOpen, setIsAccountSettingsOpen] = useState(false);
     const [userData, setUserData] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
     function openMyProfile() {
-    setIsMyProfileOpen(true);
-    setAccountIsSettingsOpen(false);
+        setIsMyProfileOpen(true);
+        setIsAccountSettingsOpen(false);
     }
 
     function openAccountSettings() {
         setIsMyProfileOpen(false);
-        setAccountIsSettingsOpen(true);
+        setIsAccountSettingsOpen(true);
     }
 
 
@@ -26,7 +27,7 @@ function ProfileModal({ close }) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         localStorage.removeItem("role");
-         window.location.href = "/home";
+        window.location.href = "/home";
     }    
 
     async function fetchUserData() {
@@ -42,25 +43,30 @@ function ProfileModal({ close }) {
                     }
                 });
 
-                if (response.status === 401) {
+                if(response.status === 401){
                     localStorage.clear();
                     window.location.href = "/home";
-                    return
+                    return;
                 }
 
-                const data = await response.json();
-                setUserData(data);
+                if(response.ok){
+                    const data = await response.json();
+                    setUserData(data);
+                    setErrorMessage("");
+                } else {
+                    const errorData = await response.json();
+                    setErrorMessage(errorData.message || "Failed to fetch user data.");
+                }
 
             } catch (error) {
                 setErrorMessage("Failed to fetch user data.");
-                return;
             }
         }
     }
 
     useEffect(() => {
         fetchUserData();
-    }, [getUserId()]);
+    }, []);
 
     return(
         <>
@@ -138,8 +144,8 @@ function ProfileModal({ close }) {
                 {isMyProfileOpen && <MyProfile userInfo={userData} />}
 
             </div>
+            <ModalErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
         </div>
-        {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
         </>
     );
 }

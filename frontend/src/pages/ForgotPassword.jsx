@@ -28,23 +28,27 @@ function ForgotPassword(){
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "email": email
+                    "email": email.trim()
                 })
             });
 
-            const data = await response.json();
-
             if(response.ok){
+                const data = await response.json();
                 setSuccessMessage(data.message);
+                setErrorMessage("");
+                return;
                 
             } else {
-                setErrorMessage(data.message || "An error occurred when trying to send reset password email.")
+                const errorData = await response.json();
+                setErrorMessage(errorData.message || "An error occurred when trying to send reset password email.")
+                return;
             }
 
         } catch(error){
-            setErrorMessage("An error occurred while sending a link.");
+            console.error("Forgot Password:", error);
+            setErrorMessage("An error occurred while sending the reset link. Please try again later.");
+            setSuccessMessage("");
         }
-
     }
 
     return(

@@ -108,7 +108,7 @@ function AccountSettings({ userInfo }) {
 
                     <div className="flex items-center gap-3">
                         <label className="w-24 text-xs text-gray-700 font-semibold">Email</label>
-                        <input type="text" onChange={handleEmailChange} value={newEmail} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                        <input type="email" onChange={handleEmailChange} value={newEmail} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
                     </div>
 
                     <div className="flex items-center gap-3">

@@ -1,16 +1,16 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ErrorToast from '../components/ErrorToast';
 import SuccessToast from '../components/SuccessToast';
 
 function ResetPassword(){
     const [searchParams] = useSearchParams();
-    const token = searchParams.get("token");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const token = searchParams.get("token");
 
     function handleNewPassword(event){
         setNewPassword(event.target.value);
@@ -28,7 +28,7 @@ function ResetPassword(){
             return;
         }
 
-        if(newPassword !== confirmPassword){
+        if(newPassword.trim() !== confirmPassword.trim()){
             setErrorMessage("Password's do not match.");
             return;
         }
@@ -41,24 +41,23 @@ function ResetPassword(){
                 },
                 body: JSON.stringify({
                   "token": token,
-                  "newPassword": newPassword
+                  "newPassword": newPassword.trim()
                 })
             });
 
-            const data = await response.json();
-
             if(response.ok){
+                const data = await response.json();
                 setSuccessMessage(data.message)
-                setTimeout(() => {
-                        window.location.href = "/login";
-                    }, 2000); // wait 2 seconds before redirecting
+                setErrorMessage("");
+                setTimeout(() => {window.location.href = "/login";}, 2000); // wait 2 seconds before redirecting
             } else {
-                setErrorMessage(data.message || "An error occurred when reseting password.")
+                const errorData = await response.json();
+                setErrorMessage(errorData.message || "Failed to reset password.");
             }
 
-
         } catch(error){
-            setErrorMessage("An error occurred while reseting your password. Please try again later.")
+            console.error("Reset Password error:", error);
+            setErrorMessage("An error occurred while resetting your password. Please try again later.")
         }
     }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { isTokenExpired, getUserId } from "../util/auth";
+import { isTokenExpired } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
 import ErrorToast from '../components/ErrorToast';
@@ -13,8 +13,7 @@ function Team(){
     const [successMessage, setSuccessMessage] = useState("");
 
     async function removeUser(id){
-        
-        try{
+        try {
             const response = await fetch(`http://localhost:8080/api/v1/users/remove/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -23,56 +22,75 @@ function Team(){
                 }
             });
 
-            if (response.status === 401) {
+            if(response.status === 401){
                 localStorage.clear();
                 window.location.href = "/home";
                 return
             }
 
-            const data = await response.json();
-            
             if(response.ok){
-                setSuccessMessage(data.message)
+                const data = await response.json();
+                setSuccessMessage(data.message || "User removed successfully.");
+                setErrorMessage("");
                 fetchEnabledUsers();
                 fetchPendingUsers();
 
             } else{
-                setErrorMessage(data.message || "Failed to remove user");
+                setErrorMessage(data.message || "Failed to remove user.");
+                setSuccessMessage(""); 
             }
 
-        } catch(e){
-            setErrorMessage("An error occurred");
-            return;        
+        } catch(error) {
+            console.error("Remove User error:", error);
+            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
+                setErrorMessage("Network error: please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
+            setSuccessMessage(""); 
         }
     }
 
     async function enabledUser(id){
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/auth/authorize/enable/${id}`, {
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/users/authorize/enable/${id}`, {
                 method: 'PUT',
                 headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
                 }
             });
 
-            if(response.ok){
-                const data = await response.json();
-                setSuccessMessage(data.message)
-                fetchEnabledUsers();
-                fetchPendingUsers();
-
-            } else{
-                setErrorMessage(data.message || "Failed to remove user");
+            if (response.status === 401) {
+                    localStorage.clear();
+                    window.location.href = "/home";
+                    return
             }
 
-        } catch(e){
-            setErrorMessage("An error occurred");
-            return;        
+            if (response.ok) {
+                const data = await response.json();
+                setSuccessMessage(data.message || "User enabled successfully.");
+                setErrorMessage("");    
+                fetchEnabledUsers();
+                fetchPendingUsers();
+            } else { 
+                setErrorMessage(data.message || "Failed to enable user.");
+                setSuccessMessage(""); 
+            }
+
+        } catch(error) {
+            console.error("Enable User error:", error);
+            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
+                setErrorMessage("Network error: please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
+            setSuccessMessage("");
         }
     }
 
     async function fetchEnabledUsers(){
-        try{
+        try {
             const response = await fetch("http://localhost:8080/api/v1/users/all-enabled-users", {
                 method: 'GET',
                 headers: {
@@ -87,17 +105,20 @@ function Team(){
                 return
             }
 
-            const data = await response.json();
-            setEnabledUsers(data);
+            if (response.ok) {
+                const data = await response.json();
+                setEnabledUsers(data);
+                setErrorMessage("");
+            }
 
-        } catch(e){
-            setErrorMessage("Failed to fetch user data.");
-            return;
+        } catch (error) {
+            console.error("Fetch Enabled Users error:", error);
+            setErrorMessage("Failed to fetch enabled users. Please try again later.");
         }
     }
 
     async function fetchPendingUsers(){
-        try{
+        try {
             const response = await fetch("http://localhost:8080/api/v1/users/all-pending-users", {
                 method: 'GET',
                 headers: {
@@ -112,12 +133,15 @@ function Team(){
                 return
             }
 
-            const data = await response.json();
-            setPendingUsers(data);
+            if (response.ok) {
+                const data = await response.json();
+                setPendingUsers(data);
+                setErrorMessage("");
+            }   
 
-        } catch(e){
-            setErrorMessage("Failed to fetch user data.");
-            return;
+        } catch (error) {
+            console.error("Fetch Pending Users error:", error);
+            setErrorMessage("Failed to fetch pending users. Please try again later.");
         }
     }
 
@@ -169,8 +193,8 @@ function Team(){
                                 </thead>
                                 <tbody>
                                     {enabledUsers && enabledUsers.length > 0 ? (
-                                        enabledUsers.map((user, index) => (
-                                            <tr key={index} className="border-t border-gray-400">
+                                        enabledUsers.map((user) => (
+                                            <tr key={user.id} className="border-t border-gray-400">
                                                 <td className="px-4 py-3">{user.firstName} {user.lastName}</td>
                                                 <td className="px-4 py-3">{user.email}</td>
                                                 <td className="px-4 py-3">{user.phoneNumber}</td>
@@ -209,8 +233,8 @@ function Team(){
                                 </thead>
                                 <tbody>
                                     {pendingUsers && pendingUsers.length > 0 ? (
-                                        pendingUsers.map((user, index) => (
-                                            <tr key={index} className="border-t border-gray-400">
+                                        pendingUsers.map((user) => (
+                                            <tr key={user.id} className="border-t border-gray-400">
                                                 <td className="px-4 py-3">{user.firstName} {user.lastName}</td>
                                                 <td className="px-4 py-3">{user.email}</td>
                                                 <td className="px-4 py-3">{user.phoneNumber}</td>

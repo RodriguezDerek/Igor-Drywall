@@ -22,7 +22,7 @@ function Login() {
         event.preventDefault();
 
         if (!email.trim() || !password.trim()) {
-            setErrorMessage("Please enter your email and password.");
+            setErrorMessage("Please enter both your email and password.");
             return;
         }
 
@@ -33,30 +33,29 @@ function Login() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  "email": email,
-                  "password": password
+                  "email": email.trim(),
+                  "password": password.trim()
                 })
             });
 
-            const data = await response.json();
-
             if(response.ok){
+              const data = await response.json();
               localStorage.setItem("token", data.token);
               localStorage.setItem("role", data.role);
               localStorage.setItem("userId", data.userId);
 
               setSuccessMessage(data.message)
-              setTimeout(() => {
-                        window.location.href = "/home";
-                    }, 1000); // wait 2 seconds before redirecting
+              setErrorMessage("");
+              setTimeout(() => {window.location.href = "/home";}, 1000); // wait 1 seconds before redirecting
 
             } else {
-              setErrorMessage(data.message || "An error occurred when signing in.")
+              const errorData = await response.json();
+              setErrorMessage(errorData.message || "An error occurred when signing in.")
             }
 
         } catch(error){
+            console.error("Login error:", error);
             setErrorMessage("An error occurred while signing in your account. Please try again later.");
-            return;
         }
     }
 
@@ -83,18 +82,16 @@ function Login() {
               <form className="space-y-4" onSubmit={handleSubmit}>
 
                 <div>
-                  <input name="Email" type="text" value={email} onChange={handleEmailChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 mb-1 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Email Address" autoComplete="current-username"/>
+                  <input name="email" type="text" value={email} onChange={handleEmailChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 mb-1 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Email Address" autoComplete="current-username"/>
                 </div>
 
                 <div>
-                  <input name="Password" type="password" value={password} onChange={handlePasswordChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Password" autoComplete="current-password"/>
+                  <input name="password" type="password" value={password} onChange={handlePasswordChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Password" autoComplete="current-password"/>
                 </div>
 
                 {/* Forgot Password aligned right */}
                 <div className="text-right">
-                    <button type="button" className="text-sm custom-red-color-font hover:underline mb-6 cursor-pointer"> 
-                        <Link to="/forgot-password">Forgot Password?</Link>
-                    </button>
+                    <Link to="/forgot-password" type="button" className="text-sm custom-red-color-font hover:underline mb-6 cursor-pointer">Forgot Password?</Link>
                 </div>
 
                 {/* Submit button */}
@@ -103,7 +100,7 @@ function Login() {
                 {/* Footer link */}
                 <p className="text-sm mt-10 text-center font-medium">Don't have an account?{' '}
                   <Link to="/register" className="custom-red-color-font font-medium hover:underline">Sign Up!</Link>
-                  </p>
+                </p>
 
               </form>
 
