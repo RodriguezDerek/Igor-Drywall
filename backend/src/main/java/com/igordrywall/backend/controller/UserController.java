@@ -43,4 +43,9 @@ public class UserController {
     public ResponseEntity<GenericResponseDTO> deleteUser(@PathVariable Integer userID) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.removeUser(userID));
     }
+
+    @PutMapping("/authorize/enable/{userID}")
+    public ResponseEntity<GenericResponseDTO> enable(@PathVariable Integer userID){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.enable(userID));
+    }
 }

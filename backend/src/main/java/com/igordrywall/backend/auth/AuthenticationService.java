@@ -102,25 +102,6 @@ public class AuthenticationService {
                 .build();
     }
 
-    public GenericResponseDTO enable(Integer userID) {
-        Optional<User> optionalUser = userRepository.findById(userID);
-
-        if(optionalUser.isPresent()){
-            User existingUser = optionalUser.get();
-            existingUser.setEnabled(true);
-            existingUser.setDateAdded(LocalDate.now());
-            userRepository.save(existingUser);
-
-            return GenericResponseDTO.builder()
-                    .message("User account has been activated successfully.")
-                    .status(HttpStatus.OK.value())
-                    .timeStamp(LocalDateTime.now())
-                    .build();
-        }
-
-        throw new UserNotFoundException("Unable to find user.");
-    }
-
     public GenericResponseDTO processForgotPassword(EmailRequestDTO request){
         Optional<User> optionalUser = userRepository.findByEmail(request.getEmail());
 

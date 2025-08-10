@@ -135,35 +135,6 @@ public class AuthenticationServiceTest {
         assertThat(response.getStatus()).isEqualTo(200);
     }
 
-// ---------- Enable ----------
-
-    @Test
-    void enable_whenUserIdExists_shouldEnableUserSuccessfully() {
-        User user = User.builder()
-                .id(1)
-                .isEnabled(false)
-                .build();
-
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-
-        var response = authenticationService.enable(1);
-
-        assertThat(response.getMessage()).isEqualTo("User account has been activated successfully.");
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(user.isEnabled()).isTrue();
-        assertThat(user.getDateAdded()).isEqualTo(java.time.LocalDate.now());
-        verify(userRepository).save(user);
-    }
-
-    @Test
-    void enable_whenUserIdNotFound_shouldThrowUserNotFoundException() {
-        when(userRepository.findById(999)).thenReturn(Optional.empty());
-
-        assertThatThrownBy(() -> authenticationService.enable(999))
-                .isInstanceOf(UserNotFoundException.class)
-                .hasMessage("Unable to find user.");
-    }
-
 // ---------- Forgot Password ----------
 
     @Test

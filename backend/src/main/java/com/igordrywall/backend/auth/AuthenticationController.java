@@ -30,11 +30,6 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.logout());
     }
 
-    @PutMapping("/authorize/enable/{userID}")
-    public ResponseEntity<GenericResponseDTO> enable(@PathVariable Integer userID){
-        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.enable(userID));
-    }
-
     @PostMapping("/forgot-password")
     public ResponseEntity<GenericResponseDTO> forgotPassword(@Valid @RequestBody EmailRequestDTO request){
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.processForgotPassword(request));

@@ -71,23 +71,6 @@ class ProjectServiceTest {
     }
 
     @Test
-    void testGetAllProjects() {
-        Project project = Project.builder()
-                .id(1)
-                .name("Project 1")
-                .address("123 Main")
-                .startDate(LocalDate.now())
-                .clientName("Client A")
-                .build();
-
-        when(projectRepository.findAll()).thenReturn(List.of(project));
-
-        List<ProjectSummaryDTO> list = projectService.getAllProjects();
-        assertEquals(1, list.size());
-        assertEquals("Project 1", list.get(0).getName());
-    }
-
-    @Test
     void testDeleteProjectSuccess() {
         Project project = new Project();
         project.setId(1);

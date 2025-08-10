@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -122,5 +123,24 @@ public class UserService implements UserDetailsService {
                 .timeStamp(LocalDateTime.now())
                 .status(HttpStatus.OK.value())
                 .build();
+    }
+
+    public GenericResponseDTO enable(Integer userID) {
+        Optional<User> optionalUser = userRepository.findById(userID);
+
+        if(optionalUser.isPresent()){
+            User existingUser = optionalUser.get();
+            existingUser.setEnabled(true);
+            existingUser.setDateAdded(LocalDate.now());
+            userRepository.save(existingUser);
+
+            return GenericResponseDTO.builder()
+                    .message("User account has been activated successfully.")
+                    .status(HttpStatus.OK.value())
+                    .timeStamp(LocalDateTime.now())
+                    .build();
+        }
+
+        throw new UserNotFoundException("Unable to find user.");
     }
 }

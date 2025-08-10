@@ -25,9 +25,9 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
 
-    public List<ProjectSummaryDTO> getAllProjects() {
+    public List<ProjectDTO> getAllProjects() {
         List<Project> projectList = projectRepository.findAll();
-        return projectList.stream().map(this::toProjectSummaryDTO).toList();
+        return projectList.stream().map(this::toProjectDTO).toList();
     }
 
     public GenericResponseDTO deleteProject(Integer id) {
@@ -47,8 +47,7 @@ public class ProjectService {
     }
 
     public GenericResponseDTO addProject(CreateProjectRequestDTO request) {
-        Optional<Project> optionalProject = projectRepository.findByNameIgnoreCaseAndAddressIgnoreCase(
-                request.getName(), request.getAddress());
+        Optional<Project> optionalProject = projectRepository.findByNameIgnoreCaseAndAddressIgnoreCase(request.getName(), request.getAddress());
 
         if (optionalProject.isPresent()) {
             throw new ProjectAlreadyExistsException("Project already exists");
@@ -154,6 +153,23 @@ public class ProjectService {
                 .address(project.getAddress())
                 .team(project.getTeam())
                 .date(project.getStartDate())
+                .build();
+    }
+
+    public ProjectDTO toProjectDTO(Project project){
+        return ProjectDTO.builder()
+                .id(project.getId())
+                .name(project.getName())
+                .clientName(project.getClientName())
+                .clientPhoneNumber(project.getClientPhoneNumber())
+                .contractorName(project.getContractorName())
+                .contractorPhoneNumber(project.getContractorPhoneNumber())
+                .startDate(project.getStartDate())
+                .projectStatus(project.getProjectStatus())
+                .team(project.getTeam())
+                .address(project.getAddress())
+                .description(project.getDescription())
+                .totalDrywall(project.getTotalDrywall())
                 .build();
     }
 

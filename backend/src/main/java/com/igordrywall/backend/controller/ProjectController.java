@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-
     private final ProjectService projectService;
 
     @PostMapping("/add")
@@ -26,7 +25,7 @@ public class ProjectController {
     }
 
     @GetMapping("/projects")
-    public ResponseEntity<List<ProjectSummaryDTO>> getAllProjects(){
+    public ResponseEntity<List<ProjectDTO>> getAllProjects(){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getAllProjects());
     }
 
