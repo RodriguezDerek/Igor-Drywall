@@ -89,7 +89,7 @@ function AddProjectModal({ onClose, refreshProjects }) {
 
     return (
         <>
-            <div className="flex items-center justify-center animate-fadeIn mt-2">
+            <div className="fixed top-72 right-10 animate-fadeIn z-[9999] rounded-lg border-1 border-gray-100 shadow-[0_0_15px_rgba(107,114,128,0.7)] bg-gray-100">
                 <div className="bg-white w-[500px] rounded-lg shadow-lg relative p-4">
                     
                     {/* Close Button */}

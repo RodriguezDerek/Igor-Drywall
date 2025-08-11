@@ -21,7 +21,7 @@ function CurrentProjects(){
     ];
 
     const filteredProjects = projects.filter(
-    project => project.projectStatus === activeStatus
+        project => project.projectStatus === activeStatus
     );
 
     async function getProjects(){
@@ -44,6 +44,7 @@ function CurrentProjects(){
                 const data = await response.json();
                 setProjects(data);
                 console.log(data)
+                console.log(filteredProjects)
                 setSuccessMessage(data.message);
                 setErrorMessage("")
 
@@ -120,9 +121,9 @@ function CurrentProjects(){
                         <div className="pt-7 flex flex-wrap gap-4">
                             {filteredProjects.length > 0 ? (
                                 filteredProjects.map(project => (
-                                    <div key={project.id} className="bg-white w-[296px] h-[288px] rounded-xl p-5 flex flex-col justify-between shadow-md">
+                                    <div key={project.id} className="bg-white w-[296px] h-[300px] rounded-xl p-5 flex flex-col justify-between shadow-md">
                                         <div>
-                                            <h1 className="text-lg font-semibold mb-3">{project.name}</h1>
+                                            <h1 className="text-base font-semibold mb-3">{project.name}</h1>
                                             <h3 className="text-sm text-gray-600">Address</h3>
                                             <p className="text-sm mb-3 font-medium">{project.address}</p>
                                             <h3 className="text-sm text-gray-600">Client Name</h3>

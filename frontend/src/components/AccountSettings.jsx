@@ -80,16 +80,21 @@ function AccountSettings({ userInfo }) {
 
                 if (response.ok) {
                     const data = await response.json();
-                    localStorage.clear()
-                    setSuccessMessage(data.message);
-                    
-                    setTimeout(() => {
-                        window.location.href = "/home";
-                    }, 1000); // wait 1 seconds before redirecting
+
+                    if(newEmail.trim() != userInfo.email.trim()){
+                        localStorage.clear();
+                        setSuccessMessage(data.message + " Please sign in again.");
+                        setErrorMessage("");
+                        setTimeout(() => { window.location.href = "/home"; }, 1000);
+                    } else {
+                        setSuccessMessage(data.message);
+                        setErrorMessage("");
+                    }
 
                 } else {
                     const errorData = await response.json();
                     setErrorMessage(errorData.message || "An error occurred when updating account settings.");
+                    setSuccessMessage("");
                     return;
                 }
 

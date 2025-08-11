@@ -72,7 +72,7 @@ function ProfileModal({ close }) {
         <>
         <div className="bg-white shadow-lg rounded-2xl w-160 h-76 border border-gray-200 mt-2 animate-fadeIn flex flex-row">
             {/* Left column - 40% */}
-            <div className="basis-[40%] h-full bg-white border-r-4 border-gray-200 p-6 flex flex-col justify-between rounded-l-2xl">
+            <div className="basis-[40%] h-full bg-white border-r-3 border-gray-200 p-6 flex flex-col justify-between rounded-l-2xl">
                 {/* Top Section */}
                 <div>
                     {/* Avatar + Info */}
