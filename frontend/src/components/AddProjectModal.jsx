@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ModalErrorToast from '../components/ModalErrorToast';
 import ModalSuccessToast from '../components/ModalSuccessToast';
 
-function AddProjectModal({ onClose }) {
+function AddProjectModal({ onClose, refreshProjects }) {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [formData, setFormData] = useState({
@@ -12,11 +12,11 @@ function AddProjectModal({ onClose }) {
         startDate: '',
         projectStatus: 'Upcoming',  // default value
         team: '',
-        clientFullName: '',
-        clientPhoneNumber: '',
-        contractorFullName: '',
-        contractorPhoneNumber: '',
-        projectDescription: ''
+        clientFullName: "",
+        clientPhoneNumber: "",
+        contractorFullName: "",
+        contractorPhoneNumber: "",
+        projectDescription: ""
     });
 
     function handleChange(event) {
@@ -48,11 +48,11 @@ function AddProjectModal({ onClose }) {
                     startDate: formData.startDate,
                     projectStatus: formData.projectStatus,
                     team: formData.team,
-                    clientName: formData.clientFullName,
-                    clientPhoneNumber: formData.clientPhoneNumber,
-                    contractorName: formData.contractorFullName,
-                    contractorPhoneNumber: formData.contractorPhoneNumber,
-                    description: formData.projectDescription
+                    clientName: formData.clientFullName === "" ? null : formData.clientFullName,
+                    clientPhoneNumber: formData.clientPhoneNumber  === "" ? null : formData.clientPhoneNumber,
+                    contractorName: formData.contractorFullName  === "" ? null : formData.contractorFullName,
+                    contractorPhoneNumber: formData.contractorPhoneNumber  === "" ? null : formData.contractorPhoneNumber,
+                    description: formData.projectDescription === "" ? null : formData.projectDescription
                 })
             })
 
@@ -62,16 +62,28 @@ function AddProjectModal({ onClose }) {
                 return
             }
 
-            const data = await response.json();
-
-            if(response.ok){
+            if(response.ok) {
+                const data = await response.json();
                 setSuccessMessage(data.message);
+                setErrorMessage("")
+
+                refreshProjects();
+                setTimeout(() => {onClose();}, 1500);
+
             } else {
-                setErrorMessage(data.message)
+                const errorData = await response.json();
+                setErrorMessage(errorData.message)
+                setSuccessMessage("");
             }
 
-        } catch(e){
-            setErrorMessage("An error occurred while creating your account. Please try again later.");
+        } catch(error) {
+            console.error("Project error:", error);
+            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
+                setErrorMessage("Network error: please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
+            setSuccessMessage(""); 
         }
     }
 

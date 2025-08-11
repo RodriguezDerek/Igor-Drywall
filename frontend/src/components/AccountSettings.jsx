@@ -36,6 +36,12 @@ function AccountSettings({ userInfo }) {
             setErrorMessage("Fields cannot be empty.");
             return;
         }
+
+        if (userInfo.firstName.trim() === newFirstName.trim() && userInfo.lastName.trim() === newLastName.trim() && userInfo.email.trim() === newEmail.trim() && userInfo.phoneNumber.trim() === newPhoneNumber.trim()) {
+            setErrorMessage("No changes detected. Please update your information before saving.");
+            return;
+        }
+
         
         const phoneNumberPattern = /^[0-9\s\-\+\(\)]+$/;
         if (!phoneNumberPattern.test(newPhoneNumber.trim())) {
