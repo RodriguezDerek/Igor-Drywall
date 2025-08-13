@@ -23,6 +23,47 @@ public class S3Service {
     @Value("${aws.bucket.name}")
     private String bucketName;
 
+    public GenericResponseDTO deleteProjectFolder(Integer projectId) {
+        try {
+            String prefix = "projects/" + projectId + "/";
+
+            // List all objects under this project folder
+            ListObjectsV2Response result = s3Client.listObjectsV2(
+                    ListObjectsV2Request.builder()
+                            .bucket(bucketName)
+                            .prefix(prefix)
+                            .build()
+            );
+
+            List<ObjectIdentifier> objectsToDelete = result.contents().stream()
+                    .map(obj -> ObjectIdentifier.builder().key(obj.key()).build())
+                    .collect(Collectors.toList());
+
+            if (!objectsToDelete.isEmpty()) {
+                DeleteObjectsRequest deleteRequest = DeleteObjectsRequest.builder()
+                        .bucket(bucketName)
+                        .delete(Delete.builder().objects(objectsToDelete).build())
+                        .build();
+
+                s3Client.deleteObjects(deleteRequest);
+            }
+
+            return GenericResponseDTO.builder()
+                    .message("All project files deleted successfully")
+                    .status(HttpStatus.OK.value())
+                    .timeStamp(LocalDateTime.now())
+                    .build();
+
+        } catch (Exception e) {
+            return GenericResponseDTO.builder()
+                    .message("Failed to delete project files: " + e.getMessage())
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .timeStamp(LocalDateTime.now())
+                    .build();
+        }
+    }
+
+
     public GenericResponseDTO uploadFile(MultipartFile file, Integer projectId) {
         try{
             String key = "projects/" + projectId + "/" + file.getOriginalFilename();

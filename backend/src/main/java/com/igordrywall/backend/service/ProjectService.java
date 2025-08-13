@@ -2,6 +2,7 @@ package com.igordrywall.backend.service;
 
 import com.igordrywall.backend.DTO.common.GenericResponseDTO;
 import com.igordrywall.backend.DTO.project.*;
+import com.igordrywall.backend.S3.S3Service;
 import com.igordrywall.backend.exception.ProjectAlreadyExistsException;
 import com.igordrywall.backend.exception.ProjectNotFoundException;
 import com.igordrywall.backend.model.Project;
@@ -24,6 +25,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
+    private final S3Service s3Service;
 
     public List<ProjectDTO> getAllProjects() {
         List<Project> projectList = projectRepository.findAll();
@@ -36,6 +38,8 @@ public class ProjectService {
         if(optionalProject.isEmpty()){
             throw new ProjectNotFoundException("Project not found");
         }
+
+        s3Service.deleteProjectFolder(id);
 
         projectRepository.delete(optionalProject.get());
 
