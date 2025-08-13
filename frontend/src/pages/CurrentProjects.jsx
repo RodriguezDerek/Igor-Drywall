@@ -1,4 +1,4 @@
-import React, { act } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 import { isTokenExpired, getUserRole } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
@@ -6,12 +6,16 @@ import ProfileIcon from "../components/ProfileIcon";
 import AddProjectModal from "../components/AddProjectModal";
 import ErrorToast from '../components/ErrorToast';
 import SuccessToast from '../components/SuccessToast';
+import AdminDetails from "../components/AdminDetails";
+import WorkerDetails from "../components/WorkerDetails";
 
 function CurrentProjects(){
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [activeStatus, setActiveStatus] = useState("Upcoming");
     const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
+    const [isProjectDetailsOpen, setIsProjectDetailsOpen] = useState(false);
+    const [selectedProject, setSelectedProject] = useState(null);
     const [projects, setProjects] = useState([]);
 
     const status = [
@@ -43,14 +47,49 @@ function CurrentProjects(){
             if(response.ok) {
                 const data = await response.json();
                 setProjects(data);
-                console.log(data)
-                console.log(filteredProjects)
-                setSuccessMessage(data.message);
                 setErrorMessage("")
 
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.message)
+                setSuccessMessage("");
+            }
+
+        } catch(error) {
+            console.error("Add Project error:", error);
+            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
+                setErrorMessage("Network error: please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
+            setSuccessMessage(""); 
+        }
+    }
+
+    async function removeProject(id){
+        try{
+            const response = await fetch(`http://localhost:8080/api/v1/project/projects/${id}`, {
+                method: "DELETE",
+                headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+
+            if(response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/home";
+                return;
+            }
+
+            if(response.ok){
+                const data = await response.json();
+                setSuccessMessage(data.message);
+                setErrorMessage("");
+                getProjects();
+            } else {
+                const errorData = await response.json();
+                setErrorMessage(errorData.message);
                 setSuccessMessage("");
             }
 
@@ -117,6 +156,14 @@ function CurrentProjects(){
                         </div>
 
                         {isAddProjectOpen && <AddProjectModal onClose={()=>setIsAddProjectOpen(false)} refreshProjects={getProjects}/>}
+
+                        {isProjectDetailsOpen && (
+                            getUserRole() === "ADMIN" ? (
+                                <AdminDetails projectDetails={selectedProject} onClose={() => setIsProjectDetailsOpen(false)}/>
+                            ) : (
+                                <WorkerDetails projectDetails={selectedProject} onClose={() => setIsProjectDetailsOpen(false)}/>
+                            )
+                        )}
                             
                         <div className="pt-7 flex flex-wrap gap-4">
                             {filteredProjects.length > 0 ? (
@@ -135,11 +182,11 @@ function CurrentProjects(){
                                         <div className="flex gap-3 mt-4">
                                             {getUserRole() === "ADMIN" ? (
                                                 <>
-                                                    <button className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">Delete</button>
-                                                    <button className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">View Details</button>
+                                                    <button onClick={() => removeProject(project.id)} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">Delete</button>
+                                                    <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">View Details</button>
                                                 </>
                                             ) : (
-                                                <button className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-64 font-semibold">View Details</button>
+                                                <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-64 font-semibold">View Details</button>
                                             )}
                                         </div>
                                     </div>
