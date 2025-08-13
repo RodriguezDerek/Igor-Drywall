@@ -26,6 +26,16 @@ function WorkerDetails({ projectDetails, onClose }) {
                     </div>
 
                     <div>
+                        <p className="text-xs font-medium text-gray-500 mb-1">Contractor Name</p>
+                        <div className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50">{projectDetails.contractorName}</div>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-medium text-gray-500 mb-1">Contractor Phone Number</p>
+                        <div className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50">{projectDetails.contractorPhoneNumber}</div>
+                    </div>
+
+                    <div>
                         <p className="text-xs font-medium text-gray-500 mb-1">Start Date</p>
                         <div className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50">{projectDetails.startDate}</div>
                     </div>

@@ -16,6 +16,7 @@ function CurrentProjects(){
     const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
     const [isProjectDetailsOpen, setIsProjectDetailsOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [projectFiles, setProjectFiles] = useState([]);
     const [projects, setProjects] = useState([]);
 
     const status = [
@@ -27,6 +28,43 @@ function CurrentProjects(){
     const filteredProjects = projects.filter(
         project => project.projectStatus === activeStatus
     );
+
+    async function getProjectFiles(projectId){
+        try{
+            const response = await fetch(`http://localhost:8080/api/v1/files/list/${projectId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                }
+            })
+
+            if(response.status === 401) {
+                localStorage.clear();
+                window.location.href = "/home";
+                return
+            }
+
+            if(response.ok){
+                const data = await response.json();
+                setProjectFiles(data);
+                setErrorMessage("")
+            } else {
+                const errorDate = await response.json();
+                setErrorMessage(errorDate.message);
+                setSuccessMessage("")
+            }
+
+        } catch(error) {
+            console.error("Add Project error:", error);
+            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
+                setErrorMessage("Network error: please check your connection.");
+            } else {
+                setErrorMessage("An unexpected error occurred. Please try again.");
+            }
+            setSuccessMessage(""); 
+        }
+    }
 
     async function getProjects(){
         try{
@@ -73,7 +111,7 @@ function CurrentProjects(){
                 headers: {
                         "Content-Type": "application/json",
                         "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
+                }
             })
 
             if(response.status === 401) {
@@ -159,7 +197,7 @@ function CurrentProjects(){
 
                         {isProjectDetailsOpen && (
                             getUserRole() === "ADMIN" ? (
-                                <AdminDetails projectDetails={selectedProject} onClose={() => setIsProjectDetailsOpen(false)}/>
+                                <AdminDetails projectDetails={selectedProject} files={projectFiles} onClose={() => setIsProjectDetailsOpen(false)} getFilesAgain={() => getProjectFiles(selectedProject.id)}/>
                             ) : (
                                 <WorkerDetails projectDetails={selectedProject} onClose={() => setIsProjectDetailsOpen(false)}/>
                             )
@@ -183,7 +221,7 @@ function CurrentProjects(){
                                             {getUserRole() === "ADMIN" ? (
                                                 <>
                                                     <button onClick={() => removeProject(project.id)} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">Delete</button>
-                                                    <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">View Details</button>
+                                                    <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true), getProjectFiles(project.id);}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">View Details</button>
                                                 </>
                                             ) : (
                                                 <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-64 font-semibold">View Details</button>
