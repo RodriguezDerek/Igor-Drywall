@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { isTokenExpired, getUserRole } from "../util/auth";
+import { isTokenExpired, getUserRole, authFetch } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
 import AddProjectModal from "../components/AddProjectModal";
@@ -30,115 +30,48 @@ function CurrentProjects(){
     );
 
     async function getProjectFiles(projectId){
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/files/list/${projectId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                }
-            })
-
-            if(response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
-
-            if(response.ok){
-                const data = await response.json();
-                setProjectFiles(data);
-                setErrorMessage("")
-            } else {
-                const errorDate = await response.json();
-                setErrorMessage(errorDate.message);
-                setSuccessMessage("")
-            }
-
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/files/list/${projectId}`, {
+                method: "GET"
+            });
+       
+            setProjectFiles(data);
+            setErrorMessage("")
+       
         } catch(error) {
-            console.error("Add Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            console.error("Get Project Files Error", error);
+            setErrorMessage(error.message);
         }
     }
 
     async function getProjects(){
-        try{
-            const response = await fetch("http://localhost:8080/api/v1/project/projects", {
-                method: "GET",
-                headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-
-            if(response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
-
-            if(response.ok) {
-                const data = await response.json();
-                setProjects(data);
-                setErrorMessage("")
-
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message)
-                setSuccessMessage("");
-            }
-
+        try {
+            const data = await authFetch("http://localhost:8080/api/v1/project/projects", {
+                method: "GET"
+            });
+    
+            setProjects(data);
+            setErrorMessage("")
+    
         } catch(error) {
-            console.error("Add Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            console.log("Get Project Error: ", error)
+            setErrorMessage(error.message)
         }
     }
 
     async function removeProject(id){
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/project/projects/${id}`, {
-                method: "DELETE",
-                headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                }
-            })
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/project/projects/${id}`, {
+                method: "DELETE"
+            });
 
-            if(response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return;
-            }
-
-            if(response.ok){
-                const data = await response.json();
-                setSuccessMessage(data.message);
-                setErrorMessage("");
-                getProjects();
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message);
-                setSuccessMessage("");
-            }
+            setSuccessMessage(data.message);
+            setErrorMessage("");
+            getProjects();
 
         } catch(error) {
-            console.error("Add Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            console.log("Remove Project Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 

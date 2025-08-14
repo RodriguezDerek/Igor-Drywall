@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { getUserId } from '../util/auth';
+import { getUserId, authFetch } from '../util/auth';
+import { Link } from 'react-router-dom';
 import MyProfile from './MyProfile';
 import AccountSettings from './AccountSettings';
-import { Link } from 'react-router-dom';
 import ModalErrorToast from "./ModalErrorToast"; 
 
 function ProfileModal({ close }) {
@@ -31,36 +31,17 @@ function ProfileModal({ close }) {
     }    
 
     async function fetchUserData() {
-        const userId = getUserId();
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/users/user/${getUserId()}`, {
+                method: "GET"
+            });
 
-        if(userId){
-            try {
-                const response = await fetch(`http://localhost:8080/api/v1/users/user/${userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-                });
+            setUserData(data);
+            setErrorMessage("");
 
-                if(response.status === 401){
-                    localStorage.clear();
-                    window.location.href = "/home";
-                    return;
-                }
-
-                if(response.ok){
-                    const data = await response.json();
-                    setUserData(data);
-                    setErrorMessage("");
-                } else {
-                    const errorData = await response.json();
-                    setErrorMessage(errorData.message || "Failed to fetch user data.");
-                }
-
-            } catch (error) {
-                setErrorMessage("Failed to fetch user data.");
-            }
+        } catch(error) {
+            console.log("Fetch User Data Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 

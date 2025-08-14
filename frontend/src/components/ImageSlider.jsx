@@ -1,22 +1,22 @@
 import { useState, useRef } from "react";
 
 function ImageSlider() {
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const containerRef = useRef(null);
+    const [sliderPosition, setSliderPosition] = useState(50);
+    const containerRef = useRef(null);
 
-  const handleMouseMove = (e) => {
-    const rect = containerRef.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const percentage = (offsetX / rect.width) * 100;
-    if (percentage >= 0 && percentage <= 100) setSliderPosition(percentage);
-  };
+    const handleMouseMove = (e) => {
+        const rect = containerRef.current.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const percentage = (offsetX / rect.width) * 100;
+        if (percentage >= 0 && percentage <= 100) setSliderPosition(percentage);
+    };
 
-  const handleTouchMove = (e) => {
-    const rect = containerRef.current.getBoundingClientRect();
-    const touchX = e.touches[0].clientX - rect.left;
-    const percentage = (touchX / rect.width) * 100;
-    if (percentage >= 0 && percentage <= 100) setSliderPosition(percentage);
-  };
+    const handleTouchMove = (e) => {
+        const rect = containerRef.current.getBoundingClientRect();
+        const touchX = e.touches[0].clientX - rect.left;
+        const percentage = (touchX / rect.width) * 100;
+        if (percentage >= 0 && percentage <= 100) setSliderPosition(percentage);
+    };
 
   return (
     <div ref={containerRef} onMouseMove={(e) => e.buttons === 1 && handleMouseMove(e)} onTouchMove={handleTouchMove} className="slide-in-right-slow relative w-full max-w-2xl h-96 overflow-hidden rounded-2xl shadow-lg select-none">

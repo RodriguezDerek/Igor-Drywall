@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useCallback } from "react";
+import { authFetch } from "../util/auth";
 import { useDropzone } from "react-dropzone";
 import ModalErrorToast from "./ModalErrorToast"; 
 import ModalSuccessToast from "./ModalSuccessToast";
@@ -42,54 +43,32 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
         multiple: false,
     });
 
-    async function add(projectId){
-        if (!image) { 
+    async function addFile(projectId){
+        if(!image){ 
             setErrorMessage("Please select a file first");
             return;
         }
-
+            
         const formData = new FormData();
         formData.append("file", image); 
 
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/files/upload/${projectId}`, {
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/files/upload/${projectId}`, {
                 method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
                 body: formData
             });
 
-            if (response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return;
-            }
-
-            if(response.ok){
-                const data = await response.json();
-                getFilesAgain(projectDetails.id)
-                setSuccessMessage(data.message);
-                setErrorMessage("");
-
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message);
-                setSuccessMessage("");
-            }
+            getFilesAgain(projectId)
+            setSuccessMessage(data.message);
+            setErrorMessage("");
 
         } catch(error) {
             console.error("Add Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            setErrorMessage(error.message);
         }
     }
 
-    async function download(projectId, fileName){
+    async function downloadFile(projectId, fileName){
         if (!projectId) {
             setErrorMessage("Project ID is missing or invalid.");
             return;
@@ -148,7 +127,7 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
         }
     }
 
-    async function remove(projectId, fileName){
+    async function removeFile(projectId, fileName){
         if (!projectId) {
             setErrorMessage("Project ID is missing or invalid.")
             return; 
@@ -159,40 +138,18 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
             return; 
         }
         
-        try{
-            const response = await fetch(`http://localhost:8080/api/v1/files/delete/${projectId}?filename=${encodeURIComponent(fileName)}`, {
-                method: "DELETE",
-                headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                }
-            })
-
-            if(response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return;
-            }
-
-            if(response.ok){
-                const data = await response.json()
-                getFilesAgain(projectDetails.id)
-                setSuccessMessage(data.message)
-                setErrorMessage("")
-            } else {
-                const errorData = await response.json()
-                setErrorMessage(errorData.message)
-                setSuccessMessage("")
-            }
-
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/files/delete/${projectId}?filename=${encodeURIComponent(fileName)}`, {
+                method: "DELETE"
+            });
+        
+            getFilesAgain(projectId)
+            setSuccessMessage(data.message)
+            setErrorMessage("")
+        
         } catch(error) {
-            console.error("Add Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            console.error("Remove Project File Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
@@ -283,8 +240,8 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
                                     <div key={index} className="flex items-center justify-between border border-gray-300 rounded-lg px-4 py-2 w-full">
                                         <span className="text-red-800 font-medium text-sm">{file}</span>
                                         <div className="flex space-x-2">
-                                            <button onClick={() => download(projectDetails.id, file)} className="border border-gray-400 rounded px-3 py-1 text-xs hover:bg-gray-100 cursor-pointer">Download</button>
-                                            <button onClick={() => remove(projectDetails.id, file)} className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Delete</button>
+                                            <button onClick={() => downloadFile(projectDetails.id, file)} className="border border-gray-400 rounded px-3 py-1 text-xs hover:bg-gray-100 cursor-pointer">Download</button>
+                                            <button onClick={() => removeFile(projectDetails.id, file)} className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Delete</button>
                                         </div>
                                     </div>
                                 ))
@@ -307,7 +264,7 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
                                 </div>
 
                                 {image && (
-                                    <button onClick={() => add(projectDetails.id)} className="bg-red-800 text-white px-4 py-1 rounded hover:bg-red-900">Send</button>
+                                    <button onClick={() => addFile(projectDetails.id)} className="bg-red-800 text-white px-4 py-1 rounded hover:bg-red-900">Send</button>
                                 )}
                             </div>
 

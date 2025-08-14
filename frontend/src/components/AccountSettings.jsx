@@ -3,7 +3,6 @@ import { useState } from "react";
 import { getUserId } from "../util/auth";
 import ModalErrorToast from "./ModalErrorToast"; 
 import ModalSuccessToast from "./ModalSuccessToast";
-import { isValidPhoneNumber } from 'libphonenumber-js';
 
 function AccountSettings({ userInfo }) {
     const [newFirstName, setNewFirstName] = useState(userInfo ? userInfo.firstName : "");

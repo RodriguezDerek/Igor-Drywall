@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import { authFetch } from "../util/auth";
 import ModalErrorToast from '../components/ModalErrorToast';
 import ModalSuccessToast from '../components/ModalSuccessToast';
 
@@ -29,20 +30,16 @@ function AddProjectModal({ onClose, refreshProjects }) {
 
     async function handleSubmit(event){
         event.preventDefault();
-
+        
         if(!formData.projectName.trim() || !formData.projectAddress.trim() || !formData.startDate.trim() || !formData.team.trim()){
             setErrorMessage("Please fill out all required fields");
             return;
         }
-
-        try{
-            const response = await fetch("http://localhost:8080/api/v1/project/add", {
+        
+        try {
+            const data = await authFetch("http://localhost:8080/api/v1/project/add", {
                 method: "POST",
-                headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                },
-                body: JSON.stringify({
+                body: {
                     name: formData.projectName,
                     address: formData.projectAddress,
                     startDate: formData.startDate,
@@ -53,37 +50,17 @@ function AddProjectModal({ onClose, refreshProjects }) {
                     contractorName: formData.contractorFullName  === "" ? null : formData.contractorFullName,
                     contractorPhoneNumber: formData.contractorPhoneNumber  === "" ? null : formData.contractorPhoneNumber,
                     description: formData.projectDescription === "" ? null : formData.projectDescription
-                })
+                }
             })
-
-            if(response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
-
-            if(response.ok) {
-                const data = await response.json();
-                setSuccessMessage(data.message);
-                setErrorMessage("")
-
-                refreshProjects();
-                setTimeout(() => {onClose();}, 1500);
-
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message)
-                setSuccessMessage("");
-            }
-
-        } catch(error) {
-            console.error("Project error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+        
+            setSuccessMessage(data.message);
+            setErrorMessage("")
+            refreshProjects();
+            setTimeout(() => {onClose();}, 1500);
+        
+        } catch(error){
+            console.error("Add Project Error:", error);
+            setErrorMessage(error.message);
         }
     }
 

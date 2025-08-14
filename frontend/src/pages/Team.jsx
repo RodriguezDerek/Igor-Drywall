@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { isTokenExpired } from "../util/auth";
+import { isTokenExpired, authFetch } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
 import ErrorToast from '../components/ErrorToast';
@@ -14,134 +14,65 @@ function Team(){
 
     async function removeUser(id){
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/users/remove/${id}`, {
-                method: 'DELETE',
-                headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+            const data = await authFetch(`http://localhost:8080/api/v1/users/remove/${id}`, {
+                method: "DELETE"
             });
 
-            if(response.status === 401){
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
-
-            if(response.ok){
-                const data = await response.json();
-                setSuccessMessage(data.message || "User removed successfully.");
-                setErrorMessage("");
-                fetchEnabledUsers();
-                fetchPendingUsers();
-
-            } else{
-                setErrorMessage(data.message || "Failed to remove user.");
-                setSuccessMessage(""); 
-            }
+            setSuccessMessage(data.message || "User removed successfully.")
+            setErrorMessage("");
+            fetchEnabledUsers();
+            fetchPendingUsers();
 
         } catch(error) {
-            console.error("Remove User error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage(""); 
+            console.log("Remove User Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
     async function enabledUser(id){
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/users/authorize/enable/${id}`, {
-                method: 'PUT',
-                headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`,
-                }
-            });
+            const data = await authFetch(`http://localhost:8080/api/v1/users/authorize/enable/${id}`, {
+                method: "PUT",
+            })
 
-            if (response.status === 401) {
-                    localStorage.clear();
-                    window.location.href = "/home";
-                    return
-            }
-
-            if (response.ok) {
-                const data = await response.json();
-                setSuccessMessage(data.message || "User enabled successfully.");
-                setErrorMessage("");    
-                fetchEnabledUsers();
-                fetchPendingUsers();
-            } else { 
-                setErrorMessage(data.message || "Failed to enable user.");
-                setSuccessMessage(""); 
-            }
+            setSuccessMessage(data.message || "User enabled successfully.");
+            setErrorMessage("");    
+            fetchEnabledUsers();
+            fetchPendingUsers();
 
         } catch(error) {
-            console.error("Enable User error:", error);
-            if (error instanceof TypeError || error.name === "TypeError" || error.name === "NetworkError") {
-                setErrorMessage("Network error: please check your connection.");
-            } else {
-                setErrorMessage("An unexpected error occurred. Please try again.");
-            }
-            setSuccessMessage("");
+            console.log("Enabled User Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
     async function fetchEnabledUsers(){
-        try {
-            const response = await fetch("http://localhost:8080/api/v1/users/all-enabled-users", {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+        try{
+            const data = await authFetch("http://localhost:8080/api/v1/users/all-enabled-users", {
+                method: "GET"
             });
 
-            if (response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
+            setEnabledUsers(data);
+            setErrorMessage("");
 
-            if (response.ok) {
-                const data = await response.json();
-                setEnabledUsers(data);
-                setErrorMessage("");
-            }
-
-        } catch (error) {
-            console.error("Fetch Enabled Users error:", error);
-            setErrorMessage("Failed to fetch enabled users. Please try again later.");
+        } catch(error) {
+            console.error("Fetch Enabled Users Error: ", error);
+            setErrorMessage(error.message);
         }
     }
 
     async function fetchPendingUsers(){
         try {
-            const response = await fetch("http://localhost:8080/api/v1/users/all-pending-users", {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+            const data = await authFetch("http://localhost:8080/api/v1/users/all-pending-users", {
+                method: "GET"
             });
 
-            if (response.status === 401) {
-                localStorage.clear();
-                window.location.href = "/home";
-                return
-            }
+            setPendingUsers(data);
+            setErrorMessage("");
 
-            if (response.ok) {
-                const data = await response.json();
-                setPendingUsers(data);
-                setErrorMessage("");
-            }   
-
-        } catch (error) {
+        } catch(error) {
             console.error("Fetch Pending Users error:", error);
-            setErrorMessage("Failed to fetch pending users. Please try again later.");
+            setErrorMessage(error.message);           
         }
     }
 
@@ -261,4 +192,4 @@ function Team(){
         </>
     );
 }
-export default Team
+export default Team;

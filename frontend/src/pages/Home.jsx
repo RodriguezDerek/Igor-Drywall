@@ -12,18 +12,18 @@ function Home() {
         {/* Hero Section */}
         <div className="relative bg-cover bg-center h-140 flex items-center" style={{ backgroundImage: "url('/home_images/hero.png')" }}>
           
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/85 z-10"></div>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/85 z-10"></div>
 
-          {/* Content */}
-          <div className="slide-in-slow relative z-10 max-w-3xl text-white px-8 pl-40">
-            <h1 className="text-5xl font-bold leading-tight">Building Better Walls <br/>for your <span className="custom-red-color-text">Future</span></h1>
-            <p className="mt-6 text-base text-gray-200">We deliver high-quality drywall services with unmatched precision, reliability, and meticulous attention to detail. Whether you're renovating your home or outfitting a commercial space, our expert team ensures every project is completed to the highest standards.</p>
-            <div className="mt-8 flex space-x-4">
-              <Link to="/service" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="custom-red-color-background text-white font-semibold px-6 py-3 rounded shadow transition">Our Services</Link>
-              <Link to="/project" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="border border-white text-white font-semibold px-6 py-3 rounded hover:bg-white hover:text-black transition">View Projects</Link>
+            {/* Content */}
+            <div className="slide-in-slow relative z-10 max-w-3xl text-white px-8 pl-40">
+                <h1 className="text-5xl font-bold leading-tight">Building Better Walls <br/>for your <span className="custom-red-color-text">Future</span></h1>
+                <p className="mt-6 text-base text-gray-200">We deliver high-quality drywall services with unmatched precision, reliability, and meticulous attention to detail. Whether you're renovating your home or outfitting a commercial space, our expert team ensures every project is completed to the highest standards.</p>
+                <div className="mt-8 flex space-x-4">
+                    <Link to="/service" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="custom-red-color-background text-white font-semibold px-6 py-3 rounded shadow transition">Our Services</Link>
+                    <Link to="/project" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="border border-white text-white font-semibold px-6 py-3 rounded hover:bg-white hover:text-black transition">View Projects</Link>
+                </div>
             </div>
-          </div>
         </div>
 
         {/* About Section */}
