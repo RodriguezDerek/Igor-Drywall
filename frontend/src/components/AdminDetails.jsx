@@ -4,6 +4,7 @@ import { authFetch } from "../util/auth";
 import { useDropzone } from "react-dropzone";
 import ModalErrorToast from "./ModalErrorToast"; 
 import ModalSuccessToast from "./ModalSuccessToast";
+import MaterialTable from "./MaterialTable";
 
 function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
     const [errorMessage, setErrorMessage] = useState("");
@@ -286,13 +287,22 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
                 <hr className="mt-6 border-0 h-px bg-[#DBDBDB]" />
 
                 {/* Material Tracking */}
-                <div className="flex items-center justify-between mt-6">
-                    <h1 className="text-lg text-[#252525] font-semibold">Material Tracking</h1>
-                    <div className="flex gap-2">
-                        <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Download</button>
-                        <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print</button>
+                <div className="mt-6">
+                    {/* Top Bar */}
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-lg text-[#252525] font-semibold">Material Tracking</h1>
+                        <div className="flex gap-2">
+                            <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Download</button>
+                            <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print</button>
+                        </div>
+                    </div>
+
+                    {/* Tables Section */}
+                    <div className="mt-4">
+                        <MaterialTable />
                     </div>
                 </div>
+
 
         
 

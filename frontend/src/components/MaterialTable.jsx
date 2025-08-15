@@ -1,0 +1,96 @@
+import React, { useState } from "react";
+
+export default function MaterialTable() {
+    const halfData = ["4×8 (1/4)", "4×8 (3/8)", "4×8", "4×9", "4×10", "4×12", "4×14", "4×8 MOLD", "4×12 MOLD", "54×12", "54×14", "3×5 DUROCK", "3×6 DUROCK", "4×8 DUROCK"];
+    const fiveEighthsData = ["4×8", "4×9", "4×10", "4×12", "4×14", "4×8 MOLD", "4×12 MOLD", "54×12", "54×14", "3×5 DUROCK", "4×8 DUROCK"];
+
+    const [total, setTotal] = useState(0);
+    const [halfValues, setHalfValues] = useState(Array.from({ length: halfData.length }, () => Array(7).fill("")));
+    const [fiveEighthsValues, setFiveEighthsValues] = useState(Array.from({ length: fiveEighthsData.length }, () => Array(7).fill("")));
+
+    function handleChange(tableSetter, tableValues, row, col, value) {
+        const newValue = Math.max(0, Number(value)); // ensures min of 0
+        const updated = tableValues.map((r, i) =>
+            i === row ? r.map((c, j) => (j === col ? newValue : c)) : r
+        );
+
+        tableSetter(updated);
+
+        let newTotal = 0;
+
+        for (let i = 0; i < updated.length; i++) {
+            for (let j = 0; j < updated[i].length; j++) {
+                newTotal += Number(updated[i][j] || 0);
+            }
+        }
+
+        const otherTable = tableValues === halfValues ? fiveEighthsValues : halfValues;
+        for (let i = 0; i < otherTable.length; i++) {
+            for (let j = 0; j < otherTable[i].length; j++) {
+                newTotal += Number(otherTable[i][j] || 0);
+            }
+        }
+
+        setTotal(newTotal);
+    }
+
+    return (
+        <div className="overflow-x-auto">
+            {/* 1/2 table */}
+            <table className="border-collapse text-center">
+                <thead>
+                    <tr>
+                        <th className="bg-red-800 text-white font-semibold text-[20px] px-3 py-0.5 border border-gray-400">1/2</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Basement</th>
+                        <th className="bg-red-800 text-white font-semibold text-[13px] px-2 py-0.5 border border-gray-400">1st Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[13px] px-2 py-0.5 border border-gray-400">2nd Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[13px] px-2 py-0.5 border border-gray-400">3rd Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Garage</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-4 py-0.5 border border-gray-400">Attic</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Above Garage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {halfData.map((item, rowIdx) => (
+                        <tr key={rowIdx}>
+                            <td className="border border-gray-400 px-2 py-1 font-semibold text-sm text-center">{item}</td>
+                            {halfValues[rowIdx].map((val, colIdx) => (
+                                <td key={colIdx} className="border border-gray-400 py-1">
+                                    <input className="w-18 text-center" type="number" min="0" value={val} onChange={(e) =>handleChange(setHalfValues, halfValues, rowIdx, colIdx, e.target.value)}/>
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {/* 5/8 table */}
+            <table className="border-collapse text-center mt-6">
+                <thead>
+                    <tr>
+                        <th className="bg-red-800 text-white font-semibold text-[20px] px-2 py-0.5 border border-gray-400">5/8</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Basement</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">1st Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">2nd Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">3rd Floor</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Garage</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Attic</th>
+                        <th className="bg-red-800 text-white font-semibold text-[14px] px-2 py-0.5 border border-gray-400">Above Garage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {fiveEighthsData.map((item, rowIdx) => (
+                        <tr key={rowIdx}>
+                            <td className="border border-gray-400 px-2 py-1 font-semibold text-sm text-center">{item}</td>
+                            {fiveEighthsValues[rowIdx].map((val, colIdx) => (
+                                <td key={colIdx} className="border border-gray-400 py-2">
+                                    <input className="w-18 text-center" type="number" min="0" value={val} onChange={(e) =>handleChange(setFiveEighthsValues, fiveEighthsValues, rowIdx, colIdx, e.target.value)}/>
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}
