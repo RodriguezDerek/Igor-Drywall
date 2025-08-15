@@ -68,7 +68,6 @@ public class ProjectService {
                 .contractorName(request.getContractorName() != null ? request.getContractorName() : "No contractor name provided")
                 .contractorPhoneNumber(request.getContractorPhoneNumber() != null ? request.getContractorPhoneNumber() : "No contractor phone number provided")
                 .description(request.getDescription() != null ? request.getDescription() : "No description provided")
-                .totalDrywall(0)
                 .build();
 
         projectRepository.save(project);
@@ -101,7 +100,6 @@ public class ProjectService {
                 .team(project.getTeam())
                 .address(project.getAddress())
                 .description(project.getDescription())
-                .totalDrywall(project.getTotalDrywall())
                 .build();
     }
 
@@ -133,7 +131,6 @@ public class ProjectService {
         project.setTeam(request.getTeam());
         project.setAddress(request.getAddress());
         project.setDescription(request.getDescription());
-        project.setTotalDrywall(request.getTotalDrywall());
 
         projectRepository.save(project);
 
@@ -173,7 +170,6 @@ public class ProjectService {
                 .team(project.getTeam())
                 .address(project.getAddress())
                 .description(project.getDescription())
-                .totalDrywall(project.getTotalDrywall())
                 .build();
     }
 
@@ -205,7 +201,6 @@ public class ProjectService {
                 .projectsThisWeek(projectsThisWeekHelper())
                 .projectsCompletedThisMonth(projectsCompletedThisMonthHelper())
                 .numberOfWorkers(totalUsersByRoleHelper())
-                .drywallSheetsThisMonth(drywallSheetsThisMonthHelper())
                 .mostRecentProject(mostRecentProjectHelper())
                 .totalProjects(totalProjectsHelper())
                 .build();
@@ -225,12 +220,6 @@ public class ProjectService {
 
     private Integer totalUsersByRoleHelper(){
         return userRepository.totalUsersByRole(Role.WORKER);
-    }
-
-    private Integer drywallSheetsThisMonthHelper(){
-        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
-        LocalDate endOfMonth = startOfMonth.plusMonths(1);
-        return projectRepository.drywallSheetsThisMonth(startOfMonth, endOfMonth);
     }
 
     private ProjectSummaryDTO mostRecentProjectHelper(){

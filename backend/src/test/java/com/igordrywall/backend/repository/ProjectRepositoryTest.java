@@ -24,7 +24,6 @@ public class ProjectRepositoryTest {
                 .startDate(startDate)
                 .projectStatus(status)
                 .team("Team A")
-                .totalDrywall(drywall)
                 .build();
     }
 
@@ -92,21 +91,6 @@ public class ProjectRepositoryTest {
 
         int count = projectRepository.countCompletedProjectsInMonth(startOfMonth, endOfMonth);
         assertThat(count).isEqualTo(1);
-    }
-
-    @Test
-    void testDrywallSheetsThisMonth() {
-        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
-        LocalDate endOfMonth = startOfMonth.plusMonths(1);
-
-        Project p1 = createProject("P1", "A", startOfMonth.plusDays(3), "Upcoming", 50);
-        Project p2 = createProject("P2", "B", startOfMonth.plusDays(10), "Upcoming", 30);
-        Project p3 = createProject("P3", "C", startOfMonth.minusMonths(1), "Upcoming", 100);
-
-        projectRepository.saveAll(List.of(p1, p2, p3));
-
-        int total = projectRepository.drywallSheetsThisMonth(startOfMonth, endOfMonth);
-        assertThat(total).isEqualTo(80);
     }
 
     @Test

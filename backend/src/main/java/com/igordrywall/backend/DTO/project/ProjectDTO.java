@@ -23,5 +23,4 @@ public class ProjectDTO {
     private String team;
     private String address;
     private String description;
-    private Integer totalDrywall;
 }

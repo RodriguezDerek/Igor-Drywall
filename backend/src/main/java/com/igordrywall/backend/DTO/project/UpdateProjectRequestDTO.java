@@ -47,7 +47,4 @@ public class UpdateProjectRequestDTO {
     @NotBlank(message = "Project description is required")
     private String description;
 
-    @NotNull(message = "Total drywall is required")
-    @PositiveOrZero(message = "Total drywall must be zero or positive")
-    private Integer totalDrywall;
 }

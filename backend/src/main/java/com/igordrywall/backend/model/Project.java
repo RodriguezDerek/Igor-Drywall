@@ -57,8 +57,4 @@ public class Project {
 
     @Column(name = "description")
     private String description;
-
-    @Min(value = 0, message = "Drywall amount can't be negative")
-    @Column(name = "total_drywall")
-    private Integer totalDrywall = 0;
 }

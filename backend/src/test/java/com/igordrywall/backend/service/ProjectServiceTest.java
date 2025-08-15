@@ -102,7 +102,6 @@ class ProjectServiceTest {
                 .startDate(LocalDate.now())
                 .projectStatus("Status")
                 .team("Team")
-                .totalDrywall(10)
                 .build();
 
         when(projectRepository.findById(1)).thenReturn(Optional.of(project));
@@ -132,7 +131,6 @@ class ProjectServiceTest {
                 .team("Team X")
                 .address("Address X")
                 .description("Updated")
-                .totalDrywall(100)
                 .build();
 
         when(projectRepository.findById(1)).thenReturn(Optional.of(project));
@@ -180,7 +178,6 @@ class ProjectServiceTest {
         when(projectRepository.totalProjectsByWeek(any(), any())).thenReturn(5);
         when(projectRepository.countCompletedProjectsInMonth(any(), any())).thenReturn(2);
         when(userRepository.totalUsersByRole(Role.WORKER)).thenReturn(10);
-        when(projectRepository.drywallSheetsThisMonth(any(), any())).thenReturn(500);
         when(projectRepository.findTopByOrderByIdDesc()).thenReturn(Optional.of(Project.builder()
                 .id(1)
                 .name("Latest")
