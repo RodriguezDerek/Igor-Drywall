@@ -60,6 +60,8 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
             });
 
             getFilesAgain(projectId)
+            setImage(null);
+            setImagePreview(null); 
             setSuccessMessage(data.message);
             setErrorMessage("");
 
@@ -288,23 +290,8 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
 
                 {/* Material Tracking */}
                 <div className="mt-6">
-                    {/* Top Bar */}
-                    <div className="flex items-center justify-between">
-                        <h1 className="text-lg text-[#252525] font-semibold">Material Tracking</h1>
-                        <div className="flex gap-2">
-                            <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Download</button>
-                            <button className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print</button>
-                        </div>
-                    </div>
-
-                    {/* Tables Section */}
-                    <div className="mt-4">
-                        <MaterialTable />
-                    </div>
-                </div>
-
-
-        
+                    <MaterialTable />
+                </div>              
 
             </form>
         </div>

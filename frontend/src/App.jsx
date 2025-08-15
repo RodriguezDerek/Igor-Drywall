@@ -11,28 +11,30 @@ import Overview from './pages/Overview';
 import ProjectSchedule from './pages/ProjectSchedule';
 import CurrentProjects from './pages/CurrentProjects';
 import Team from './pages/Team';
+import MaterialTableFile from './components/MaterialTableFile';
 
 function App() {
-  return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/project" element={<Project />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />}/>
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/overview" element={<Overview />} />
-          <Route path="/schedule" element={<ProjectSchedule />} />
-          <Route path="/projects" element={<CurrentProjects />} />
-          <Route path="/team" element={<Team />} />
-        </Routes>
-      </Router>
-    </>
-  )
+    return (
+        <>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/service" element={<Service />} />
+                    <Route path="/project" element={<Project />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />}/>
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/overview" element={<Overview />} />
+                    <Route path="/schedule" element={<ProjectSchedule />} />
+                    <Route path="/projects" element={<CurrentProjects />} />
+                    <Route path="/team" element={<Team />} />
+                    <Route path="/test" element={<MaterialTableFile />} />
+                </Routes>
+            </Router>
+        </>
+    )
 }
 export default App

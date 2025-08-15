@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import MaterialTableFile from "./MaterialTableFile";
+import ReactDOMServer from "react-dom/server";
 
 export default function MaterialTable() {
     const halfData = ["4×8 (1/4)", "4×8 (3/8)", "4×8", "4×9", "4×10", "4×12", "4×14", "4×8 MOLD", "4×12 MOLD", "54×12", "54×14", "3×5 DUROCK", "3×6 DUROCK", "4×8 DUROCK"];
@@ -34,7 +36,30 @@ export default function MaterialTable() {
         setTotal(newTotal);
     }
 
+    const printRef = useRef();
+
+    const handlePrint = () => {
+        if (!printRef.current) return;
+
+        // Open print dialog
+        const printContents = printRef.current.innerHTML;
+        const originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        window.location.reload(); // reload to restore React state
+    };
+
     return (
+        <>
+        <div className="flex items-center justify-between mb-4">
+            <h1 className="text-lg text-[#252525] font-semibold">Material Tracking</h1>
+            <div className="flex gap-2">
+                <button onClick={handlePrint} className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print / Download</button>
+            </div>
+        </div>
+
         <div className="overflow-x-auto">
             {/* 1/2 table */}
             <table className="border-collapse text-center">
@@ -85,12 +110,28 @@ export default function MaterialTable() {
                             {fiveEighthsValues[rowIdx].map((val, colIdx) => (
                                 <td key={colIdx} className="border border-gray-400 py-2">
                                     <input className="w-18 text-center" type="number" min="0" value={val} onChange={(e) =>handleChange(setFiveEighthsValues, fiveEighthsValues, rowIdx, colIdx, e.target.value)}/>
-                                </td>
+                                </td>   
                             ))}
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            <div className="mt-4">
+                <p className="text-xs font-medium text-gray-500 mb-1">Total Drywall</p>
+                <input name="description" type="text" className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50"  />
+            </div>  
+
+            {/* Hidden printable component */}
+            <div ref={printRef} className="hidden">
+                <MaterialTableFile
+                    halfTable={halfData}
+                    fiveEighthsTable={fiveEighthsData}
+                    halfValues={halfValues}
+                    fiveEighthsValues={fiveEighthsValues}
+                />
+            </div>
         </div>
+        </>
     );
 }
