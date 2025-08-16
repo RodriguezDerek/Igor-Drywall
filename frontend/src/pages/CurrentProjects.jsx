@@ -130,7 +130,7 @@ function CurrentProjects(){
 
                         {isProjectDetailsOpen && (
                             getUserRole() === "ADMIN" ? (
-                                <AdminDetails projectDetails={selectedProject} files={projectFiles} onClose={() => setIsProjectDetailsOpen(false)} getFilesAgain={() => getProjectFiles(selectedProject.id)}/>
+                                <AdminDetails projectDetails={selectedProject} files={projectFiles} onClose={() => setIsProjectDetailsOpen(false)} getFilesAgain={() => getProjectFiles(selectedProject.id)} getProjectsAgain={getProjects}/>
                             ) : (
                                 <WorkerDetails projectDetails={selectedProject} onClose={() => setIsProjectDetailsOpen(false)}/>
                             )

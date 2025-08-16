@@ -56,7 +56,7 @@ export default function MaterialTable() {
         <div className="flex items-center justify-between mb-4">
             <h1 className="text-lg text-[#252525] font-semibold">Material Tracking</h1>
             <div className="flex gap-2">
-                <button onClick={handlePrint} className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print / Download</button>
+                <button onClick={handlePrint} className="bg-red-800 text-white rounded px-3 py-1 text-xs hover:bg-red-900 cursor-pointer">Print</button>
             </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function MaterialTable() {
 
             <div className="mt-4">
                 <p className="text-xs font-medium text-gray-500 mb-1">Total Drywall</p>
-                <input name="description" type="text" className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50"  />
+                <input name="description" type="text" className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-md text-[#252525] bg-gray-50" value={total} readOnly/>
             </div>  
 
             {/* Hidden printable component */}

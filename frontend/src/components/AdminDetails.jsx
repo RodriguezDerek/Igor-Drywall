@@ -6,7 +6,7 @@ import ModalErrorToast from "./ModalErrorToast";
 import ModalSuccessToast from "./ModalSuccessToast";
 import MaterialTable from "./MaterialTable";
 
-function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
+function AdminDetails({ projectDetails, files, onClose, getFilesAgain, getProjectsAgain }){
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [image, setImage] = useState(null);
@@ -158,6 +158,23 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
 
     async function handleSubmit(e){
         e.preventDefault();
+        
+        try {
+            const data = await authFetch(`http://localhost:8080/api/v1/project/projects/${projectDetails.id}`, {
+                method: "PUT",
+                body: formData
+            });
+
+            setSuccessMessage(data.message);
+            setErrorMessage("");
+            getProjectsAgain();
+
+            setTimeout(() => onClose(), 1000);
+
+        } catch(error) {
+            console.error("Remove Project File Error: ", error);
+            setErrorMessage(error.message);
+        }
     }
 
     return(
@@ -228,6 +245,8 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
                     <input name="description" type="text" className="w-full border border-[#DBDBDB] rounded-md px-3 py-2 text-sm text-[#252525] bg-gray-50" value={formData.description} onChange={handleChange} />
                 </div>
 
+                <button className="mt-8 min-w-full h-9 rounded-md custom-red-color-background text-white cursor-pointer">Save</button>
+
                 <hr className="mt-8 border-0 h-px bg-[#DBDBDB]" />
 
                 {/* File Title */}
@@ -291,8 +310,7 @@ function AdminDetails({ projectDetails, files, onClose, getFilesAgain }){
                 {/* Material Tracking */}
                 <div className="mt-6">
                     <MaterialTable />
-                </div>              
-
+                </div>     
             </form>
         </div>
         <ModalErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
