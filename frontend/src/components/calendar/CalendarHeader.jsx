@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CalendarHeader({ year, month }){
+export default function CalendarHeader({ year, month, onPrev, onNext }){
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     return (
@@ -8,7 +8,7 @@ export default function CalendarHeader({ year, month }){
             {/* Flex row with arrows and month/year */}
             <div className="flex items-center justify-center">
                 {/* Left arrow */}
-                <button className="text-gray-600 text-xl font-bold hover:text-black custom-red-color-background p-2 rounded-md cursor-pointer flex items-center justify-center">
+                <button onClick={onPrev} className="text-gray-600 text-xl font-bold hover:text-black custom-red-color-background p-2 rounded-md cursor-pointer flex items-center justify-center">
                     <img src="/calendar/arrow.png" className="h-2 rotate-180" />
                 </button>
 
@@ -16,7 +16,7 @@ export default function CalendarHeader({ year, month }){
                 <h2 className="text-xl font-bold text-gray-800 px-10">{monthNames[month]} {year}</h2>
 
                 {/* Right arrow */}
-                <button className="text-gray-600 text-xl font-bold hover:text-black custom-red-color-background p-2 rounded-md cursor-pointer flex items-center justify-center">
+                <button onClick={onNext} className="text-gray-600 text-xl font-bold hover:text-black custom-red-color-background p-2 rounded-md cursor-pointer flex items-center justify-center">
                     <img src="/calendar/arrow.png" className="h-2" />
                 </button>
             </div>
