@@ -202,8 +202,20 @@ public class ProjectService {
                 .projectsCompletedThisMonth(projectsCompletedThisMonthHelper())
                 .numberOfWorkers(totalUsersByRoleHelper())
                 .mostRecentProject(mostRecentProjectHelper())
-                .totalProjects(totalProjectsHelper())
+                .totalProjectsCompleted(projectsCompleted())
+                .totalProjectsUnCompleted(totalProjectsHelper())
+                .projectsNextWeek(projectsNextWeekHelper())
                 .build();
+    }
+
+    private Integer projectsCompleted(){
+        return projectRepository.getCompletedProjects();
+    }
+
+    private Integer projectsNextWeekHelper(){
+        LocalDate nextMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(1);
+        LocalDate nextSunday = nextMonday.with(DayOfWeek.SUNDAY);
+        return projectRepository.getProjectNextWeek(nextMonday, nextSunday);
     }
 
     private Integer projectsThisWeekHelper(){
@@ -224,8 +236,15 @@ public class ProjectService {
 
     private ProjectSummaryDTO mostRecentProjectHelper(){
         Optional<Project> optionalProject = projectRepository.findTopByOrderByIdDesc();
+
         if(optionalProject.isEmpty()){
-            throw new ProjectNotFoundException("No Projects created");
+            return ProjectSummaryDTO.builder()
+                    .id(0)
+                    .name("No Projects Yet")
+                    .clientName("No Client Name")
+                    .address("No Project Address")
+                    .startDate(null)
+                    .build();
         }
 
         Project project = optionalProject.get();
@@ -241,5 +260,10 @@ public class ProjectService {
 
     private Integer totalProjectsHelper(){
         return projectRepository.getTotalDrywallProjects();
+    }
+
+    public List<ProjectDTO> getDashboardSearchedProject(ProjectSearchRequestDTO request) {
+        List<Project> projectList = projectRepository.findDashboardProject(request.getClientName(), request.getProjectAddress(), request.getStatus());
+        return projectList.stream().map(this::toProjectDTO).toList();
     }
 }

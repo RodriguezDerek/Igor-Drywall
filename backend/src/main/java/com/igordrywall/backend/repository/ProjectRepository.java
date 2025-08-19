@@ -27,4 +27,14 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     @Query("SELECT COUNT(p) FROM Project p WHERE p.projectStatus = 'Upcoming' OR p.projectStatus = 'In-Progress'")
     int getTotalDrywallProjects();
+
+    @Query("SELECT COUNT(p) FROM Project p WHERE p.startDate >= :startOfNextWeek AND p.startDate < :endOfWeek")
+    int getProjectNextWeek(@Param("startOfNextWeek") LocalDate startOfNextWeek, @Param("endOfWeek") LocalDate endOfWeek);
+
+    @Query("SELECT COUNT(p) FROM Project p WHERE p.projectStatus = 'Completed'")
+    int getCompletedProjects();
+
+    @Query("SELECT p FROM Project p WHERE (p.clientName = :clientName OR p.address = :projectAddress) AND p.projectStatus = :status")
+    List<Project> findDashboardProject(@Param("clientName") String clientName, @Param("projectAddress") String projectAddress, @Param("status") String status);
+
 }

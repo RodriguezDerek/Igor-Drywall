@@ -29,6 +29,11 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getAllProjects());
     }
 
+    @PostMapping("/projects/dashboard/search")
+    public ResponseEntity<List<ProjectDTO>> dashboardProjectSearch(@Valid @RequestBody ProjectSearchRequestDTO request){
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getDashboardSearchedProject(request));
+    }
+
     @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectDTO> findProject(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getProject(id));

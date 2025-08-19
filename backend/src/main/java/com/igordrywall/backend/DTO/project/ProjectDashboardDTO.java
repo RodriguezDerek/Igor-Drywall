@@ -13,7 +13,8 @@ public class ProjectDashboardDTO {
     private Integer projectsThisWeek;
     private Integer projectsCompletedThisMonth;
     private Integer numberOfWorkers;
-    private Integer drywallSheetsThisMonth;
     private ProjectSummaryDTO mostRecentProject;
-    private Integer totalProjects;
+    private Integer totalProjectsCompleted;
+    private Integer totalProjectsUnCompleted;
+    private Integer projectsNextWeek;
 }
