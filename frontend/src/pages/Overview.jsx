@@ -28,7 +28,7 @@ function Overview(){
 
         } catch(error) {
             console.log("Get Dashboard Info Error: ", error);
-
+            setErrorMessage(error.message);
         }
     }
 
@@ -43,7 +43,7 @@ function Overview(){
 
         } catch(error) {
             console.log("Get Graph Stats Error: ", error);
-            setErrorMessage(error);
+            setErrorMessage(error.message);
         }
     }
 
@@ -60,7 +60,6 @@ function Overview(){
         getGraphStats();
     }, []);
 
-    console.log(graphData);
     return(
         <>
             <div className="flex bg-gray-100 min-h-screen">
