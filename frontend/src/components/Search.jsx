@@ -1,10 +1,24 @@
 import React from "react";
 import { useState } from "react";
+import { authFetch } from "../util/auth";
 
 export default function Search(){
     const [clientName, setClientName] = useState("");
     const [jobAddress, setJobAddress] = useState("");
     const [projectStatus, setProjectStatus] = useState("");
+
+    async function searchProject(){
+        try {
+            const data = await authFetch("", {
+                    
+            });
+
+
+        } catch(error) {
+            console.log("Search Project Error: ", error);
+            
+        }
+    }
 
     return(
         <div className="bg-white rounded-xl w-[50%] h-full p-6">

@@ -77,3 +77,12 @@ export async function authFetch(url, options) {
         }
     }
 }
+
+export function calculatePercentageChange(oldValue, newValue){
+    if(oldValue === 0){
+        if(newValue === 0) return 0;
+        return 100;
+    } 
+
+    return Math.round(((newValue - oldValue) / Math.abs(oldValue)) * 100)
+}

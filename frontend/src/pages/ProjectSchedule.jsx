@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { isTokenExpired, getUserId, authFetch } from "../util/auth";
+import { isTokenExpired, authFetch } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
 import Calendar from "../components/calendar/Calendar";

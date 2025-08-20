@@ -1,6 +1,6 @@
-import React from "react";
+import React, { use } from "react";
 import { useState, useEffect } from "react";
-import { isTokenExpired, getUserId, authFetch } from "../util/auth";
+import { isTokenExpired, authFetch } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
 import Stats from "../components/Stats";
@@ -13,6 +13,7 @@ import ProjectProgession from "../components/calendar/ProjectProgression";
 
 function Overview(){
     const [dashboardData, setDashboardData] = useState(null);
+    const [graphData, setGraphData] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
@@ -31,6 +32,21 @@ function Overview(){
         }
     }
 
+    async function getGraphStats() {
+        try {
+            const data = await authFetch("http://localhost:8080/api/v1/project/projects/graph", {
+                method: "GET"
+            });
+
+            setGraphData(data);
+            setErrorMessage("");
+
+        } catch(error) {
+            console.log("Get Graph Stats Error: ", error);
+            setErrorMessage(error);
+        }
+    }
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if(!token || isTokenExpired(token)){
@@ -41,8 +57,10 @@ function Overview(){
         }
 
         getDashboardInfo();
+        getGraphStats();
     }, []);
 
+    console.log(graphData);
     return(
         <>
             <div className="flex bg-gray-100 min-h-screen">
@@ -60,7 +78,7 @@ function Overview(){
 
                     <Stats stats={dashboardData}/>
 
-                    <ProjectGraph />
+                    <ProjectGraph stats={graphData}/>
 
                     <div className="flex mt-6 ml-6 mr-10 gap-6">
                         <Search />
