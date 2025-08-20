@@ -13,8 +13,10 @@ import java.util.Optional;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
     Optional<Project> findByNameIgnoreCaseAndAddressIgnoreCase(String name, String address);
-    List<Project> findByStartDateBetween(LocalDate start, LocalDate end);
     Optional<Project> findTopByOrderByIdDesc();
+
+    @Query("SELECT p FROM Project p WHERE p.startDate >= :start AND p.startDate <= :end AND p.projectStatus <> 'Completed'")
+    List<Project> findUncompletedByStartDateBetween(@Param("start") LocalDate start, @Param("end") LocalDate end);
 
     @Query("SELECT COUNT(p) FROM Project p WHERE p.startDate >= :startOfWeek AND p.startDate < :endOfWeek")
     int totalProjectsByWeek(@Param("startOfWeek") LocalDate startOfWeek, @Param("endOfWeek") LocalDate endOfWeek);
@@ -28,7 +30,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query("SELECT COUNT(p) FROM Project p WHERE p.projectStatus = 'Upcoming' OR p.projectStatus = 'In-Progress'")
     int getTotalDrywallProjects();
 
-    @Query("SELECT COUNT(p) FROM Project p WHERE p.startDate >= :startOfNextWeek AND p.startDate < :endOfWeek")
+    @Query("SELECT COUNT(p) FROM Project p WHERE p.startDate >= :startOfNextWeek AND p.startDate < :endOfWeek AND p.projectStatus <> 'Completed'")
     int getProjectNextWeek(@Param("startOfNextWeek") LocalDate startOfNextWeek, @Param("endOfWeek") LocalDate endOfWeek);
 
     @Query("SELECT COUNT(p) FROM Project p WHERE p.projectStatus = 'Completed'")

@@ -11,10 +11,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectDashboardDTO {
     private Integer projectsThisWeek;
+    private Integer projectsLastWeek;
+
     private Integer projectsCompletedThisMonth;
+    private Integer projectsCompletedLastMonth;
+
     private Integer numberOfWorkers;
     private ProjectSummaryDTO mostRecentProject;
+
     private Integer totalProjectsCompleted;
     private Integer totalProjectsUnCompleted;
+
     private Integer projectsNextWeek;
 }

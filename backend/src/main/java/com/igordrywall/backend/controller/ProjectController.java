@@ -45,8 +45,8 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/graph")
-    public ResponseEntity<YearlyDrywallProjectsDTO> getProjectsGraph(@RequestParam Integer year){
-        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsGraphData(year));
+    public ResponseEntity<YearlyDrywallProjectsDTO> getProjectsGraph(){
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsGraphData());
     }
 
     @GetMapping("/projects/dashboard")

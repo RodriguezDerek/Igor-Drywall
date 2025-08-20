@@ -10,6 +10,7 @@ import com.igordrywall.backend.repository.ProjectRepository;
 import com.igordrywall.backend.repository.UserRepository;
 import com.igordrywall.backend.role.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -144,7 +145,7 @@ public class ProjectService {
     public List<ProjectCalendarDTO> getProjectsByMonth(Integer year, Integer month) {
         LocalDate startOfMonth = LocalDate.of(year, month, 1);
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
-        List<Project> projectList = projectRepository.findByStartDateBetween(startOfMonth, endOfMonth);
+        List<Project> projectList = projectRepository.findUncompletedByStartDateBetween(startOfMonth, endOfMonth);
         return projectList.stream().map(this::toProjectCalendarDTO).toList();
     }
 
@@ -173,25 +174,25 @@ public class ProjectService {
                 .build();
     }
 
-    public YearlyDrywallProjectsDTO getProjectsGraphData(Integer year){
+    public YearlyDrywallProjectsDTO getProjectsGraphData(){
         return YearlyDrywallProjectsDTO.builder()
-                .januaryProjects(getCountByMonthHelper(year, 1))
-                .februaryProjects(getCountByMonthHelper(year, 2))
-                .marchProjects(getCountByMonthHelper(year, 3))
-                .aprilProjects(getCountByMonthHelper(year, 4))
-                .mayProjects(getCountByMonthHelper(year, 5))
-                .juneProjects(getCountByMonthHelper(year, 6))
-                .julyProjects(getCountByMonthHelper(year, 7))
-                .augustProjects(getCountByMonthHelper(year, 8))
-                .septemberProjects(getCountByMonthHelper(year, 9))
-                .octoberProjects(getCountByMonthHelper(year, 10))
-                .novemberProjects(getCountByMonthHelper(year, 11))
-                .decemberProjects(getCountByMonthHelper(year, 12))
+                .januaryProjects(getCountByMonthHelper(1))
+                .februaryProjects(getCountByMonthHelper(2))
+                .marchProjects(getCountByMonthHelper(3))
+                .aprilProjects(getCountByMonthHelper(4))
+                .mayProjects(getCountByMonthHelper(5))
+                .juneProjects(getCountByMonthHelper(6))
+                .julyProjects(getCountByMonthHelper(7))
+                .augustProjects(getCountByMonthHelper(8))
+                .septemberProjects(getCountByMonthHelper(9))
+                .octoberProjects(getCountByMonthHelper(10))
+                .novemberProjects(getCountByMonthHelper(11))
+                .decemberProjects(getCountByMonthHelper(12))
                 .build();
     }
 
-    private Integer getCountByMonthHelper(Integer year, Integer month){
-        LocalDate startOfMonth = LocalDate.of(year, month, 1);
+    private Integer getCountByMonthHelper(Integer month){
+        LocalDate startOfMonth = LocalDate.of(LocalDate.now().getYear(), month, 1);
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth()).plusDays(1);
         return projectRepository.drywallProjectsThisMonth(startOfMonth, endOfMonth);
     }
@@ -199,23 +200,37 @@ public class ProjectService {
     public ProjectDashboardDTO getProjectDashboardInfo() {
         return ProjectDashboardDTO.builder()
                 .projectsThisWeek(projectsThisWeekHelper())
+                .projectsLastWeek(projectsLastWeekHelper())
                 .projectsCompletedThisMonth(projectsCompletedThisMonthHelper())
+                .projectsCompletedLastMonth(projectsCompletedLastMonthHelper())
                 .numberOfWorkers(totalUsersByRoleHelper())
                 .mostRecentProject(mostRecentProjectHelper())
-                .totalProjectsCompleted(projectsCompleted())
+                .totalProjectsCompleted(projectsCompletedHelper())
                 .totalProjectsUnCompleted(totalProjectsHelper())
                 .projectsNextWeek(projectsNextWeekHelper())
                 .build();
     }
 
-    private Integer projectsCompleted(){
+    private Integer projectsCompletedLastMonthHelper() {
+        LocalDate startOfLastMonth = LocalDate.now().withDayOfMonth(1).minusMonths(1);
+        LocalDate endOfLastMonth = startOfLastMonth.plusMonths(1); // exclusive
+        return projectRepository.countCompletedProjectsInMonth(startOfLastMonth, endOfLastMonth);
+    }
+
+    private Integer projectsLastWeekHelper(){
+        LocalDate startOfLastWeek = LocalDate.now().with(DayOfWeek.MONDAY).minusWeeks(1);
+        LocalDate endOfLastWeek = startOfLastWeek.plusWeeks(1);
+        return projectRepository.totalProjectsByWeek(startOfLastWeek, endOfLastWeek);
+    }
+
+    private Integer projectsCompletedHelper(){
         return projectRepository.getCompletedProjects();
     }
 
     private Integer projectsNextWeekHelper(){
         LocalDate nextMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(1);
-        LocalDate nextSunday = nextMonday.with(DayOfWeek.SUNDAY);
-        return projectRepository.getProjectNextWeek(nextMonday, nextSunday);
+        LocalDate endOfNextWeek = nextMonday.plusWeeks(1); // the Monday after next
+        return projectRepository.getProjectNextWeek(nextMonday, endOfNextWeek);
     }
 
     private Integer projectsThisWeekHelper(){
