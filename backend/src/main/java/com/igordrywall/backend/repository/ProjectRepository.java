@@ -36,7 +36,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Query("SELECT COUNT(p) FROM Project p WHERE p.projectStatus = 'Completed'")
     int getCompletedProjects();
 
-    @Query("SELECT p FROM Project p WHERE (p.clientName = :clientName OR p.address = :projectAddress) AND p.projectStatus = :status")
+    @Query("SELECT p FROM Project p WHERE (:clientName IS NULL OR p.clientName = :clientName) AND (:projectAddress IS NULL OR p.address = :projectAddress) AND (:status IS NULL OR p.projectStatus = :status)")
     List<Project> findDashboardProject(@Param("clientName") String clientName, @Param("projectAddress") String projectAddress, @Param("status") String status);
-
 }

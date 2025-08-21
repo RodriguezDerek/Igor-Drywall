@@ -278,7 +278,12 @@ public class ProjectService {
     }
 
     public List<ProjectDTO> getDashboardSearchedProject(ProjectSearchRequestDTO request) {
-        List<Project> projectList = projectRepository.findDashboardProject(request.getClientName(), request.getProjectAddress(), request.getStatus());
-        return projectList.stream().map(this::toProjectDTO).toList();
+        String clientName = request.getClientName().isEmpty() ? null : request.getClientName();
+        String projectAddress = request.getProjectAddress().isEmpty() ? null : request.getProjectAddress();
+        String status = request.getStatus().isEmpty() ? null : request.getStatus();
+
+        List<Project> projects = projectRepository.findDashboardProject(clientName, projectAddress, status);
+
+        return projects.stream().map(this::toProjectDTO).toList();
     }
 }
