@@ -8,13 +8,13 @@ export default function JobDetailsPanel({ projects, date }) {
 
     return (
         <div className="absolute bottom-full left-0 mb-1 bg-white p-3 rounded-md z-10 w-66 shadow-[0_0_15px_rgba(146,11,21,0.7)] animate-fadeIn">
-            <h1 className="font-semibold text-sm custom-red-color-text">Jobs for {months[date.getMonth()]} {date.getDate()}</h1>
+            <h1 className="plus-jakarta-700 text-sm custom-red-color-text">Jobs for {months[date.getMonth()]} {date.getDate()}</h1>
             
             {projects.map((project, index) => (
                 <div key={index} className="bg-red-200 rounded-md border-l-3 border-[#920B15] my-2">
-                    <p className="text-sm text-black font-semibold px-2 py-2">{project.name}</p>
-                    <p className="text-xs text-black px-2 font-semibold">Address: <span className="text-gray-500 font-normal">{project.address}</span></p>
-                    <p className="text-xs text-black px-2 font-semibold pb-3">Team: <span className="text-gray-500 font-normal">{project.team}</span></p>
+                    <p className="text-sm text-black plus-jakarta-600 px-2 pt-2 pb-1">{project.name}</p>
+                    <p className="text-xs text-black px-2 plus-jakarta-600">Address: <span className="text-gray-600 plus-jakarta-500">{project.address}</span></p>
+                    <p className="text-xs text-black px-2 plus-jakarta-600 pb-3">Team: <span className="text-gray-600 plus-jakarta-500">{project.team}</span></p>
                 </div>
             ))}
 

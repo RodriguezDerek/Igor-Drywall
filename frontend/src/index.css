@@ -204,19 +204,98 @@ body {
   color:#920B15
 }
 
-.custom-dashboard-hover-bg:hover {
-  background-color: #920B15;
+.custom-dashboard-hover {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #4B5563; /* Tailwind's text-gray-600 */
+  transition: color 0.4s ease;
 }
 
-.custom-dashboard-hover-text:hover {
+/* Background fill layer */
+.custom-dashboard-hover::before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 100%;
   background-color: #920B15;
-  color: white
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: width 0.4s ease;
+  border-radius: inherit; /* Keeps Tailwind's rounded style */
+}
+
+/* Hovered state */
+.custom-dashboard-hover:hover::before {
+  width: 100%;
+}
+
+/* Text color on hover */
+.custom-dashboard-hover:hover {
+  color: white;
+  transition-delay: 0s; /* No delay when hovering in */
+}
+
+/* When unhovered, delay the text color revert so it happens after bg finishes */
+.custom-dashboard-hover:not(:hover) {
+  transition-delay: 0.1s; /* Delay text color change by 0.4s (after bg retracts) */
 }
 
 @media print {
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        color-adjust: exact !important; /* For older browsers */
     }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.4s ease-out forwards;
+}
+
+
+.plus-jakarta-200 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 200;
+}
+
+.plus-jakarta-300 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 300;
+}
+
+.plus-jakarta-400 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 400;
+}
+
+.plus-jakarta-500 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 500;
+}
+
+.plus-jakarta-600 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 600;
+}
+
+.plus-jakarta-700 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+}
+
+.plus-jakarta-800 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
 }

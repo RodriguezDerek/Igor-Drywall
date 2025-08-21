@@ -92,12 +92,12 @@ function Register() {
                 </Link>
 
                 {/* Header */}
-                <h1 className="text-center text-4xl font-semibold custom-red-color-text mb-6 mt-14">Create your account</h1>
+                <h1 className="text-center text-4xl plus-jakarta-700 custom-red-color-text mb-6 mt-14">Create your account</h1>
 
                 {/* Alert box */}
                 <div className="bg-red-100 border custom-red-color-border custom-red-color-text px-3 py-2 rounded-xl mb-6">
-                    <strong className="text-center block mb-1 text-base">🚧 For Employees Only</strong>
-                    <p className='justify-self-center text-center text-sm w-140 pb-1'>This sign-up form is intended for Igor Drywall employees only. If you are not affiliated with Igor Drywall, please do not attempt to create an account. Unauthorized access may be removed without notice.</p>
+                    <strong className="text-center block mb-1 text-base plus-jakarta-700">🚧 For Employees Only</strong>
+                    <p className='justify-self-center text-center text-sm w-140 pb-1 plus-jakarta-500'>This sign-up form is intended for Igor Drywall employees only. If you are not affiliated with Igor Drywall, please do not attempt to create an account. Unauthorized access may be removed without notice.</p>
                 </div>
 
                 {/* Form fields */}
@@ -105,38 +105,38 @@ function Register() {
                     
                     <div className="flex gap-4">
                         <div className="flex-1">
-                            <label className="block mb-1">First name</label>
-                            <input name="firstName" type="text" value={formData.firstName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your first name"/>
+                            <label className="block mb-1 plus-jakarta-600 text-[15px]">First name</label>
+                            <input name="firstName" type="text" value={formData.firstName} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your first name"/>
                         </div>
                         <div className="flex-1">
-                            <label className="block mb-1">Last name</label>
-                            <input name="lastName" type="text" value={formData.lastName} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your last name"/>
+                            <label className="block mb-1 plus-jakarta-600 text-[15px]">Last name</label>
+                            <input name="lastName" type="text" value={formData.lastName} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="Enter your last name"/>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block mb-1">Email</label>
-                        <input name="email" type="email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="you@example.com"/>
+                        <label className="block mb-1 plus-jakarta-600 text-[15px]">Email</label>
+                        <input name="email" type="email" value={formData.email} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="you@example.com"/>
                     </div>
 
                     <div>
-                        <label className="block mb-1">Phone Number</label>
-                        <input name="phoneNumber" type="tel" value={formData.phoneNumber} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="e.g. 123-456-7890"/>
+                        <label className="block mb-1 plus-jakarta-600 text-[15px]">Phone Number</label>
+                        <input name="phoneNumber" type="tel" value={formData.phoneNumber} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2 mb-1" placeholder="e.g. 123-456-7890"/>
                     </div>
 
                     <div className="flex-1">
-                        <label className="block mb-1">Password</label>
-                        <input name="password" type="password" value={formData.password} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" placeholder="Create a password"/>
+                        <label className="block mb-1 plus-jakarta-600 text-[15px]">Password</label>
+                        <input name="password" type="password" value={formData.password} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2" placeholder="Create a password"/>
                     </div>
                     <div className="flex-1">
-                        <label className="block mb-1">Confirm Password</label>
-                        <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} className="w-full border border-gray-300 rounded px-3 py-2" placeholder="Confirm your password"/>
+                        <label className="block mb-1 plus-jakarta-600 text-[15px]">Confirm Password</label>
+                        <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} className="text-[14px] plus-jakarta-500 w-full border border-gray-300 rounded px-3 py-2" placeholder="Confirm your password"/>
                     </div>
 
-                    <button type="submit" className="custom-red-color-background text-white py-3 px-20 rounded-md w-full mt-6 font-medium text-md cursor-pointer">Submit</button>
+                    <button type="submit" className="custom-red-color-background text-white py-3 px-20 rounded-md w-full mt-6 plus-jakarta-500 text-md cursor-pointer">Submit</button>
 
-                    <p className="text-sm mt-2 text-center font-medium">Already have an account?{' '}
-                        <Link to="/login" className="custom-red-color-font font-medium">Sign In</Link>
+                    <p className="text-sm mt-2 text-center plus-jakarta-600">Already have an account?{' '}
+                        <Link to="/login" className="custom-red-color-font plus-jakarta-600">Sign In</Link>
                     </p>
 
                 </form>

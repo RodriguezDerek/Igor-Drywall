@@ -21,8 +21,8 @@ export default function ProjectGraph({ stats }) {
             {
                 label: "Drywall Jobs",
                 data: [
-                    stats ? stats.januaryProjects : 0, // January Projects
-                    stats ? stats.februaryProjects : 0, // February Projects
+                    stats ? stats.januaryProjects : 0,
+                    stats ? stats.februaryProjects : 0,
                     stats ? stats.marchProjects : 0,
                     stats ? stats.aprilProjects : 0,
                     stats ? stats.mayProjects : 0,
@@ -49,32 +49,48 @@ export default function ProjectGraph({ stats }) {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: false, // Hide legend for cleaner look
+                display: false,
+                labels: {
+                    font: {
+                        family: "'Plus Jakarta Sans', sans-serif", // Font for legend
+                    }
+                }
             },
             title: {
                 display: true,
                 text: "Drywall Jobs by Month",
                 align: "start",
-                padding: {
-                    bottom: 20
-                },
+                padding: { bottom: 20 },
                 font: {
+                    family: "'Plus Jakarta Sans', sans-serif", // Font for title
                     size: 16,
-                    weight: "600",
+                    weight: "700",
                 },
                 color: "black"
             },
             tooltip: {
                 mode: 'index',
-                intersect: false
+                intersect: false,
+                titleFont: {
+                    family: "'Plus Jakarta Sans', sans-serif", // Font for tooltip title
+                    weight: "600"
+                },
+                bodyFont: {
+                    family: "'Plus Jakarta Sans', sans-serif", // Font for tooltip body
+                },
             },
         },
         scales: {
             x: {
                 grid: {
                     drawBorder: false,
-                    color: "#e5e7eb", // light gray grid lines
+                    color: "#e5e7eb",
                 },
+                ticks: {
+                    font: {
+                        family: "'Plus Jakarta Sans', sans-serif", // Font for x-axis labels
+                    }
+                }
             },
             y: {
                 beginAtZero: true,
@@ -83,7 +99,9 @@ export default function ProjectGraph({ stats }) {
                     color: "#e5e7eb",
                 },
                 ticks: {
-                    epSize: 10, // Adjust as needed
+                    font: {
+                        family: "'Plus Jakarta Sans', sans-serif", // Font for y-axis labels
+                    }
                 },
             },
         },

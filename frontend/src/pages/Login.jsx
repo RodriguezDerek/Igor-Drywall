@@ -75,31 +75,31 @@ function Login() {
             <div className="w-full max-w-md">
 
               {/* Header */}
-              <h1 className="text-center text-5xl font-semibold custom-red-color-text mb-3">Sign In</h1>
-              <p className="text-center text-md font-normal mb-16">Please enter your details</p>
+              <h1 className="text-center text-5xl plus-jakarta-700 custom-red-color-text mb-3">Sign In</h1>
+              <p className="text-center text-md plus-jakarta-500 mb-16">Please enter your details</p>
 
               {/* Form fields */}
               <form className="space-y-4" onSubmit={handleSubmit}>
 
                 <div>
-                  <input name="email" type="text" value={email} onChange={handleEmailChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 mb-1 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Email Address" autoComplete="current-username"/>
+                  <input name="email" type="text" value={email} onChange={handleEmailChange} className="text-[14px] plus-jakarta-500 w-full h-12 bg-gray-100 rounded px-3 py-2 mb-1 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Email Address" autoComplete="current-username"/>
                 </div>
 
                 <div>
-                  <input name="password" type="password" value={password} onChange={handlePasswordChange} className="w-full h-12 bg-gray-100 rounded px-3 py-2 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Password" autoComplete="current-password"/>
+                  <input name="password" type="password" value={password} onChange={handlePasswordChange} className="text-[14px] plus-jakarta-500 w-full h-12 bg-gray-100 rounded px-3 py-2 pl-5 placeholder:text-gray-500 placeholder:text-sm placeholder:font-medium" placeholder="Password" autoComplete="current-password"/>
                 </div>
 
                 {/* Forgot Password aligned right */}
                 <div className="text-right">
-                    <Link to="/forgot-password" type="button" className="text-sm custom-red-color-font hover:underline mb-6 cursor-pointer">Forgot Password?</Link>
+                    <Link to="/forgot-password" type="button" className="text-sm custom-red-color-font hover:underline mb-6 cursor-pointer plus-jakarta-600">Forgot Password?</Link>
                 </div>
 
                 {/* Submit button */}
-                <button type="submit" className="custom-red-color-background text-white py-3 px-6 rounded-md w-full mt-4 font-medium text-md cursor-pointer">Submit</button>
+                <button type="submit" className="custom-red-color-background text-white py-3 px-6 rounded-md w-full mt-4 text-md cursor-pointer plus-jakarta-600">Submit</button>
 
                 {/* Footer link */}
-                <p className="text-sm mt-10 text-center font-medium">Don't have an account?{' '}
-                  <Link to="/register" className="custom-red-color-font font-medium hover:underline">Sign Up!</Link>
+                <p className="text-sm mt-10 text-center plus-jakarta-600">Don't have an account?{' '}
+                  <Link to="/register" className="custom-red-color-font hover:underline">Sign Up!</Link>
                 </p>
 
               </form>

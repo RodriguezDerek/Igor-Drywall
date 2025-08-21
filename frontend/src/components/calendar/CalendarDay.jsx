@@ -14,7 +14,7 @@ export default function CalendarDay({ date, projects, isCurrentMonth }) {
     return (
         <div className={`relative border border-gray-400 rounded-xl h-24 p-2 text-md cursor-pointer transition-colors duration-150 ease-in ${isCurrentMonth ? "bg-white" : "bg-white text-gray-400"} ${hasProjects ? "hover:bg-[#920B15] hover:text-white" : ""}`} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
             {/* Day Number */}
-            <div className={`absolute top-2 left-2 font-semibold ${hasProjects ? "custom-red-color-bg text-white px-1.5 py-0.5 rounded-sm cursor-pointer" : ""}`}>
+            <div className={`absolute top-2 left-2 plus-jakarta-700 ${hasProjects ? "custom-red-color-bg text-white px-1.5 py-0.5 rounded-sm cursor-pointer" : ""}`}>
                 <p>{day < 10 ? `0${day}` : day}</p>
             </div>
 

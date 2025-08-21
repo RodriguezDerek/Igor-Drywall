@@ -86,8 +86,8 @@ function Project() {
       <Navbar />
 
       <div className="flex flex-col justify-center items-center pt-12 text-center px-4 slide-up">
-        <p className="custom-red-color-text font-bold text-sm pb-2">Projects</p>
-        <h1 className="font-bold text-4xl">Take a Closer Look at the Work We've <br/> Delivered for Clients Like You</h1>
+        <p className="custom-red-color-text text-sm pb-2 plus-jakarta-700">Projects</p>
+        <h1 className="font-bold text-4xl plus-jakarta-800">Take a Closer Look at the Work We've <br/> Delivered for Clients Like You</h1>
       </div>
 
       <section className="px-4 py-10 bg-white pb-20 slide-up">
@@ -97,8 +97,8 @@ function Project() {
           <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden">
             <img src={project.image} alt="The Hawthorne Residence" className="w-full h-48 object-cover rounded-t-xl" />
             <div className="p-4">
-              <h2 className="text-lg font-semibold">{project.title}</h2>
-              <p className="text-sm text-gray-600 mt-1">{project.description}</p>
+              <h2 className="text-lg plus-jakarta-700">{project.title}</h2>
+              <p className="text-sm text-gray-600 mt-1 plus-jakarta-400">{project.description}</p>
               <div className="flex items-center gap-4 text-sm text-gray-500 mt-3">
                 <div className="flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,17 +107,17 @@ function Project() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>{project.location}</span>
+                  <span className="plus-jakarta-400">{project.location}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>{project.date}</span>
+                  <span className="plus-jakarta-400">{project.date}</span>
                 </div>
               </div>
-              <button onClick={() => setActiveModal(index)} className="cursor-pointer custom-red-color-font font-semibold text-sm mt-3 inline-flex items-center gap-1">View More<span className="ml-1">→</span></button>
+              <button onClick={() => setActiveModal(index)} className="cursor-pointer custom-red-color-font plus-jakarta-700 text-sm mt-3 inline-flex items-center gap-1">View More<span className="ml-1">→</span></button>
             </div>
           </div>
         ))}

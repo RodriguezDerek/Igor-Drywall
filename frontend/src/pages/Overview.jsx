@@ -9,7 +9,7 @@ import SuccessToast from '../components/SuccessToast';
 import ProjectGraph from "../components/ProjectGraph";
 import Search from "../components/Search";
 import RecentProject from "../components/RecentProject";
-import ProjectProgession from "../components/calendar/ProjectProgression";
+import ProjectProgession from "../components/ProjectProgression";
 
 function Overview(){
     const [dashboardData, setDashboardData] = useState(null);
@@ -71,7 +71,7 @@ function Overview(){
                     
                     {/* Header */}
                     <div className="w-full h-20 flex items-center justify-between px-6 py-2 bg-white border-b border-gray-200">
-                        <h1 className="text-[18px] font-semibold text-gray-800">Overview</h1>
+                        <h1 className="text-[18px] plus-jakarta-700 text-black">Overview</h1>
                         <ProfileIcon />
                     </div>
 

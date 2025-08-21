@@ -4,8 +4,8 @@ export default function SearchDetails({ projectDetails }) {
     if (!projectDetails) return null;
 
     return (
-        <div className="bg-white p-4 rounded-md shadow-md mt-4 text-sm space-y-2 border custom-red-color-border">
-            <h3 className="text-lg font-semibold custom-red-color-text border-b custom-red-color-border pb-2 mb-3">
+        <div className="bg-white p-4 rounded-md shadow-md mt-4 text-sm space-y-2 border custom-red-color-border animate-slide-down">
+            <h3 className="text-lg plus-jakarta-700 custom-red-color-text border-b custom-red-color-border pb-2 mb-3">
                 Project Details
             </h3>
 
@@ -30,8 +30,8 @@ export default function SearchDetails({ projectDetails }) {
 function Detail({ label, value }) {
     return (
         <div>
-            <p className="custom-red-color-text font-medium">{label}</p>
-            <p className="text-gray-800">{value || "Not provided"}</p>
+            <p className="custom-red-color-text plus-jakarta-600">{label}</p>
+            <p className="text-gray-800 plus-jakarta-500 text-[13px]">{value || "Not provided"}</p>
         </div>
     );
 }

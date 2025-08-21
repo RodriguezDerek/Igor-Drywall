@@ -32,36 +32,36 @@ function DashboardNavbar() {
         <div className="w-70 h-screen bg-white flex flex-col justify-between border-r border-gray-200 p-4 fixed top-0 left-0">
             <div>
                 <Link to="/home" className="mb-6"><img src="/logo.png" alt="Logo" className="w-50" /></Link>
-                <div className="text-[0.8rem] font-medium text-gray-600 mb-2 px-4 pt-8">MAIN MENU</div>
+                <div className="text-[0.8rem] plus-jakarta-700 text-gray-600 mb-2 px-4 pt-8">MAIN MENU</div>
                 
                 <nav className="space-y-1">
-                    <Link to="/overview" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover-bg text-sm custom-dashboard-hover-text font-semibold">
+                    <Link to="/overview" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover text-sm font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12h18M3 6h18M3 18h18" />
                         </svg>
-                        <p className="pl-2">Overview</p>
+                        <p className="pl-2 plus-jakarta-600">Overview</p>
                     </Link>
                 
-                    <Link to="/schedule" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover-bg text-sm custom-dashboard-hover-text font-semibold">
+                    <Link to="/schedule" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover text-sm font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
                         </svg>
-                        <p className="pl-2">Project Schedules</p>
+                        <p className="pl-2 plus-jakarta-600">Project Schedules</p>
                     </Link>
                     
-                    <Link to="/projects" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover-bg text-sm custom-dashboard-hover-text font-semibold">
+                    <Link to="/projects" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover text-sm font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
                         </svg>
-                        <p className="pl-2">Current Projects</p>
+                        <p className="pl-2 plus-jakarta-600">Current Projects</p>
                     </Link>
 
                     {getUserRole() === "ADMIN" && (
-                        <Link to="/team" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover-bg text-sm custom-dashboard-hover-text font-semibold">
+                        <Link to="/team" className="flex items-center gap-2 px-4 py-3 rounded-2xl text-gray-600 custom-dashboard-hover text-sm font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5V4H2v16h5m10 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m10 0H7" />
                             </svg>
-                            <p className="pl-2">View Team</p>
+                            <p className="pl-2 plus-jakarta-600">View Team</p>
                         </Link>
                     )}
                 </nav>
@@ -74,10 +74,10 @@ function DashboardNavbar() {
                     </svg>
                 </div>
                 <div>
-                    <div className="text-sm font-medium">
+                    <div className="text-sm plus-jakarta-600">
                         {userData ? `${userData.firstName} ${userData.lastName}` : 'Loading...'}
                     </div>
-                    <div className="text-xs text-gray-500 font-semibold">
+                    <div className="text-xs text-gray-500 plus-jakarta-500 pt-1">
                         {userData ? `${userData.role}` : 'Loading...'}
                     </div>
                 </div>

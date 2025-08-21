@@ -9,8 +9,8 @@ export default function Stats({ stats }) {
             {/* Jobs This Week */}
             <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
                 <div>
-                    <h1 className="text-2xl font-bold">{stats.projectsThisWeek}</h1>
-                    <p className="font-semibold">Current Jobs This Week</p>
+                    <h1 className="text-2xl plus-jakarta-800">{stats.projectsThisWeek}</h1>
+                    <p className="plus-jakarta-700">Current Jobs This Week</p>
                     <div className="flex items-center mt-1">
                         {calculatePercentageChange(stats.projectsLastWeek, stats.projectsThisWeek) !== 0 && (
                             <img
@@ -22,7 +22,7 @@ export default function Stats({ stats }) {
                                 className="w-2 h-2 mr-1"
                             />
                         )}
-                        <p className="text-[14px]">
+                        <p className="text-[14px] plus-jakarta-500">
                             {calculatePercentageChange(stats.projectsLastWeek, stats.projectsThisWeek) === 0
                                 ? "No Change"
                                 : `${Math.abs(calculatePercentageChange(stats.projectsLastWeek, stats.projectsThisWeek))}% ${
@@ -41,8 +41,8 @@ export default function Stats({ stats }) {
             {/* Jobs Finished This Month */}
             <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
                 <div>
-                    <h1 className="text-2xl font-bold">{stats.projectsCompletedThisMonth}</h1>
-                    <p className="font-semibold">Jobs Finished This Month</p>
+                    <h1 className="text-2xl plus-jakarta-800">{stats.projectsCompletedThisMonth}</h1>
+                    <p className="plus-jakarta-700">Jobs Finished This Month</p>
                     <div className="flex items-center mt-1">
                         {calculatePercentageChange(stats.projectsCompletedLastMonth, stats.projectsCompletedThisMonth) !== 0 && (
                             <img
@@ -54,7 +54,7 @@ export default function Stats({ stats }) {
                                 className="w-2 h-2 mr-1"
                             />
                         )}
-                        <p className="text-[14px]">
+                        <p className="text-[14px] plus-jakarta-500">
                             {calculatePercentageChange(stats.projectsCompletedLastMonth, stats.projectsCompletedThisMonth) === 0
                                 ? "No Change"
                                 : `${Math.abs(calculatePercentageChange(stats.projectsCompletedLastMonth, stats.projectsCompletedThisMonth))}% ${
@@ -85,8 +85,8 @@ export default function Stats({ stats }) {
             {/* Jobs for Next Week */}
             <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
                 <div>
-                    <h1 className="text-2xl font-bold">{stats.projectsNextWeek}</h1>
-                    <p className="font-semibold">Jobs for Next Week</p>
+                    <h1 className="text-2xl plus-jakarta-800">{stats.projectsNextWeek}</h1>
+                    <p className="plus-jakarta-700">Jobs for Next Week</p>
                     <div className="flex items-center mt-1">
                         {calculatePercentageChange(stats.projectsThisWeek, stats.projectsNextWeek) !== 0 && (
                             <img
@@ -98,7 +98,7 @@ export default function Stats({ stats }) {
                                 className="w-2 h-2 mr-1"
                             />
                         )}
-                        <p className="text-[14px]">
+                        <p className="text-[14px] plus-jakarta-500">
                             {calculatePercentageChange(stats.projectsThisWeek, stats.projectsNextWeek) === 0
                                 ? "No Change"
                                 : `${Math.abs(calculatePercentageChange(stats.projectsThisWeek, stats.projectsNextWeek))}% ${

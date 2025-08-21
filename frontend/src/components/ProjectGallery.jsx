@@ -16,12 +16,12 @@ function ProjectGallery({ project, onClose, isOpen }) {
 
                 {/* Header */}
                 <div className="mb-4 text-center">
-                    <h2 className="text-2xl font-bold text-gray-800">{project.title}</h2>
-                    <p className="text-gray-500 mt-1 text-sm">{project.location} &middot; {project.date}</p>
+                    <h2 className="text-2xl text-black plus-jakarta-700">{project.title}</h2>
+                    <p className="text-gray-500 mt-1 text-sm plus-jakarta-400">{project.location} &middot; {project.date}</p>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-700 text-sm leading-relaxed mb-4 text-center max-w-2xl mx-auto">{project.description}</p>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4 text-center max-w-2xl mx-auto plus-jakarta-500">{project.description}</p>
 
                 {/* Gallery */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

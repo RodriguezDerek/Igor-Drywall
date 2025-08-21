@@ -13,7 +13,7 @@ export default function CalendarHeader({ year, month, onPrev, onNext }){
                 </button>
 
                 {/* Month + Year */}
-                <h2 className="text-xl font-bold text-gray-800 px-10">{monthNames[month]} {year}</h2>
+                <h2 className="text-xl plus-jakarta-700 px-10">{monthNames[month]} {year}</h2>
 
                 {/* Right arrow */}
                 <button onClick={onNext} className="text-gray-600 text-xl font-bold hover:text-black custom-red-color-background p-2 rounded-md cursor-pointer flex items-center justify-center">
@@ -25,7 +25,7 @@ export default function CalendarHeader({ year, month, onPrev, onNext }){
             <hr className="mt-4 border-t border-[#b8b8b8]" />
 
             {/* Days of the week row */}
-            <div className="flex justify-between text-center text-sm text-[#a0a0a0] mt-4 px-1 font-semibold">
+            <div className="flex justify-between text-center text-sm text-gray-500 mt-4 px-1 plus-jakarta-700">
                 <div className="w-full">SUN</div>
                 <div className="w-full">MON</div>
                 <div className="w-full">TUE</div>
