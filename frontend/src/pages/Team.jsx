@@ -101,7 +101,7 @@ function Team(){
                     
                     {/* Header */}
                     <div className="w-full h-20 flex items-center justify-between px-6 py-2 bg-white border-b border-gray-200">
-                        <h1 className="text-[18px] font-semibold text-gray-800">View Team</h1>
+                        <h1 className="text-[18px] font-semibold text-black plus-jakarta-700">View Team</h1>
                         <ProfileIcon />
                     </div>
 
@@ -109,31 +109,31 @@ function Team(){
                     <div className="w-full h-full bg-gray-100 p-6 space-y-6">
                         {/* Row 1 */}
                         <div className="bg-white rounded-lg shadow p-4">
-                            <h1 className="text-xl font-semibold pl-2 pt-3 pb-3">Team Members</h1>
+                            <h1 className="text-xl font-semibold pl-2 pt-3 pb-3 plus-jakarta-700">Team Members</h1>
 
                             <table className="min-w-full bg-white border border-gray-300 text-sm rounded-lg overflow-hidden">
                                 <thead className="bg-gray-100">
                                     <tr>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Name</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Email</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Phone Number</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Role</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Date Added</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Actions</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Name</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Email</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Phone Number</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Role</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Date Added</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {enabledUsers && enabledUsers.length > 0 ? (
                                         enabledUsers.map((user) => (
                                             <tr key={user.id} className="border-t border-gray-400">
-                                                <td className="px-4 py-3">{user.firstName} {user.lastName}</td>
-                                                <td className="px-4 py-3">{user.email}</td>
-                                                <td className="px-4 py-3">{user.phoneNumber}</td>
-                                                <td className="px-4 py-3 font-semibold">{user.role}</td>
-                                                <td className="px-4 py-3">{user.dateAdded}</td>
+                                                <td className="px-4 py-3 plus-jakarta-500">{user.firstName} {user.lastName}</td>
+                                                <td className="px-4 py-3 plus-jakarta-500">{user.email}</td>
+                                                <td className="px-4 py-3 plus-jakarta-500">{user.phoneNumber}</td>
+                                                <td className="px-4 py-3 plus-jakarta-500">{user.role}</td>
+                                                <td className="px-4 py-3 plus-jakarta-500">{user.dateAdded}</td>
                                                 <td className="px-4 py-3">
                                                     {user.role === "WORKER" && (
-                                                        <button onClick={() => removeUser(user.id)} className="custom-red-color-background text-white px-3 py-1 rounded-lg cursor-pointer text-sm">Remove</button>
+                                                        <button onClick={() => removeUser(user.id)} className="custom-red-color-background text-white px-3 py-1 rounded-lg cursor-pointer text-sm plus-jakarta-700">Remove</button>
                                                     )}
                                                 </td>
 
@@ -141,7 +141,7 @@ function Team(){
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="6" className="text-center py-4 text-gray-500">No enabled users found</td>
+                                            <td colSpan="6" className="text-center py-4 text-gray-500 plus-jakarta-500">No enabled users found</td>
                                         </tr>
                                     )}
                                 </tbody>
@@ -151,33 +151,33 @@ function Team(){
 
                         {/* Row 2 */}
                         <div className="bg-white rounded-lg shadow p-4">
-                            <h1 className="text-xl font-semibold pl-2 pt-3 pb-3">Pending Requests</h1>
+                            <h1 className="text-xl font-semibold pl-2 pt-3 pb-3 plus-jakarta-700">Pending Requests</h1>
 
                             <table className="min-w-full bg-white border border-gray-300 text-sm rounded-lg overflow-hidden">
                                 <thead className="bg-gray-100">
                                     <tr>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Name</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Email</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Phone Number</th>
-                                        <th className="text-left px-4 py-3 border-b border-gray-400">Actions</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Name</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Email</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Phone Number</th>
+                                        <th className="text-left px-4 py-3 border-b border-gray-400 plus-jakarta-700">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {pendingUsers && pendingUsers.length > 0 ? (
                                         pendingUsers.map((user) => (
                                             <tr key={user.id} className="border-t border-gray-400">
-                                                <td className="px-4 py-3">{user.firstName} {user.lastName}</td>
-                                                <td className="px-4 py-3">{user.email}</td>
-                                                <td className="px-4 py-3">{user.phoneNumber}</td>
+                                                <td className="px-4 py-3 plus-jakarta-600">{user.firstName} {user.lastName}</td>
+                                                <td className="px-4 py-3 plus-jakarta-600">{user.email}</td>
+                                                <td className="px-4 py-3 plus-jakarta-600">{user.phoneNumber}</td>
                                                 <td className="px-4 py-3">
-                                                    <button onClick={() => enabledUser(user.id)} className="custom-red-color-background text-white px-3 py-1 rounded-lg cursor-pointer text-sm">Accept</button>
-                                                    <button onClick={() => removeUser(user.id)} className="bg-white border-1 custom-red-color-border custom-red-color-text px-3 py-1 ml-2 rounded-lg cursor-pointer text-sm hover:bg-[#FFDDDD]">Decline</button>
+                                                    <button onClick={() => enabledUser(user.id)} className="custom-red-color-background text-white px-3 py-1 rounded-lg cursor-pointer text-sm plus-jakarta-700">Accept</button>
+                                                    <button onClick={() => removeUser(user.id)} className="bg-white border-1 custom-red-color-border custom-red-color-text px-3 py-1 ml-2 rounded-lg cursor-pointer text-sm hover:bg-[#FFDDDD] plus-jakarta-700">Decline</button>
                                                 </td>
                                             </tr>
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="6" className="text-center py-4 text-gray-500">No Pending users found</td>
+                                            <td colSpan="6" className="text-center py-4 text-gray-500 plus-jakarta-500">No Pending users found</td>
                                         </tr>
                                     )}
                                 </tbody>

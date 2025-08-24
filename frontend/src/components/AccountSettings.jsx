@@ -115,31 +115,31 @@ function AccountSettings({ userInfo }) {
     return (
         <>
         <div className="flex flex-col items-center justify-center h-[88%] p-4">
-            <div className="text-lg font-semibold text-gray-900 mb-4">Account Settings</div>
+            <div className="text-lg plus-jakarta-700 text-gray-900 mb-4">Account Settings</div>
             <div className="w-full max-w-md rounded-lg">
                 <div className="flex flex-col gap-y-3">
                     <div className="flex items-center gap-3">
-                        <label className="w-24 text-xs text-gray-700 font-semibold">First Name</label>
-                        <input type="text" onChange={handleFirstNameChange} value={newFirstName} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                        <label className="w-24 text-xs text-gray-700 plus-jakarta-700">First Name</label>
+                        <input type="text" onChange={handleFirstNameChange} value={newFirstName} className="plus-jakarta-500 border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <label className="w-24 text-xs text-gray-700 font-semibold">Last Name</label>
-                        <input type="text" onChange={handleLastNameChange} value={newLastName} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                        <label className="w-24 text-xs text-gray-700 plus-jakarta-700">Last Name</label>
+                        <input type="text" onChange={handleLastNameChange} value={newLastName} className="plus-jakarta-500 border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <label className="w-24 text-xs text-gray-700 font-semibold">Email</label>
-                        <input type="email" onChange={handleEmailChange} value={newEmail} className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                        <label className="w-24 text-xs text-gray-700 plus-jakarta-700">Email</label>
+                        <input type="email" onChange={handleEmailChange} value={newEmail} className="plus-jakarta-500 border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <label className="w-24 text-xs text-gray-700 font-semibold">Phone Number</label>
-                        <input type="text" onChange={handlePhoneNumberChange} value={newPhoneNumber} placeholder="e.g. +1 555 123 4567" className="border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
+                        <label className="w-24 text-xs text-gray-700 plus-jakarta-700">Phone Number</label>
+                        <input type="text" onChange={handlePhoneNumberChange} value={newPhoneNumber} placeholder="e.g. +1 555 123 4567" className="plus-jakarta-500 border border-gray-400 rounded-md px-2 py-1 text-xs w-full"/>
                     </div>
 
                     <div className="flex justify-end mt-3">
-                        <button onClick={handleSubmit} className="custom-red-color-background text-white text-xs font-medium px-4 py-1 rounded-md cursor-pointer">Submit</button>
+                        <button onClick={handleSubmit} className="plus-jakarta-700 custom-red-color-background text-white text-xs font-medium px-4 py-1.5 rounded-md cursor-pointer">Submit</button>
                     </div>
                 </div>
             </div>

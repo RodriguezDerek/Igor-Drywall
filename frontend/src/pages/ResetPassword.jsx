@@ -65,15 +65,15 @@ function ResetPassword(){
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
 
-                <h2 className="text-2xl font-semibold text-center mb-6">Reset Your Password</h2>
+                <h2 className="text-2xl font-semibold text-center mb-6 plus-jakarta-700">Reset Your Password</h2>
 
                 <ErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
                 <SuccessToast message={successMessage} onClose={() => setSuccessMessage("")} />
                 
                 <form onSubmit={handleSubmit}>
-                    <input type="password" placeholder="New Password" className="w-full mb-4 p-3 border border-gray-300 rounded" value={newPassword} onChange={handleNewPassword} />
-                    <input type="password" placeholder="Confirm Password" className="w-full mb-4 p-3 border border-gray-300 rounded" value={confirmPassword} onChange={handleConfirmPassword} />
-                    <button type="submit" className="w-full bg-red-700 text-white py-3 rounded hover:bg-red-800 transition">Reset Password</button>
+                    <input type="password" placeholder="New Password" className="w-full mb-4 p-3 border border-gray-300 rounded plus-jakarta-500" value={newPassword} onChange={handleNewPassword} />
+                    <input type="password" placeholder="Confirm Password" className="w-full mb-4 p-3 border border-gray-300 rounded plus-jakarta-500" value={confirmPassword} onChange={handleConfirmPassword} />
+                    <button type="submit" className="w-full bg-red-700 text-white py-3 rounded hover:bg-red-800 transition plus-jakarta-700">Reset Password</button>
                 </form>
 
             </div>

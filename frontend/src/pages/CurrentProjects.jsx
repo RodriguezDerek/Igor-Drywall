@@ -98,22 +98,22 @@ function CurrentProjects(){
                     
                     {/* Header */}
                     <div className="w-full h-20 flex items-center justify-between px-6 py-2 bg-white border-b border-gray-200">
-                        <h1 className="text-[18px] font-semibold text-gray-800">Current Projects</h1>
+                        <h1 className="text-[18px] font-semibold text-black plus-jakarta-700">Current Projects</h1>
                         <ProfileIcon />
                     </div>
 
                     {/* Content */}
                     <div className="bg-gray-100 min-h-screen p-10">
                         <div className="mb-2">
-                            <h2 className="text-2xl font-semibold text-gray-800">Projects</h2>
-                            <p className="text-sm font-normal text-gray-700 pt-1">Current and upcoming drywall jobs at a glance.</p>
+                            <h2 className="text-2xl font-semibold text-black plus-jakarta-700">Projects</h2>
+                            <p className="text-sm font-normal text-gray-700 pt-1 plus-jakarta-500">Current and upcoming drywall jobs at a glance.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-sm mt-4 h-20 px-4">
                             <div className="flex items-center justify-between h-full pl-2 pr-2">
                                 <div className="flex space-x-6">
                                     {status.map(s => (
-                                        <button key={s.key} onClick={() => setActiveStatus(s.key)} className={`group cursor-pointer pb-2 font-medium transition ${activeStatus === s.key ? "text-red-700 border-b-2 border-red-700" : "text-gray-500 hover:text-red-700 hover:border-b-2 hover:border-red-700"}`}>
+                                        <button key={s.key} onClick={() => setActiveStatus(s.key)} className={`group cursor-pointer pb-2 font-medium transition plus-jakarta-600 ${activeStatus === s.key ? "text-red-700 border-b-2 border-red-700" : "text-gray-500 hover:text-red-700 hover:border-b-2 hover:border-red-700"}`}>
                                             {s.key}
                                             <span className={`ml-1 text-xs rounded px-1 transition ${activeStatus === s.key ? "bg-red-700 text-white" : "bg-gray-200 text-gray-600 group-hover:bg-red-700 group-hover:text-white"}`}>
                                                 {s.count}
@@ -122,7 +122,7 @@ function CurrentProjects(){
                                     ))}
                                 </div>
 
-                                {getUserRole() === "ADMIN" && <button onClick={() => setIsAddProjectOpen(!isAddProjectOpen)} className="cursor-pointer px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">+ Add Project</button>}
+                                {getUserRole() === "ADMIN" && <button onClick={() => setIsAddProjectOpen(!isAddProjectOpen)} className="plus-jakarta-600 cursor-pointer px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">Add Project</button>}
                             </div>
                         </div>
 
@@ -141,29 +141,29 @@ function CurrentProjects(){
                                 filteredProjects.map(project => (
                                     <div key={project.id} className="bg-white w-[296px] h-[300px] rounded-xl p-5 flex flex-col justify-between shadow-md">
                                         <div>
-                                            <h1 className="text-base font-semibold mb-3">{project.name}</h1>
-                                            <h3 className="text-sm text-gray-600">Address</h3>
-                                            <p className="text-sm mb-3 font-medium">{project.address}</p>
-                                            <h3 className="text-sm text-gray-600">Client Name</h3>
-                                            <p className="text-sm mb-3 font-medium">{project.clientName}</p>
-                                            <h3 className="text-sm text-gray-600">Start Date</h3>
-                                            <p className="text-sm font-medium">{project.startDate}</p>
+                                            <h1 className="text-base font-semibold mb-3 plus-jakarta-700">{project.name}</h1>
+                                            <h3 className="text-sm text-gray-600 plus-jakarta-500">Address</h3>
+                                            <p className="text-sm mb-3 font-medium plus-jakarta-600">{project.address}</p>
+                                            <h3 className="text-sm text-gray-600 plus-jakarta-500">Client Name</h3>
+                                            <p className="text-sm mb-3 font-medium plus-jakarta-600">{project.clientName}</p>
+                                            <h3 className="text-sm text-gray-600 plus-jakarta-500">Start Date</h3>
+                                            <p className="text-sm font-medium plus-jakarta-600">{project.startDate}</p>
                                         </div>
 
                                         <div className="flex gap-3 mt-4">
                                             {getUserRole() === "ADMIN" ? (
                                                 <>
-                                                    <button onClick={() => removeProject(project.id)} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">Delete</button>
-                                                    <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true), getProjectFiles(project.id);}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-32 font-semibold">View Details</button>
+                                                    <button onClick={() => removeProject(project.id)} className="cursor-pointer bg-red-800 text-white py-2.5 px-4 rounded-md text-sm hover:bg-red-900 transition w-32 plus-jakarta-700 text-[14px]">Delete</button>
+                                                    <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true), getProjectFiles(project.id);}} className="cursor-pointer bg-red-800 text-white py-2.5 px-4 rounded-md text-sm hover:bg-red-900 transition w-32 plus-jakarta-700 text-[14px]">View Details</button>
                                                 </>
                                             ) : (
-                                                <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-64 font-semibold">View Details</button>
+                                                <button onClick={() => {setSelectedProject(project), setIsProjectDetailsOpen(true)}} className="cursor-pointer bg-red-800 text-white py-1.5 px-5 rounded-md text-sm hover:bg-red-900 transition w-64 plus-jakarta-700">View Details</button>
                                             )}
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-gray-500">No projects found for {activeStatus}.</p>
+                                <p className="text-gray-500 plus-jakarta-500 ml-5">No projects found for {activeStatus}.</p>
                             )}
                         </div>
 

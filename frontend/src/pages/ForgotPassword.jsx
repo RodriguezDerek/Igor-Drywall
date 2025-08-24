@@ -66,22 +66,22 @@ function ForgotPassword(){
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl font-semibold text-red-700 mb-2">Forgot Password</h2>
-                <p className="text-sm text-gray-600 mb-6">Enter your email and we'll send you a link to reset your password.</p>
+                <h2 className="text-2xl font-semibold text-red-700 mb-2 plus-jakarta-700">Forgot Password</h2>
+                <p className="text-sm text-gray-600 mb-6 plus-jakarta-500">Enter your email and we'll send you a link to reset your password.</p>
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="email" className="w-full h-12 bg-gray-100 rounded px-4 py-2 placeholder:text-sm" placeholder="you@example.com" value={email} onChange={handleEmailChange} />
+                    <input type="email" className="w-full h-12 bg-gray-100 rounded px-4 py-2 placeholder:text-sm plus-jakarta-500" placeholder="you@example.com" value={email} onChange={handleEmailChange} />
                     
                     <ErrorToast message={errorMessage} onClose={() => setErrorMessage("")} />
                     <SuccessToast message={successMessage} onClose={() => setSuccessMessage("")} />
 
-                    <button type="submit" className="bg-red-700 text-white py-3 px-6 rounded-md w-full mt-2 font-medium hover:bg-red-800 transition">Submit</button>
+                    <button type="submit" className="bg-red-700 text-white py-3 px-6 rounded-md w-full mt-2 font-medium hover:bg-red-800 transition plus-jakarta-700">Submit</button>
                 </form>
 
                 {/* Back to login */}
                 <div className="mt-6">
-                    <Link to="/login" className="text-sm text-red-700 hover:underline">← Back to Login</Link>
+                    <Link to="/login" className="text-sm text-red-700 hover:underline plus-jakarta-500">← Back to Login</Link>
                 </div>
             </div>
 
