@@ -71,7 +71,7 @@ function Overview(){
                     
                     {/* Header */}
                     <div className="w-full h-20 flex items-center justify-between px-6 py-2 bg-white border-b border-gray-200">
-                        <h1 className="text-[18px] plus-jakarta-700 text-black">Overview</h1>
+                        <h1 className="text-[18px] plus-jakarta-700 text-black slide-in-right-medium-1">Overview</h1>
                         <ProfileIcon />
                     </div>
 

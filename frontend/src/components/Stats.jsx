@@ -7,7 +7,7 @@ export default function Stats({ stats }) {
     return (
         <div className="flex gap-6 mt-6 ml-6 h-36">
             {/* Jobs This Week */}
-            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
+            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center slide-in-right-medium-1">
                 <div>
                     <h1 className="text-2xl plus-jakarta-800">{stats.projectsThisWeek}</h1>
                     <p className="plus-jakarta-700">Current Jobs This Week</p>
@@ -39,7 +39,7 @@ export default function Stats({ stats }) {
             </div>
 
             {/* Jobs Finished This Month */}
-            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
+            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center slide-in-right-medium-2">
                 <div>
                     <h1 className="text-2xl plus-jakarta-800">{stats.projectsCompletedThisMonth}</h1>
                     <p className="plus-jakarta-700">Jobs Finished This Month</p>
@@ -71,7 +71,7 @@ export default function Stats({ stats }) {
             </div>
 
             {/* Number of Employees */}
-            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
+            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center slide-in-right-medium-3">
                 <div>
                     <h1 className="text-2xl font-bold">{stats.numberOfWorkers}</h1>
                     <p className="font-semibold">Number of Employees</p>
@@ -83,7 +83,7 @@ export default function Stats({ stats }) {
             </div>
 
             {/* Jobs for Next Week */}
-            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center">
+            <div className="bg-white p-4 rounded-xl w-94 flex justify-evenly items-center slide-in-right-medium-4">
                 <div>
                     <h1 className="text-2xl plus-jakarta-800">{stats.projectsNextWeek}</h1>
                     <p className="plus-jakarta-700">Jobs for Next Week</p>

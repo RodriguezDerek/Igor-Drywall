@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProfileModal from './ProfileModal';
+import ProfileModal from './proflile/ProfileModal';
 
 function ProfileIcon(){
     const [open, setOpen] = useState(false);

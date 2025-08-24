@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { getUserId, authFetch } from '../util/auth';
+import { getUserId, authFetch } from '../../util/auth';
 import { Link } from 'react-router-dom';
-import MyProfile from './MyProfile';
+import MyProfile from '../MyProfile';
 import AccountSettings from './AccountSettings';
-import ModalErrorToast from "./ModalErrorToast"; 
+import ModalErrorToast from "../ModalErrorToast"; 
 
 function ProfileModal({ close }) {
     const [isMyProfileOpen, setIsMyProfileOpen] = useState(true);

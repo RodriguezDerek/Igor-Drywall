@@ -108,7 +108,7 @@ export default function ProjectGraph({ stats }) {
     };
 
     return (
-        <div className="h-78 bg-white mt-6 ml-6 mr-10 rounded-xl p-4">
+        <div className="h-78 bg-white mt-6 ml-6 mr-10 rounded-xl p-4 slide-in-right-medium-1">
             <Line data={data} options={options} />
         </div>
     );

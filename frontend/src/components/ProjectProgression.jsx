@@ -9,7 +9,7 @@ export default function ProjectProgession({ stats }) {
     const completedPercentage = total > 0 ? (projectsCompleted / total) * 100 : 0;
 
     return (
-        <div className="bg-white rounded-xl w-200 h-35 p-4">
+        <div className="bg-white rounded-xl w-200 h-35 p-4 slide-in-right-medium-1">
             <h1 className="text-lg plus-jakarta-700 text-center mb-4">Jobs Completed</h1>
 
             <div className="w-[700px] mx-auto bg-gray-200 rounded-full h-6 overflow-hidden">

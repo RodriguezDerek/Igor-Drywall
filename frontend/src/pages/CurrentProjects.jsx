@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { isTokenExpired, getUserRole, authFetch } from "../util/auth";
 import DashboardNavbar from "../components/DashboardNavbar";
 import ProfileIcon from "../components/ProfileIcon";
-import AddProjectModal from "../components/AddProjectModal";
+import AddProjectModal from "../components/modals/AddProjectModal";
 import ErrorToast from '../components/ErrorToast';
 import SuccessToast from '../components/SuccessToast';
 import AdminDetails from "../components/AdminDetails";
@@ -98,22 +98,22 @@ function CurrentProjects(){
                     
                     {/* Header */}
                     <div className="w-full h-20 flex items-center justify-between px-6 py-2 bg-white border-b border-gray-200">
-                        <h1 className="text-[18px] font-semibold text-black plus-jakarta-700">Current Projects</h1>
+                        <h1 className="text-[18px] font-semibold text-black plus-jakarta-700 slide-in-right-medium-1">Current Projects</h1>
                         <ProfileIcon />
                     </div>
 
                     {/* Content */}
                     <div className="bg-gray-100 min-h-screen p-10">
                         <div className="mb-2">
-                            <h2 className="text-2xl font-semibold text-black plus-jakarta-700">Projects</h2>
-                            <p className="text-sm font-normal text-gray-700 pt-1 plus-jakarta-500">Current and upcoming drywall jobs at a glance.</p>
+                            <h2 className="text-2xl font-semibold text-black plus-jakarta-700 slide-in-right-medium-1">Projects</h2>
+                            <p className="text-sm font-normal text-gray-700 pt-1 plus-jakarta-500 slide-in-right-medium-1">Current and upcoming drywall jobs at a glance.</p>
                         </div>
 
-                        <div className="bg-white rounded-lg shadow-sm mt-4 h-20 px-4">
+                        <div className="bg-white rounded-lg shadow-sm mt-4 h-20 px-4 slide-in-right-medium-1">
                             <div className="flex items-center justify-between h-full pl-2 pr-2">
                                 <div className="flex space-x-6">
                                     {status.map(s => (
-                                        <button key={s.key} onClick={() => setActiveStatus(s.key)} className={`group cursor-pointer pb-2 font-medium transition plus-jakarta-600 ${activeStatus === s.key ? "text-red-700 border-b-2 border-red-700" : "text-gray-500 hover:text-red-700 hover:border-b-2 hover:border-red-700"}`}>
+                                        <button key={s.key} onClick={() => setActiveStatus(s.key)} className={`slide-in-right-medium-2 group cursor-pointer pb-2 font-medium transition plus-jakarta-600 ${activeStatus === s.key ? "text-red-700 border-b-2 border-red-700" : "text-gray-500 hover:text-red-700 hover:border-b-2 hover:border-red-700"}`}>
                                             {s.key}
                                             <span className={`ml-1 text-xs rounded px-1 transition ${activeStatus === s.key ? "bg-red-700 text-white" : "bg-gray-200 text-gray-600 group-hover:bg-red-700 group-hover:text-white"}`}>
                                                 {s.count}
@@ -139,7 +139,7 @@ function CurrentProjects(){
                         <div className="pt-7 flex flex-wrap gap-4">
                             {filteredProjects.length > 0 ? (
                                 filteredProjects.map(project => (
-                                    <div key={project.id} className="bg-white w-[296px] h-[300px] rounded-xl p-5 flex flex-col justify-between shadow-md">
+                                    <div key={project.id} className="bg-white w-[296px] h-[300px] rounded-xl p-5 flex flex-col justify-between shadow-md slide-up">
                                         <div>
                                             <h1 className="text-base font-semibold mb-3 plus-jakarta-700">{project.name}</h1>
                                             <h3 className="text-sm text-gray-600 plus-jakarta-500">Address</h3>
@@ -163,7 +163,7 @@ function CurrentProjects(){
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-gray-500 plus-jakarta-500 ml-5">No projects found for {activeStatus}.</p>
+                                <p className="text-gray-500 plus-jakarta-500 ml-5 slide-up">No projects found for {activeStatus}.</p>
                             )}
                         </div>
 

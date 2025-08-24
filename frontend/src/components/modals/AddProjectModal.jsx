@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from 'react';
-import { authFetch } from "../util/auth";
-import ModalErrorToast from '../components/ModalErrorToast';
-import ModalSuccessToast from '../components/ModalSuccessToast';
+import { authFetch } from "../../util/auth";
+import ModalErrorToast from '../ModalErrorToast';
+import ModalSuccessToast from '../ModalSuccessToast';
 
 function AddProjectModal({ onClose, refreshProjects }) {
     const [errorMessage, setErrorMessage] = useState("");

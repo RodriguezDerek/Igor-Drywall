@@ -40,7 +40,7 @@ export default function Search(){
 
     return(
         <>
-            <div className="bg-white rounded-xl w-[50%] h-full p-6">
+            <div className="bg-white rounded-xl w-[50%] h-full p-6 slide-in-right-medium-1">
                 <h1 className="plus-jakarta-700 text-xl mb-4">Job Search</h1>
 
                 <div className="flex flex-col gap-4">

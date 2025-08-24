@@ -6,7 +6,7 @@ export default function RecentProject({ stats }) {
     const recentProject = stats.mostRecentProject;
 
     return (
-        <div className="bg-white rounded-xl w-200 h-35 p-6 shadow-sm">
+        <div className="bg-white rounded-xl w-200 h-35 p-6 shadow-sm slide-in-right-medium-1">
             <h1 className="text-lg plus-jakarta-700 text-center mb-4">Most Recent Job</h1>
 
             <div className="grid grid-cols-3 text-center">

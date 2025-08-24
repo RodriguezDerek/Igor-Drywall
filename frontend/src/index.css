@@ -36,6 +36,10 @@ body {
   animation: slideUp 0.8s ease-out forwards;
 }
 
+.slide-up-1 {
+  animation: slideUp 1s ease-out forwards;
+}
+
 
 @keyframes slideInFade {
   0% {
@@ -124,9 +128,24 @@ body {
 }
 
 .slide-in-right-medium {
+  animation: slideInRightSlow 1s ease-out forwards;
+}
+
+.slide-in-right-medium-1 {
   animation: slideInRightSlow 0.8s ease-out forwards;
 }
 
+.slide-in-right-medium-2 {
+  animation: slideInRightSlow 0.7s ease-out forwards;
+}
+
+.slide-in-right-medium-3 {
+  animation: slideInRightSlow 0.6s ease-out forwards;
+}
+
+.slide-in-right-medium-4 {
+  animation: slideInRightSlow 0.5s ease-out forwards;
+}
 
 .nav-link {
   position: relative;
