@@ -1,10 +1,15 @@
 package com.project.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.project.backend.enums.MaterialThickness;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -16,4 +21,20 @@ public class MaterialSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "notes", nullable = false)
+    private String notes;
+
+    @Column(name = "material_thickness", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MaterialThickness thickness;
+
+    @OneToMany(mappedBy = "materialSheet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<MaterialType> materialTypes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
+    @JsonBackReference
+    private Project project;
 }
