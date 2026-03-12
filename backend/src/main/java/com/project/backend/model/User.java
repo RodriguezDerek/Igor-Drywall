@@ -55,7 +55,7 @@ public class User implements UserDetails {
     @Column(name = "date_added", updatable = false)
     private LocalDateTime dateAdded;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "account_non_expired")
@@ -68,7 +68,7 @@ public class User implements UserDetails {
     private boolean isCredentialsNonExpired = true;
 
     @Column(name = "enabled")
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
 
     @PrePersist
     public void prePersist(){
@@ -77,7 +77,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
