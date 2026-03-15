@@ -74,4 +74,26 @@ public class GlobalExceptionHandler {
                 .localDateTime(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(UserDetailsUnchangedException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleUserDetailsUnchangedException(UserDetailsUnchangedException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.CONFLICT.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvalidCurrentPasswordException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleInvalidCurrentPasswordException(InvalidCurrentPasswordException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
 }

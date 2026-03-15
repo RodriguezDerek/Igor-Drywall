@@ -1,6 +1,6 @@
-package com.project.backend.security;
+package com.project.backend.jwt;
 
-import com.project.backend.model.User;
+import com.project.backend.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "PLACEHOLDER";
+    private final String SECRET_KEY = "xehjubTPSVlzCqejABdNWRjJJr28facZ0BWXGItsHIF";
 
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);

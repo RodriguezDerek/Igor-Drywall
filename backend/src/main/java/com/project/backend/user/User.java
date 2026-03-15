@@ -1,4 +1,4 @@
-package com.project.backend.model;
+package com.project.backend.user;
 
 import com.project.backend.enums.UserRole;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.project.backend.security;
+package com.project.backend.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

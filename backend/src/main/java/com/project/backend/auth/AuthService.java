@@ -1,16 +1,17 @@
-package com.project.backend.service;
+package com.project.backend.auth;
 
-import com.project.backend.DTO.GenericResponse;
-import com.project.backend.DTO.LoginRequest;
-import com.project.backend.DTO.RegisterRequest;
+import com.project.backend.DTO.requests.LoginRequestDTO;
+import com.project.backend.DTO.requests.RegisterRequestDTO;
+import com.project.backend.DTO.responses.GenericResponseDTO;
+import com.project.backend.DTO.responses.LoginResponseDTO;
 import com.project.backend.enums.UserRole;
 import com.project.backend.exceptions.EmailExistsException;
 import com.project.backend.exceptions.PhoneNumberExistsException;
 import com.project.backend.exceptions.UserNotEnabledException;
 import com.project.backend.exceptions.UserNotFoundException;
-import com.project.backend.model.User;
-import com.project.backend.repository.UserRepository;
-import com.project.backend.security.JwtService;
+import com.project.backend.jwt.JwtService;
+import com.project.backend.user.User;
+import com.project.backend.user.UserRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,20 +26,20 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public GenericResponse register(RegisterRequest request) {
+    public GenericResponseDTO register(RegisterRequestDTO request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new EmailExistsException("This email is already associated with an existing account.");
         }
 
         if(userRepository.findByPhoneNumber(request.getPhoneNumber()).isPresent()){
-            throw new PhoneNumberExistsException("Phone Number already is taken");
+            throw new PhoneNumberExistsException("This phone number is already associated with another account.");
         }
 
         User newUser = User.builder()
@@ -51,64 +52,68 @@ public class UserService {
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
                 .isCredentialsNonExpired(true)
-                .isEnabled(false)
+                .isEnabled(true) // True for testing and False for production
                 .build();
 
         userRepository.save(newUser);
 
-        return GenericResponse.builder()
-                .message("Account created successfully. Awaiting administrator approval.")
+        return GenericResponseDTO.builder()
+                .message("Account created successfully. Your account is now pending administrator approval.")
                 .status(HttpStatus.CREATED.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
 
-    public GenericResponse login(LoginRequest request, HttpServletResponse response) {
+    public LoginResponseDTO login(LoginRequestDTO request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    request.getEmail(),
-                    request.getPassword()
+                        request.getEmail(),
+                        request.getPassword()
                 )
         );
 
         User user = (User) authentication.getPrincipal();
 
         if (user == null) {
-            throw new UserNotFoundException("User not found");
+            throw new UserNotFoundException("Invalid email or password.");
         }
 
         if (!user.isEnabled()) {
-            throw new UserNotEnabledException("Account not activated by admin yet");
+            throw new UserNotEnabledException("Your account is pending administrator approval. Please try again later.");
         }
 
         String token = jwtService.generateToken(user);
 
         Cookie cookie = new Cookie("jwt", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(false);   // True: Production / False: Development
+        cookie.setSecure(false);   // True: Production
         cookie.setPath("/");
         cookie.setMaxAge(30 * 60);
 
         response.addCookie(cookie);
 
-        return GenericResponse.builder()
-                .message("Login successful. Welcome back!")
-                .status(HttpStatus.OK.value())
-                .timeStamp(LocalDateTime.now())
+        return LoginResponseDTO.builder()
+                .userId(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
                 .build();
     }
 
-    public GenericResponse logout(HttpServletResponse response) {
+    public GenericResponseDTO logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
 
         response.addCookie(cookie);
 
-        return GenericResponse.builder()
-                .message("Logout successful")
+        return GenericResponseDTO.builder()
+                .message("You have been logged out successfully.")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
+
 }

@@ -1,4 +1,4 @@
-package com.project.backend.DTO;
+package com.project.backend.DTO.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenericResponse {
+public class GenericResponseDTO {
     private String message;
     private int status;
     private LocalDateTime timeStamp;

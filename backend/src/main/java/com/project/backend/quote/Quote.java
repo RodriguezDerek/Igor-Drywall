@@ -1,4 +1,4 @@
-package com.project.backend.model;
+package com.project.backend.quote;
 
 import com.project.backend.enums.PropertyType;
 import com.project.backend.enums.ServiceType;

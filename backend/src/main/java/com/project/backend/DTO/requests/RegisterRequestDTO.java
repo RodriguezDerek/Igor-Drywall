@@ -1,4 +1,4 @@
-package com.project.backend.DTO;
+package com.project.backend.DTO.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RegisterRequestDTO {
     @NotBlank(message = "First name cannot be blank")
     private String firstName;
 
