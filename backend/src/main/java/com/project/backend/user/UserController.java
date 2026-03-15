@@ -4,6 +4,7 @@ import com.project.backend.DTO.requests.UpdateUserDetailsRequestDTO;
 import com.project.backend.DTO.requests.UpdateUserPasswordRequestDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.DTO.users.UserDTO;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,8 +41,8 @@ public class UserController {
 
     @PutMapping("/user/details/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
-    public ResponseEntity<GenericResponseDTO> updateUserDetails(@Valid @RequestBody UpdateUserDetailsRequestDTO request, @PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUserDetails(request, id));
+    public ResponseEntity<GenericResponseDTO> updateUserDetails(@Valid @RequestBody UpdateUserDetailsRequestDTO request,  HttpServletResponse response, @PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUserDetails(request, response, id));
     }
 
     @PutMapping("/user/password/{id}")

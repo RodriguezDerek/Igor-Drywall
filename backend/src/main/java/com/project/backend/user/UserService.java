@@ -28,6 +28,7 @@ import java.util.List;
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
     private final UserRepository userRepository;
 
     public List<UserDTO> getAllUsers() {
@@ -62,7 +63,7 @@ public class UserService {
                 .build();
     }
 
-    public GenericResponseDTO updateUserDetails(UpdateUserDetailsRequestDTO request, Long id) {
+    public GenericResponseDTO updateUserDetails(UpdateUserDetailsRequestDTO request, HttpServletResponse response, Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("No user was found with the provided ID."));
 
@@ -87,6 +88,16 @@ public class UserService {
         user.setPhoneNumber(newPhoneNumber);
 
         userRepository.save(user);
+
+        String newToken = jwtService.generateToken(user);
+
+        Cookie cookie = new Cookie("jwt", newToken);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);   // True: Production
+        cookie.setPath("/");
+        cookie.setMaxAge(30 * 60);
+
+        response.addCookie(cookie);
 
         return GenericResponseDTO.builder()
                 .message("User has been updated successfully.")
