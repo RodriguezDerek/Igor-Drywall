@@ -74,4 +74,59 @@ public class GlobalExceptionHandler {
                 .localDateTime(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(DetailsUnchangedException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleUserDetailsUnchangedException(DetailsUnchangedException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.CONFLICT.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvalidCurrentPasswordException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleInvalidCurrentPasswordException(InvalidCurrentPasswordException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(QuoteNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleQuoteNotFoundException(QuoteNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvoiceNameExistsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleInvoiceNameExistsException(InvoiceNameExistsException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.CONFLICT.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvoiceNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleInvoiceNotFoundException(InvoiceNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
 }

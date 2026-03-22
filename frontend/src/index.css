@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+
+.main-font {
+  font-family: "Playfair Display", serif;
+}
+
+.sub-font {
+  font-family: "Barlow", sans-serif;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  width: 150%;
+  height: 3px;
+  background-color: #C8102E;
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease-out;
+}
+
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 18s linear infinite;
+}
