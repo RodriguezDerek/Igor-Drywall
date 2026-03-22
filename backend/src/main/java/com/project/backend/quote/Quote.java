@@ -34,7 +34,6 @@ public class Quote {
 
     @Column(name = "email", nullable = false)
     @Email(message = "Email must be valid")
-    @NotBlank(message = "Email is required")
     private String email;
 
     @Column(name = "phone_number", nullable = false)

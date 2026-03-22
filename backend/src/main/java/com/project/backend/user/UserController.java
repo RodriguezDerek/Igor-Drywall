@@ -1,7 +1,7 @@
 package com.project.backend.user;
 
-import com.project.backend.DTO.requests.UpdateUserDetailsRequestDTO;
-import com.project.backend.DTO.requests.UpdateUserPasswordRequestDTO;
+import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
+import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.DTO.users.UserDTO;
 import jakarta.servlet.http.HttpServletResponse;

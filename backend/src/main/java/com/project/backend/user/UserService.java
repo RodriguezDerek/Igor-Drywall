@@ -1,22 +1,15 @@
 package com.project.backend.user;
 
-import com.project.backend.DTO.requests.LoginRequestDTO;
-import com.project.backend.DTO.requests.RegisterRequestDTO;
-import com.project.backend.DTO.requests.UpdateUserDetailsRequestDTO;
-import com.project.backend.DTO.requests.UpdateUserPasswordRequestDTO;
+import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
+import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
-import com.project.backend.DTO.responses.LoginResponseDTO;
 import com.project.backend.DTO.users.UserDTO;
-import com.project.backend.enums.UserRole;
 import com.project.backend.exceptions.*;
 import com.project.backend.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +61,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("No user was found with the provided ID."));
 
         if (!hasUserDetailsChanged(user, request)) {
-            throw new UserDetailsUnchangedException("No changes were detected. Please modify at least one field before updating.");
+            throw new DetailsUnchangedException("No changes were detected. Please modify at least one field before updating.");
         }
 
         String newEmail = request.getEmail();
