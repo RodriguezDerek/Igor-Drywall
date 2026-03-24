@@ -34,17 +34,17 @@ public class InvoiceItem {
     @Column(name = "unit_price", nullable = false)
     @DecimalMin(value = "0.0", message = "Unit price can't be negative")
     @NotNull(message = "Unit price is required")
-    private BigDecimal unitPrice;
+    private Double unitPrice;
 
     @Column(name = "tax", nullable = false)
     @DecimalMin(value = "0.0", message = "Tax cannot be negative")
     @NotNull(message = "Tax is required")
-    private BigDecimal tax;
+    private Double tax;
 
     @Column(name = "total", nullable = false)
     @DecimalMin(value = "0.0", message = "Total cannot be negative")
     @NotNull(message = "Total is required")
-    private BigDecimal total;
+    private Double total;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

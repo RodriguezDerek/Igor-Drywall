@@ -45,7 +45,7 @@ public class InvoiceRequestDTO {
 
     @DecimalMin(value = "0.0", message = "Value cannot be negative")
     @NotNull(message = "Amount is required")
-    private BigDecimal amount;
+    private Double amount;
 
     @NotEmpty(message = "Invoice must contain at least one item")
     private List<InvoiceItemRequestDTO> items;

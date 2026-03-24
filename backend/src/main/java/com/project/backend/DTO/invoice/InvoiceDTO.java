@@ -24,7 +24,7 @@ public class InvoiceDTO {
     private String billingAddress;
     private String notes;
     private String paymentInstructions;
-    private BigDecimal amount;
+    private Double amount;
     private LocalDateTime createdAt;
     private List<InvoiceItem> items;
 }
