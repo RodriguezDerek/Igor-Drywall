@@ -61,7 +61,7 @@ public class Invoice {
     @Column(name = "amount", nullable = false)
     @DecimalMin(value = "0.0", message = "Value cannot be negative")
     @NotNull(message = "Amount is required")
-    private BigDecimal amount;
+    private Double amount;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

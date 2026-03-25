@@ -28,13 +28,13 @@ public class InvoiceItemRequestDTO {
 
     @NotNull(message = "Unit price is required")
     @DecimalMin(value = "0.0", message = "Unit price cannot be negative")
-    private BigDecimal unitPrice;
+    private Double unitPrice;
 
     @NotNull(message = "Tax is required")
     @DecimalMin(value = "0.0", message = "Tax cannot be negative")
-    private BigDecimal tax;
+    private Double tax;
 
     @NotNull(message = "Total is required")
     @DecimalMin(value = "0.0", message = "Total cannot be negative")
-    private BigDecimal total;
+    private Double total;
 }

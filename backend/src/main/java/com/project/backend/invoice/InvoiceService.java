@@ -4,6 +4,7 @@ import com.project.backend.DTO.invoice.InvoiceItemRequestDTO;
 import com.project.backend.DTO.invoice.InvoiceRequestDTO;
 import com.project.backend.DTO.invoice.InvoiceDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
+import com.project.backend.enums.InvoiceStatus;
 import com.project.backend.exceptions.DetailsUnchangedException;
 import com.project.backend.exceptions.InvoiceNameExistsException;
 import com.project.backend.exceptions.InvoiceNotFoundException;
@@ -65,6 +66,10 @@ public class InvoiceService {
 
     public List<InvoiceDTO> getAllInvoices() {
         return invoiceRepository.findAll().stream().map(this::toInvoiceDTO).toList();
+    }
+
+    public List<InvoiceDTO> getInvoicesByStatus(InvoiceStatus status) {
+        return invoiceRepository.findByStatus(status).stream().map(this::toInvoiceDTO).toList();
     }
 
     public GenericResponseDTO updateInvoice(InvoiceRequestDTO request, Long id) {
@@ -150,6 +155,7 @@ public class InvoiceService {
 
     private InvoiceDTO toInvoiceDTO(Invoice invoice) {
         return InvoiceDTO.builder()
+                .id(invoice.getId())
                 .title(invoice.getTitle())
                 .status(invoice.getStatus())
                 .issueDate(invoice.getIssueDate())
