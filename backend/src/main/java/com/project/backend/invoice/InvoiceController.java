@@ -3,6 +3,7 @@ package com.project.backend.invoice;
 import com.project.backend.DTO.invoice.InvoiceRequestDTO;
 import com.project.backend.DTO.invoice.InvoiceDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
+import com.project.backend.enums.InvoiceStatus;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,11 @@ public class InvoiceController {
     @GetMapping
     public ResponseEntity<List<InvoiceDTO>> getAllInvoices() {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getAllInvoices());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<InvoiceDTO>> getInvoicesByStatus(@RequestParam InvoiceStatus status) {
+        return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getInvoicesByStatus(status));
     }
 
     @PutMapping("/invoice/{id}")

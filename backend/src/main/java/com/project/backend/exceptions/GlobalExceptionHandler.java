@@ -129,4 +129,26 @@ public class GlobalExceptionHandler {
                 .localDateTime(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(ProjectExistsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleProjectExistsException(ProjectExistsException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.CONFLICT.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(DownloadFileException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleDownloadFileException(DownloadFileException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.CONFLICT.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
 }
