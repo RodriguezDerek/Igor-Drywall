@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
+interface Service {
+    id: string,
+    img: string,
+    title: string,
+    text: string
+}
+
 export default function ServiceSection() {
-    interface Service {
-        id: string,
-        img: string,
-        title: string,
-        text: string
-    }
 
     const services: Service[] = [
         { 
@@ -66,13 +67,13 @@ export default function ServiceSection() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-[#333333]">
                     {services.map((service) => (
-                        <div key={service.id} className="p-10 border-r border-b bg-[#1E1E1E] border-[#333333] relative group transition-all duration-300 hover:bg-[#161616] hover:border-[#C8102E]">
+                        <div key={service.id} className="p-10 border-r border-b bg-[#1E1E1E] border-[#333333] relative group transition-all duration-200 hover:bg-[#161616] hover:border-[#C8102E]">
                             <span className="text-sm text-[#333333] main-font font-bold block mb-6">{service.id}</span>
                             <img src={service.img} className="mb-6 w-9 h-9" alt={service.title} />
                             <h3 className="text-xl font-serif mb-4 leading-tight main-font font-bold">{service.title}</h3>
                             <p className="text-[#A8A8A8] text-sm leading-relaxed mb-6 sub-font">{service.text}</p>
                             
-                            <div className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            <div className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
                                 <Link to="/services" className="text-[#C8102E] text-xs font-bold flex items-center gap-2 uppercase tracking-tighter sub-font">
                                     Learn More <span className="text-lg">→</span>
                                 </Link>
