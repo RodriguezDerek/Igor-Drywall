@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 export default function HeroSection() {
     return (
@@ -15,8 +16,8 @@ export default function HeroSection() {
                     <p className="text-[#A8A8A8] mb-10 leading-relaxed max-w-lg text-base font-light">At Igor Drywall Company, we provide high-quality drywall services built on craftsmanship and reliability. Transparent estimates, dependable service, and flawless finishes — every time.</p>
             
                     <div className="flex items-center gap-4 flex-wrap">
-                        <a href="#" className="bg-[#C8102E] hover:bg-[#b90f2c] rounded-sm transition-colors text-white sub-font font-semibold px-8 py-4 text-sm tracking-wide">Request a Free Quote →</a>
-                        <a href="#" className="border border-[#545454] hover:border-[#888888] rounded-sm transition-colors text-white sub-font font-semibold px-8 py-4 text-sm tracking-wide">View Our Services</a>
+                        <Link to="/quote" className="bg-[#C8102E] hover:bg-[#b90f2c] rounded-sm transition-colors text-white sub-font font-semibold px-8 py-4 text-sm tracking-wide">Request a Free Quote →</Link>
+                        <Link to="/services" className="border border-[#545454] hover:border-[#888888] rounded-sm transition-colors text-white sub-font font-semibold px-8 py-4 text-sm tracking-wide">View Our Services</Link>
                     </div>
             
                 </div>

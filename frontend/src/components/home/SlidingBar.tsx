@@ -1,8 +1,9 @@
+interface Service {
+    type: string;
+    icon: string;
+}
+
 export default function SlidingBar() {
-    interface Service {
-        type: string;
-        icon: string;
-    }
 
     const services : Service[] = [
         { type: "Serving All of Connecticut", icon: "Check"},

@@ -22,7 +22,7 @@ public class MaterialSheet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "notes", nullable = false)
+    @Column(name = "notes")
     private String notes;
 
     @Column(name = "material_thickness", nullable = false)
