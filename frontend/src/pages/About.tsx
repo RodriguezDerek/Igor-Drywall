@@ -1,4 +1,4 @@
-import Navbar from "../components/global/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import AboutSection from "../components/about/AboutSection";
 import TeamSection from "../components/about/TeamSection";
 import Footer from "../components/global/Footer";
