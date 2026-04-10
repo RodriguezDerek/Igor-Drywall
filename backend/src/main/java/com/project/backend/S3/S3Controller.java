@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,16 +20,19 @@ public class S3Controller {
     private final S3Service s3Service;
 
     @PostMapping("/upload/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponseDTO> uploadFile(@PathVariable Long projectId, @RequestParam("file") MultipartFile file) {
         return ResponseEntity.status(HttpStatus.OK).body(s3Service.uploadFile(projectId, file));
     }
 
     @GetMapping("/list/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<String>> getAllFiles(@PathVariable Long projectId) {
         return ResponseEntity.status(HttpStatus.OK).body(s3Service.getAllFiles(projectId));
     }
 
     @GetMapping("/download/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long projectId, @RequestParam("fileName") String fileName) {
         try {
             byte[] data = s3Service.downloadFile(projectId, fileName);
@@ -42,6 +46,7 @@ public class S3Controller {
     }
 
     @DeleteMapping("/delete/{projectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponseDTO> deleteFile(@PathVariable Long projectId, @RequestParam("fileName") String fileName) {
         return ResponseEntity.status(HttpStatus.OK).body(s3Service.deleteFile(projectId, fileName));
     }

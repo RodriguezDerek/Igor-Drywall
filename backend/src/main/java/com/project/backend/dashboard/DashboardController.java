@@ -5,6 +5,7 @@ import com.project.backend.DTO.dashboard.InvoiceStatsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +18,13 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     @GetMapping("/dashboard")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DashboardStatsDTO> getDashboardStats() {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getDashboardStats());
     }
 
     @GetMapping("/invoices")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<InvoiceStatsDTO> getInvoiceStats() {
         return ResponseEntity.status(HttpStatus.OK).body(dashboardService.getInvoiceStats());
     }

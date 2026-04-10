@@ -6,6 +6,7 @@ import com.project.backend.DTO.invoice.InvoiceDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.enums.InvoiceStatus;
 import com.project.backend.exceptions.DetailsUnchangedException;
+import com.project.backend.exceptions.InvoiceItemNotFoundException;
 import com.project.backend.exceptions.InvoiceNameExistsException;
 import com.project.backend.exceptions.InvoiceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,10 @@ public class InvoiceService {
             throw new DetailsUnchangedException("No changes were detected. Please modify at least one field before updating.");
         }
 
+        if (!invoice.getTitle().equals(request.getTitle()) && invoiceRepository.existsByTitle(request.getTitle())) {
+            throw new InvoiceNameExistsException("The provided title is already used by another invoice.");
+        }
+
         invoice.setTitle(request.getTitle());
         invoice.setStatus(request.getStatus());
         invoice.setIssueDate(request.getIssueDate());
@@ -124,7 +129,7 @@ public class InvoiceService {
                     InvoiceItem existingItem = existingItems.stream()
                             .filter(item -> item.getId().equals(itemRequest.getId()))
                             .findFirst()
-                            .orElseThrow(() -> new RuntimeException("Item not found"));
+                            .orElseThrow(() -> new InvoiceItemNotFoundException("Item not found"));
 
                     existingItem.setDescription(itemRequest.getDescription());
                     existingItem.setQuantity(itemRequest.getQuantity());

@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceItemRequestDTO {
-    @NotNull(message = "Id is required")
     private Long id;
 
     @NotBlank(message = "Description is required")

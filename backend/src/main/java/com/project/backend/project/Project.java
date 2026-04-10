@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.backend.enums.ProjectPriority;
 import com.project.backend.enums.ProjectStatus;
 import com.project.backend.enums.ServiceType;
+import com.project.backend.material.MaterialSheet;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -5,11 +5,13 @@ import com.project.backend.enums.ServiceType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,6 +30,10 @@ public class CreateQuoteRequestDTO {
     private String email;
 
     @NotBlank(message = "Phone number is required")
+    @Pattern(
+            regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$",
+            message = "Phone number must be in the format 000-000-0000"
+    )
     private String phoneNumber;
 
     @NotBlank(message = "Address is required")
@@ -43,7 +49,7 @@ public class CreateQuoteRequestDTO {
     private String projectDescription;
 
     @NotNull(message = "Start date is required")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotBlank(message = "Budget range is required")
     private String budgetRange;

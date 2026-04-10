@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,26 +21,31 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @PostMapping("/invoice")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponseDTO> createInvoice(@Valid @RequestBody InvoiceRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(invoiceService.createInvoice(request));
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<InvoiceDTO>> getAllInvoices() {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getAllInvoices());
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<InvoiceDTO>> getInvoicesByStatus(@RequestParam InvoiceStatus status) {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getInvoicesByStatus(status));
     }
 
     @PutMapping("/invoice/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponseDTO> updateInvoice(@Valid @RequestBody InvoiceRequestDTO request, @PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.updateInvoice(request, id));
     }
 
     @DeleteMapping("/invoice/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<GenericResponseDTO> deleteInvoice(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.deleteInvoice(id));
     }

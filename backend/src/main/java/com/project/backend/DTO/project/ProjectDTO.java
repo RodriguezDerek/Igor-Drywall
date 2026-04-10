@@ -3,7 +3,7 @@ package com.project.backend.DTO.project;
 import com.project.backend.enums.ProjectPriority;
 import com.project.backend.enums.ProjectStatus;
 import com.project.backend.enums.ServiceType;
-import com.project.backend.project.MaterialSheet;
+import com.project.backend.material.MaterialSheet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

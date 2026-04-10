@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,6 +25,6 @@ public class QuoteDTO {
     private PropertyType propertyType;
     private String projectDescription;
     private String budgetRange;
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     private LocalDateTime createdAt;
 }
