@@ -99,16 +99,16 @@ export default function ProfileModal({ data }: ProfileModalProps) {
                 </div>
 
                 <div className="border-t border-[#333333] py-2">
-                    <div className="flex items-center gap-4 px-5 py-2 bg-[#131313] cursor-pointer">
+                    <Link to="/settings" className="flex items-center gap-4 px-5 py-2 bg-[#131313] cursor-pointer">
                         <img src="/dashboard_images/settings_icon.png" alt="" className="w-3 h-3 opacity-100" />
                         <span className="text-[14px] text-[#888888] sub-font font-medium">Account Settings</span>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="border-t border-[#333333] px-5 py-3 flex justify-between items-center bg-[#131313]">
                     <span className="text-xs text-[#888888] underline truncate max-w-37.5">{modalData.email}</span>
                     
-                    <button onClick={handleSignOut} className="flex items-center gap-2 text-[#C8102E] font-medium">
+                    <button onClick={handleSignOut} className="cursor-pointer flex items-center gap-2 text-[#C8102E] font-medium">
                         <span className="text-[14px] text-[#C8102E] sub-font font-medium">Sign Out</span>
                         <img src="/dashboard_images/signout2_icon.png" alt="" className="w-3 h-3" />
                     </button>

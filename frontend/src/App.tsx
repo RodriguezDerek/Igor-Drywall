@@ -8,6 +8,12 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp'
 import ForgotPassword from './components/auth/ForgotPassword';
 import Dashboard from './pages/Dashboard';
+import Calendar from './pages/Calendar';
+import Jobs from './pages/Jobs';
+import Workers from './pages/Workers';
+import Quotes from './pages/Quotes';
+import Invoices from './pages/Invoices';
+import Setting from './pages/Setting';
 
 export default function App() {
   return (
@@ -24,6 +30,12 @@ export default function App() {
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/calendar" element={<Calendar />} />
+                    <Route path="/jobs" element={<Jobs />} />
+                    <Route path="/workers" element={<Workers />} />
+                    <Route path="/quotes" element={<Quotes />} />
+                    <Route path="/invoices" element={<Invoices />} />
+                    <Route path="/settings" element={<Setting />} />
                 </Routes>
             </Router>
         </>
