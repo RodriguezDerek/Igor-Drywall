@@ -4,6 +4,8 @@ import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
 import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.DTO.users.UserDTO;
+import com.project.backend.DTO.users.UserTableDTO;
+import com.project.backend.enums.UserRole;
 import com.project.backend.exceptions.*;
 import com.project.backend.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
@@ -23,6 +25,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserRepository userRepository;
+
+    public List<UserTableDTO> getTableWorkers() {
+        return userRepository.findTop4ByRole(UserRole.WORKER).stream().map(this::toUserTableDTO).toList();
+    }
 
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream().map(this::toUserDTO).toList();
@@ -122,6 +128,17 @@ public class UserService {
                 !user.getLastName().equals(request.getLastName()) ||
                 !user.getEmail().equals(request.getEmail()) ||
                 !user.getPhoneNumber().equals(request.getPhoneNumber());
+    }
+
+    private UserTableDTO toUserTableDTO(User user) {
+        return UserTableDTO.builder()
+                .id(user.getId())
+                .name(user.getFirstName() + " " + user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .dateAdded(user.getDateAdded())
+                .build();
     }
 
     private UserDTO toUserDTO(User user) {

@@ -11,5 +11,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     Optional<Project> findByTitle(String title);
 
     List<Project> findByProjectStatus(ProjectStatus status, Sort sort);
+    List<Project> findTop4ByOrderByCreatedAtDesc();
 
+    long countByProjectStatus(ProjectStatus status);
 }

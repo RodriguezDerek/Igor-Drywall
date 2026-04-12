@@ -4,6 +4,7 @@ import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
 import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.DTO.users.UserDTO;
+import com.project.backend.DTO.users.UserTableDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,12 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+    }
+
+    @GetMapping("/table")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<UserTableDTO>> getTableWorkers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getTableWorkers());
     }
 
     @DeleteMapping("/user/{id}")

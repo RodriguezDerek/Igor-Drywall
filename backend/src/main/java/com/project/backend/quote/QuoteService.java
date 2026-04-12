@@ -2,6 +2,7 @@ package com.project.backend.quote;
 
 import com.project.backend.DTO.quote.QuoteDTO;
 import com.project.backend.DTO.quote.CreateQuoteRequestDTO;
+import com.project.backend.DTO.quote.QuoteTableDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.exceptions.QuoteNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,10 @@ public class QuoteService {
         return quoteRepository.findAll().stream().map(this::toQuoteDTO).toList();
     }
 
+    public List<QuoteTableDTO> getTableQuotes() {
+        return quoteRepository.findTop3ByOrderByCreatedAtDesc().stream().map(this::toQuoteTableDTO).toList();
+    }
+
     public GenericResponseDTO deleteQuote(Long id) {
         Quote quote = quoteRepository.findById(id)
                 .orElseThrow(() -> new QuoteNotFoundException("No Quote was found with the provided ID."));
@@ -54,6 +59,18 @@ public class QuoteService {
                 .message("Quote has been deleted.")
                 .status(HttpStatus.OK.value())
                 .timeStamp(LocalDateTime.now())
+                .build();
+    }
+
+    private QuoteTableDTO toQuoteTableDTO(Quote quote) {
+        return QuoteTableDTO.builder()
+                .id(quote.getId())
+                .clientName(quote.getFirstName() + " " + quote.getLastName())
+                .email(quote.getEmail())
+                .phoneNumber(quote.getPhoneNumber())
+                .service(quote.getServiceType())
+                .budget(quote.getBudgetRange())
+                .creationDate(quote.getCreatedAt())
                 .build();
     }
 

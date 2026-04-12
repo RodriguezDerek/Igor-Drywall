@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
+    long countByStatus(InvoiceStatus status);
 
     boolean existsByTitle(String title);
 

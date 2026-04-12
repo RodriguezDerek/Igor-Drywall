@@ -2,6 +2,7 @@ package com.project.backend.project;
 
 import com.project.backend.DTO.project.ProjectDTO;
 import com.project.backend.DTO.project.ProjectRequestDTO;
+import com.project.backend.DTO.project.ProjectTableDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.S3.S3Service;
 import com.project.backend.enums.ProjectStatus;
@@ -59,6 +60,10 @@ public class ProjectService {
 
     public List<ProjectDTO> getAllProjects() {
         return projectRepository.findAll().stream().map(this::toProjectDTO).toList();
+    }
+
+    public List<ProjectTableDTO> getTableProjects() {
+        return projectRepository.findTop4ByOrderByCreatedAtDesc().stream().map(this::toProjectTableDTO).toList();
     }
 
     public List<ProjectDTO> getProjectsByStatus(ProjectStatus status, String direction) {
@@ -158,6 +163,17 @@ public class ProjectService {
                 .lastUpdated(project.getLastUpdated())
                 .createdAt(project.getCreatedAt())
                 .materialList(project.getMaterialList())
+                .build();
+    }
+
+    private ProjectTableDTO toProjectTableDTO(Project project) {
+        return ProjectTableDTO.builder()
+                .id(project.getId())
+                .title(project.getTitle())
+                .address(project.getAddress())
+                .projectStatus(project.getProjectStatus())
+                .startDate(project.getStartDate())
+                .clientName(project.getClientName())
                 .build();
     }
 }

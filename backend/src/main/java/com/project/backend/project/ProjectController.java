@@ -2,6 +2,7 @@ package com.project.backend.project;
 
 import com.project.backend.DTO.project.ProjectDTO;
 import com.project.backend.DTO.project.ProjectRequestDTO;
+import com.project.backend.DTO.project.ProjectTableDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.enums.ProjectStatus;
 import jakarta.validation.Valid;
@@ -30,6 +31,12 @@ public class ProjectController {
     @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
     public ResponseEntity<List<ProjectDTO>> getAllProjects() {
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getAllProjects());
+    }
+
+    @GetMapping("/table")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<ProjectTableDTO>> getTableProjects() {
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getTableProjects());
     }
 
     @GetMapping("/search")
