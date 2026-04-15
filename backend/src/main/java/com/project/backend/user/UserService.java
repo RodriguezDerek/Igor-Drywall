@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("No user was found with the provided ID."));
 
         user.setEnabled(true);
-        user.setDateAdded(LocalDateTime.now());
+        user.setDateAdded(LocalDate.now());
         userRepository.save(user);
 
         return GenericResponseDTO.builder()

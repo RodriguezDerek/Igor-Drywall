@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,5 +17,5 @@ public class QuoteTableDTO {
     private String phoneNumber;
     private ServiceType service;
     private String budget;
-    private LocalDateTime creationDate;
+    private String creationDate;
 }

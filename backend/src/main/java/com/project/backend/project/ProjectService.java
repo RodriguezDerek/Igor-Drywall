@@ -17,7 +17,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -60,6 +63,13 @@ public class ProjectService {
 
     public List<ProjectDTO> getAllProjects() {
         return projectRepository.findAll().stream().map(this::toProjectDTO).toList();
+    }
+
+    public List<ProjectTableDTO> getProjectsByMonth(String month) {
+        YearMonth yearMonth = YearMonth.parse(month);
+        LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(LocalTime.MAX);
+        return projectRepository.findByStartDateBetween(startDate, endDate).stream().map(this::toProjectTableDTO).toList();
     }
 
     public List<ProjectTableDTO> getTableProjects() {
@@ -172,7 +182,8 @@ public class ProjectService {
                 .title(project.getTitle())
                 .address(project.getAddress())
                 .projectStatus(project.getProjectStatus())
-                .startDate(project.getStartDate())
+                .priority(project.getPriority())
+                .startDate(project.getStartDate().toLocalDate().toString())
                 .clientName(project.getClientName())
                 .build();
     }

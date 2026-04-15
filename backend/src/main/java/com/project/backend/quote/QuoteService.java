@@ -70,7 +70,7 @@ public class QuoteService {
                 .phoneNumber(quote.getPhoneNumber())
                 .service(quote.getServiceType())
                 .budget(quote.getBudgetRange())
-                .creationDate(quote.getCreatedAt())
+                .creationDate(quote.getCreatedAt().toLocalDate().toString())
                 .build();
     }
 

@@ -33,6 +33,12 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getAllProjects());
     }
 
+    @GetMapping("/calendar")
+    @PreAuthorize("hasAnyRole('ADMIN', 'WORKER')")
+    public ResponseEntity<List<ProjectTableDTO>> getProjectsByMonth(@RequestParam String month) {
+        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsByMonth(month));
+    }
+
     @GetMapping("/table")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<ProjectTableDTO>> getTableProjects() {

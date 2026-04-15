@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -18,5 +18,5 @@ public class UserTableDTO {
     private String email;
     private String phoneNumber;
     private UserRole role;
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
 }

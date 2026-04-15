@@ -1,12 +1,11 @@
 package com.project.backend.DTO.project;
 
+import com.project.backend.enums.ProjectPriority;
 import com.project.backend.enums.ProjectStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,6 +16,7 @@ public class ProjectTableDTO {
     private String title;
     private String address;
     private ProjectStatus projectStatus;
-    private LocalDateTime startDate;
+    private ProjectPriority priority;
+    private String startDate;
     private String clientName;
 }
