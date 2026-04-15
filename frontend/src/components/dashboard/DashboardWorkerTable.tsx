@@ -1,3 +1,4 @@
+import { authFetch } from "../../utils/utils";
 import ErrorMessage from "../global/ErrorMessage";
 import SuccessMessage from "../global/SuccessMessage";
 import { useEffect, useState } from "react";
@@ -19,9 +20,8 @@ export default function DashboardWorkerTable() {
 
     async function getTableWorkers() {
         try {
-            const response = await fetch("http://localhost:8080/api/v1/users/table", {
+            const response = await authFetch("http://localhost:8080/api/v1/users/table", {
                 method: "GET",
-                credentials: "include"
             });
 
             if (response.ok) {
@@ -34,16 +34,26 @@ export default function DashboardWorkerTable() {
 
         } catch (error) {
             console.error(error);
-            setErrorMessage("An unexpected error occurred. Please try again.");       
+            if (error instanceof Error) {
+                switch (error.message) {
+                    case "FORBIDDEN":
+                        setErrorMessage("You do not have permission to view this.");
+                        break;
+                    case "UNAUTHORIZED":
+                        setErrorMessage("Please log in.");
+                        break;
+                    default:
+                        setErrorMessage("Something went wrong.");
+                }
+            }    
             setTimeout(() => setErrorMessage(null), 3000);     
         }
     }
 
     async function deleteWorker(id: number) {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/users/user/${id}`, {
+            const response = await authFetch(`http://localhost:8080/api/v1/users/user/${id}`, {
                 method: "DELETE",
-                credentials: "include"
             });
 
             const data = await response.json();
@@ -58,7 +68,18 @@ export default function DashboardWorkerTable() {
 
         } catch (error) {
             console.error(error);
-            setErrorMessage("An unexpected error occurred. Please try again.");       
+            if (error instanceof Error) {
+                switch (error.message) {
+                    case "FORBIDDEN":
+                        setErrorMessage("You do not have permission to view this.");
+                        break;
+                    case "UNAUTHORIZED":
+                        setErrorMessage("Please log in.");
+                        break;
+                    default:
+                        setErrorMessage("Something went wrong.");
+                }
+            }            
             setTimeout(() => setErrorMessage(null), 3000);     
         }
     }

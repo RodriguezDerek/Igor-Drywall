@@ -25,7 +25,11 @@ export async function authFetch(url: string, options: RequestInit = {}) {
     if (response.status === 401) {
         localStorage.removeItem("user");
         window.location.href = "/login";
-        return;
+        throw new Error("UNAUTHORIZED");
+    }
+
+    if (response.status === 403) {
+        throw new Error("FORBIDDEN");
     }
 
     return response;

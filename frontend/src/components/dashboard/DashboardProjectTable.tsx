@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import ErrorMessage from "../global/ErrorMessage";
 import SuccessMessage from "../global/SuccessMessage";
 import { Link } from "react-router-dom";
+import { authFetch } from "../../utils/utils";
 
 type ProjectTableDTO = {
     projectId: number;
     title: string;
     address: string;
+    priority: string;
     projectStatus: string;
     startDate: string;
     clientName: string;
@@ -19,9 +21,8 @@ export default function DashboardProjectTable() {
 
     async function getTableProjects() {
         try {
-            const response = await fetch("http://localhost:8080/api/v1/projects/table", {
+            const response = await authFetch("http://localhost:8080/api/v1/projects/table", {
                 method: "GET",
-                credentials: "include"
             })
 
             if (response.ok) {
@@ -34,16 +35,26 @@ export default function DashboardProjectTable() {
 
         } catch (error) {
             console.error(error);
-            setErrorMessage("An unexpected error occurred. Please try again.");            
+            if (error instanceof Error) {
+                switch (error.message) {
+                    case "FORBIDDEN":
+                        setErrorMessage("You do not have permission to view this.");
+                        break;
+                    case "UNAUTHORIZED":
+                        setErrorMessage("Please log in.");
+                        break;
+                    default:
+                        setErrorMessage("Something went wrong.");
+                }
+            }
             setTimeout(() => setErrorMessage(null), 3000);
         }
     }
 
     async function deleteProject(projectId: number) {
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/projects/project/${projectId}`, {
+            const response = await authFetch(`http://localhost:8080/api/v1/projects/project/${projectId}`, {
                 method: "DELETE",
-                credentials: "include"
             });
 
             const data = await response.json();
@@ -58,7 +69,18 @@ export default function DashboardProjectTable() {
 
         } catch (error) {
             console.error(error);
-            setErrorMessage("An unexpected error occurred. Please try again.");            
+            if (error instanceof Error) {
+                switch (error.message) {
+                    case "FORBIDDEN":
+                        setErrorMessage("You do not have permission to view this.");
+                        break;
+                    case "UNAUTHORIZED":
+                        setErrorMessage("Please log in.");
+                        break;
+                    default:
+                        setErrorMessage("Something went wrong.");
+                }
+            }          
             setTimeout(() => setErrorMessage(null), 3000);
         }
     }
