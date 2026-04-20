@@ -34,3 +34,15 @@ export async function authFetch(url: string, options: RequestInit = {}) {
 
     return response;
 }
+
+export const formatDate = (dateString: string) => {
+    if (!dateString) return "-";
+
+    const date = new Date(dateString);
+
+    return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+    }).format(date);
+};

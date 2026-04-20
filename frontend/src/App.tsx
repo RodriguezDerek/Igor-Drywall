@@ -14,6 +14,9 @@ import Workers from './pages/Workers';
 import Quotes from './pages/Quotes';
 import Invoices from './pages/Invoices';
 import Setting from './pages/Setting';
+import InvoiceView from './components/invoice/InvoiceView';
+import InvoiceEdit from './components/invoice/InvoiceEdit';
+import InvoiceCreate from './components/invoice/InvoiceCreate';
 
 export default function App() {
   return (
@@ -35,6 +38,9 @@ export default function App() {
                     <Route path="/workers" element={<Workers />} />
                     <Route path="/quotes" element={<Quotes />} />
                     <Route path="/invoices" element={<Invoices />} />
+                    <Route path="/invoices/create" element={<InvoiceCreate />} />
+                    <Route path="/invoices/view/:id" element={<InvoiceView />} />
+                    <Route path="/invoices/edit/:id" element={<InvoiceEdit />} />
                     <Route path="/settings" element={<Setting />} />
                 </Routes>
             </Router>
