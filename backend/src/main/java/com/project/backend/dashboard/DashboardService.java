@@ -5,13 +5,15 @@ import com.project.backend.DTO.dashboard.InvoiceStatsDTO;
 import com.project.backend.enums.InvoiceStatus;
 import com.project.backend.enums.ProjectStatus;
 import com.project.backend.enums.UserRole;
+import com.project.backend.invoice.Invoice;
 import com.project.backend.invoice.InvoiceRepository;
 import com.project.backend.project.ProjectRepository;
 import com.project.backend.quote.QuoteRepository;
 import com.project.backend.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,26 @@ public class DashboardService {
     }
 
     public InvoiceStatsDTO getInvoiceStats() {
-        return InvoiceStatsDTO.builder().build();
+        LocalDateTime startOfMonth = LocalDateTime.now()
+                .withDayOfMonth(1)
+                .toLocalDate()
+                .atStartOfDay();
+
+        LocalDateTime endOfMonth = LocalDateTime.now()
+                .withDayOfMonth(1)
+                .plusMonths(1)
+                .minusNanos(1);
+
+        long totalInvoices = invoiceRepository.count();
+        long unpaidInvoices = invoiceRepository.countByStatus(InvoiceStatus.UNPAID);
+        double totalReceived = invoiceRepository.findByStatus(InvoiceStatus.PAID).stream().mapToDouble(Invoice::getAmount).sum();
+        long paidThisMonth = invoiceRepository.countByStatusAndCreatedAtBetween(InvoiceStatus.PAID, startOfMonth, endOfMonth);
+
+        return InvoiceStatsDTO.builder()
+                .totalInvoices(totalInvoices)
+                .unpaidInvoices(unpaidInvoices)
+                .totalReceived(totalReceived)
+                .paidThisMonth(paidThisMonth)
+                .build();
     }
 }

@@ -36,11 +36,6 @@ public class InvoiceItem {
     @NotNull(message = "Unit price is required")
     private Double unitPrice;
 
-    @Column(name = "tax", nullable = false)
-    @DecimalMin(value = "0.0", message = "Tax cannot be negative")
-    @NotNull(message = "Tax is required")
-    private Double tax;
-
     @Column(name = "total", nullable = false)
     @DecimalMin(value = "0.0", message = "Total cannot be negative")
     @NotNull(message = "Total is required")

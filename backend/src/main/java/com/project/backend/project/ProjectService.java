@@ -76,18 +76,18 @@ public class ProjectService {
         return projectRepository.findTop4ByOrderByCreatedAtDesc().stream().map(this::toProjectTableDTO).toList();
     }
 
-    public List<ProjectDTO> getProjectsByStatus(ProjectStatus status, String direction) {
-        Sort sort = Sort.by("createdAt");
-
-        //Default
-        sort= sort.ascending();
-
-        if ("DESC".equalsIgnoreCase(direction)) {
-            sort = sort.descending();
-        }
-
-        return projectRepository.findByProjectStatus(status, sort).stream().map(this::toProjectDTO).toList();
-    }
+//    public List<ProjectDTO> getProjectsByStatus(ProjectStatus status, String direction) {
+//        Sort sort = Sort.by("createdAt");
+//
+//        //Default
+//        sort= sort.ascending();
+//
+//        if ("DESC".equalsIgnoreCase(direction)) {
+//            sort = sort.descending();
+//        }
+//
+//        return projectRepository.findByProjectStatus(status, sort).stream().map(this::toProjectDTO).toList();
+//    }
 
     public GenericResponseDTO updateProject(ProjectRequestDTO request, Long id) {
         Project project = projectRepository.findById(id)

@@ -45,11 +45,11 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK).body(projectService.getTableProjects());
     }
 
-    @GetMapping("/search")
-    @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
-    public ResponseEntity<List<ProjectDTO>> getJobsByStatus(@RequestParam ProjectStatus status, @RequestParam String direction) {
-        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsByStatus(status, direction));
-    }
+//    @GetMapping("/search")
+//    @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
+//    public ResponseEntity<List<ProjectDTO>> getJobsByStatus(@RequestParam ProjectStatus status, @RequestParam String direction) {
+//        return ResponseEntity.status(HttpStatus.OK).body(projectService.getProjectsByStatus(status, direction));
+//    }
 
     @PutMapping("/project/{id}")
     @PreAuthorize("hasRole('ADMIN')")

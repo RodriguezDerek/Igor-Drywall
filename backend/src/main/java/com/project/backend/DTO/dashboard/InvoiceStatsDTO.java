@@ -5,17 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceStatsDTO {
-    private Integer totalInvoices;
-    private BigDecimal overdueAmount;
-    private Integer pastDueCount;
-    private BigDecimal totalReceived;
-    private BigDecimal amountThisMonth;
-    private Integer paidThisMonth;
+    private long totalInvoices;
+    private long unpaidInvoices;
+    private double totalReceived;
+    private long paidThisMonth;
 }

@@ -32,6 +32,12 @@ public class InvoiceController {
         return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getAllInvoices());
     }
 
+    @GetMapping("/invoice/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<InvoiceDTO> getInvoiceById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(invoiceService.getInvoiceById(id));
+    }
+
     @GetMapping("/search")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<InvoiceDTO>> getInvoicesByStatus(@RequestParam InvoiceStatus status) {

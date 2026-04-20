@@ -1,6 +1,9 @@
 package com.project.backend.config;
 
 import com.project.backend.enums.*;
+import com.project.backend.invoice.Invoice;
+import com.project.backend.invoice.InvoiceItem;
+import com.project.backend.invoice.InvoiceRepository;
 import com.project.backend.project.Project;
 import com.project.backend.project.ProjectRepository;
 import com.project.backend.quote.Quote;
@@ -26,6 +29,7 @@ public class DataInitializer {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final QuoteRepository quoteRepository;
+    private final InvoiceRepository invoiceRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Value("${admin.email}")
@@ -59,7 +63,9 @@ public class DataInitializer {
                 List<Project> projects = projectExamples();
                 List<User> users = userExamples();
                 List<Quote> quotes = quoteExamples();
+                List<Invoice> invoices = invoiceExamples();
 
+                invoiceRepository.saveAll(invoices);
                 projectRepository.saveAll(projects);
                 quoteRepository.saveAll(quotes);
                 userRepository.saveAll(users);
@@ -273,5 +279,50 @@ public class DataInitializer {
                         .startDate(LocalDate.of(2026, 4, 25))
                         .build()
         );
+    }
+
+    private List<Invoice> invoiceExamples() {
+
+        Invoice invoice1 = Invoice.builder()
+                .title("Ben Lee")
+                .status(InvoiceStatus.PAID)
+                .issueDate(LocalDateTime.now())
+                .dueDate(LocalDateTime.now().plusDays(7))
+                .clientName("Derek")
+                .billingAddress("7 Hill Drive, Masonry & Tile Work")
+                .notes("Notes")
+                .paymentInstructions("Bank transfer within 7 days")
+                .amount(600.0)
+                .build();
+
+        List<InvoiceItem> items1 = List.of(
+                InvoiceItem.builder()
+                        .description("HVAC System Inspection")
+                        .quantity(1)
+                        .unitPrice(250.0)
+                        .total(250.0)
+                        .invoice(invoice1)
+                        .build(),
+
+                InvoiceItem.builder()
+                        .description("Air Filter Replacement")
+                        .quantity(2)
+                        .unitPrice(75.0)
+                        .total(150.0)
+                        .invoice(invoice1)
+                        .build(),
+
+                InvoiceItem.builder()
+                        .description("Duct Cleaning Service")
+                        .quantity(1)
+                        .unitPrice(200.0)
+                        .total(200.0)
+                        .invoice(invoice1)
+                        .build()
+        );
+
+        invoice1.setItems(items1);
+
+        return List.of(invoice1);
     }
 }
