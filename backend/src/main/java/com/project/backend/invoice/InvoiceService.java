@@ -238,8 +238,7 @@ public class InvoiceService {
 
             if (!existing.getDescription().equals(incoming.getDescription()) ||
                     !existing.getQuantity().equals(incoming.getQuantity()) ||
-                    !existing.getUnitPrice().equals(incoming.getUnitPrice()) ||
-                    !existing.getTotal().equals(incoming.getTotal())) {
+                    !existing.getUnitPrice().equals(incoming.getUnitPrice())) {
 
                 return true;
             }

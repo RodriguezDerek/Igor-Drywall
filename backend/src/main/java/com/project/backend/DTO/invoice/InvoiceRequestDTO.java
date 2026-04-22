@@ -10,8 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -26,10 +25,10 @@ public class InvoiceRequestDTO {
     private InvoiceStatus status;
 
     @NotNull(message = "Issue date is required")
-    private LocalDateTime issueDate;
+    private LocalDate issueDate;
 
     @NotNull(message = "Due date is required")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @NotBlank(message = "Client name is required")
     private String clientName;

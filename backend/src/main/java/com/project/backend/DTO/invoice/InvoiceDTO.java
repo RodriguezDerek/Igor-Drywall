@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class InvoiceDTO {
     private Long id;
     private String title;
     private InvoiceStatus status;
-    private LocalDateTime issueDate;
-    private LocalDateTime dueDate;
+    private LocalDate issueDate;
+    private LocalDate dueDate;
     private String clientName;
     private String billingAddress;
     private String notes;

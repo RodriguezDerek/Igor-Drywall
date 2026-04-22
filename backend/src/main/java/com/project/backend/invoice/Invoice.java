@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,11 +37,11 @@ public class Invoice {
 
     @Column(name = "issue_date", nullable = false)
     @NotNull(message = "Issue date is required")
-    private LocalDateTime issueDate;
+    private LocalDate issueDate;
 
     @Column(name = "due_date", nullable = false)
     @NotNull(message = "Due date is required")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @Column(name = "client_name", nullable = false)
     @NotBlank(message = "Client name is required")
