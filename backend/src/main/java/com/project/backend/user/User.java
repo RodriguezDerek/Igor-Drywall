@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +54,7 @@ public class User implements UserDetails {
     private UserRole role;
 
     @Column(name = "date_added", updatable = false)
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -2,17 +2,25 @@ package com.project.backend.project;
 
 import com.project.backend.DTO.project.ProjectDTO;
 import com.project.backend.DTO.project.ProjectRequestDTO;
+import com.project.backend.DTO.project.ProjectTableDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.S3.S3Service;
 import com.project.backend.enums.ProjectStatus;
+import com.project.backend.exceptions.DetailsUnchangedException;
+import com.project.backend.exceptions.InvoiceNameExistsException;
 import com.project.backend.exceptions.ProjectExistsException;
+import com.project.backend.exceptions.ProjectNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -57,17 +65,93 @@ public class ProjectService {
         return projectRepository.findAll().stream().map(this::toProjectDTO).toList();
     }
 
-    public List<ProjectDTO> getProjectsByStatus(ProjectStatus status, String direction) {
-        Sort sort = Sort.by("createdAt");
+    public List<ProjectTableDTO> getProjectsByMonth(String month) {
+        YearMonth yearMonth = YearMonth.parse(month);
+        LocalDateTime startDate = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endDate = yearMonth.atEndOfMonth().atTime(LocalTime.MAX);
+        return projectRepository.findByStartDateBetween(startDate, endDate).stream().map(this::toProjectTableDTO).toList();
+    }
 
-        //Default
-        sort= sort.ascending();
+    public List<ProjectTableDTO> getTableProjects() {
+        return projectRepository.findTop4ByOrderByCreatedAtDesc().stream().map(this::toProjectTableDTO).toList();
+    }
 
-        if ("DESC".equalsIgnoreCase(direction)) {
-            sort = sort.descending();
+//    public List<ProjectDTO> getProjectsByStatus(ProjectStatus status, String direction) {
+//        Sort sort = Sort.by("createdAt");
+//
+//        //Default
+//        sort= sort.ascending();
+//
+//        if ("DESC".equalsIgnoreCase(direction)) {
+//            sort = sort.descending();
+//        }
+//
+//        return projectRepository.findByProjectStatus(status, sort).stream().map(this::toProjectDTO).toList();
+//    }
+
+    public GenericResponseDTO updateProject(ProjectRequestDTO request, Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found"));
+
+        if (!hasProjectDetailsChanged(project, request)) {
+            throw new DetailsUnchangedException("No changes were detected. Please modify at least one field before updating.");
         }
 
-        return projectRepository.findByProjectStatus(status, sort).stream().map(this::toProjectDTO).toList();
+        if (!project.getTitle().equals(request.getJobTitle()) && projectRepository.findByTitle(request.getJobTitle()).isPresent()) {
+            throw new ProjectExistsException("The provided title is already used by another project.");
+        }
+
+        project.setTitle(request.getJobTitle());
+        project.setAddress(request.getAddress());
+        project.setServiceType(request.getServiceType());
+        project.setProjectStatus(request.getStatus());
+        project.setStartDate(request.getStartDate());
+        project.setStartTime(request.getStartTime());
+        project.setPriority(request.getPriority());
+        project.setDescription(request.getProjectDescription());
+        project.setNotes(request.getNotes());
+        project.setClientName(request.getClientName());
+        project.setClientPhoneNumber(request.getClientPhoneNumber());
+        project.setClientEmail(request.getClientEmail());
+        project.setBudgetRange(request.getBudgetRange());
+
+        projectRepository.save(project);
+
+        return GenericResponseDTO.builder()
+                .message("Project updated successfully")
+                .status(HttpStatus.OK.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+    }
+
+    public GenericResponseDTO deleteProject(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found"));
+
+        projectRepository.delete(project);
+        s3Service.deleteAllFolderFiles(projectId);
+
+        return GenericResponseDTO.builder()
+                .message("Project delete successfully")
+                .status(HttpStatus.OK.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+    }
+
+    private boolean hasProjectDetailsChanged(Project project, ProjectRequestDTO request) {
+        return !project.getTitle().equals(request.getJobTitle()) ||
+                !project.getAddress().equals(request.getAddress()) ||
+                project.getServiceType() != request.getServiceType() ||
+                project.getProjectStatus() != request.getStatus() ||
+                !project.getStartDate().equals(request.getStartDate()) ||
+                !project.getStartTime().equals(request.getStartTime()) ||
+                project.getPriority() != request.getPriority() ||
+                !project.getDescription().equals(request.getProjectDescription()) ||
+                (project.getNotes() != null ? !project.getNotes().equals(request.getNotes()) : request.getNotes() != null) ||
+                !project.getClientName().equals(request.getClientName()) ||
+                !project.getClientPhoneNumber().equals(request.getClientPhoneNumber()) ||
+                (project.getClientEmail() != null ? !project.getClientEmail().equals(request.getClientEmail()) : request.getClientEmail() != null) ||
+                (project.getBudgetRange() != null ? !project.getBudgetRange().equals(request.getBudgetRange()) : request.getBudgetRange() != null);
     }
 
     private ProjectDTO toProjectDTO(Project project) {
@@ -89,6 +173,18 @@ public class ProjectService {
                 .lastUpdated(project.getLastUpdated())
                 .createdAt(project.getCreatedAt())
                 .materialList(project.getMaterialList())
+                .build();
+    }
+
+    private ProjectTableDTO toProjectTableDTO(Project project) {
+        return ProjectTableDTO.builder()
+                .id(project.getId())
+                .title(project.getTitle())
+                .address(project.getAddress())
+                .projectStatus(project.getProjectStatus())
+                .priority(project.getPriority())
+                .startDate(project.getStartDate().toLocalDate().toString())
+                .clientName(project.getClientName())
                 .build();
     }
 }

@@ -1,6 +1,24 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import DashboardDropDown from "./DashboardDropDown";
+import ProfileModal from "../profile/ProfileModal";
+
+interface UserData {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    role: string;
+}
 
 export default function Navbar() {
+    const [isDashboardDropdownOpen, setIsDashboardDropdownOpen] = useState<boolean>(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false);
+    
+    const storedUser = localStorage.getItem("user");
+    const userData: UserData | null = storedUser ? JSON.parse(storedUser) : null;
+    
     return (
         <div className="w-full">
             <div className="bg-[#C8102E] text-white text-sm">
@@ -36,12 +54,35 @@ export default function Navbar() {
                         <Link to="/services" className="nav-link sub-font hover:text-white">Services</Link>
                         <Link to="/gallery" className="nav-link sub-font hover:text-white">Gallery</Link>
                         <Link to="/quote" className="nav-link sub-font hover:text-white">Quote</Link>
+                        {userData && (
+                            <div className="relative"> 
+                                <button onClick={() => setIsDashboardDropdownOpen(prev => !prev)} className="nav-link sub-font hover:text-white">Dashboard ▼</button>
+
+                                {isDashboardDropdownOpen && (
+                                    <div className="absolute left-0 top-full z-10 mt-5.5">
+                                        <DashboardDropDown userRole={userData.role}/>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
 
-                    <div className="flex items-center gap-8">
-                        <Link to="/login" className="sub-font text-gray-300 hover:text-white">Log In</Link>
-                        <Link to="/signup" className="sub-font bg-[#C8102E] px-5 py-2 rounded-md hover:bg-red-700 transition">Sign up</Link>
-                    </div>
+                    {userData ? (
+                        <div className="relative">
+                            <button onClick={() => setIsProfileModalOpen(prev => !prev)} className="main-font font-semibold w-9.5 h-9.5 bg-[#C8102E] rounded-full cursor-pointer mt-2">{userData.firstName.charAt(0).toUpperCase()}</button>
+
+                            {isProfileModalOpen && (
+                                <div className="absolute right-0 top-full z-10 mt-5.5">
+                                    <ProfileModal data={userData}/>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-8">
+                            <Link to="/login" className="sub-font text-gray-300 hover:text-white">Log In</Link>
+                            <Link to="/signup" className="sub-font bg-[#C8102E] px-5 py-2 rounded-md hover:bg-red-700 transition">Sign up</Link>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ package com.project.backend.quote;
 
 import com.project.backend.DTO.quote.QuoteDTO;
 import com.project.backend.DTO.quote.CreateQuoteRequestDTO;
+import com.project.backend.DTO.quote.QuoteTableDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,12 @@ public class QuoteController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<QuoteDTO>> getAllQuotes() {
         return ResponseEntity.status(HttpStatus.OK).body(quoteService.getAllQuotes());
+    }
+
+    @GetMapping("/table")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<QuoteTableDTO>> getTableQuotes() {
+        return ResponseEntity.status(HttpStatus.OK).body(quoteService.getTableQuotes());
     }
 
     @DeleteMapping("/quote/{id}")

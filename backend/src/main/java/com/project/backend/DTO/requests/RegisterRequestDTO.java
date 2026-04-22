@@ -2,6 +2,7 @@ package com.project.backend.DTO.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class RegisterRequestDTO {
     private String email;
 
     @NotBlank(message = "Phone number cannot be blank")
+    @Pattern(
+            regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$",
+            message = "Phone number must be in the format 000-000-0000"
+    )
     private String phoneNumber;
 
     @NotBlank(message = "Password cannot be blank")

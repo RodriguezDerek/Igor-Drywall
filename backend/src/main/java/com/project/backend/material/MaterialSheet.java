@@ -1,8 +1,9 @@
-package com.project.backend.project;
+package com.project.backend.material;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.backend.enums.MaterialThickness;
+import com.project.backend.project.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

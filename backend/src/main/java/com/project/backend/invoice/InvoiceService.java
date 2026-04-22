@@ -6,15 +6,18 @@ import com.project.backend.DTO.invoice.InvoiceDTO;
 import com.project.backend.DTO.responses.GenericResponseDTO;
 import com.project.backend.enums.InvoiceStatus;
 import com.project.backend.exceptions.DetailsUnchangedException;
+import com.project.backend.exceptions.InvoiceItemNotFoundException;
 import com.project.backend.exceptions.InvoiceNameExistsException;
 import com.project.backend.exceptions.InvoiceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,12 +45,13 @@ public class InvoiceService {
         List<InvoiceItem> items = new ArrayList<>();
 
         for (InvoiceItemRequestDTO itemRequest : request.getItems()) {
+            double total = itemRequest.getUnitPrice() * itemRequest.getQuantity();
+
             InvoiceItem item = InvoiceItem.builder()
                     .description(itemRequest.getDescription())
                     .quantity(itemRequest.getQuantity())
                     .unitPrice(itemRequest.getUnitPrice())
-                    .tax(itemRequest.getTax())
-                    .total(itemRequest.getTotal())
+                    .total(total)
                     .invoice(invoice)
                     .build();
 
@@ -68,8 +72,32 @@ public class InvoiceService {
         return invoiceRepository.findAll().stream().map(this::toInvoiceDTO).toList();
     }
 
+    public InvoiceDTO getInvoiceById(Long id) {
+        Invoice invoice = invoiceRepository.findById(id)
+                .orElseThrow(() -> new InvoiceNotFoundException("Invoice with id " + id + " not found"));
+
+        return InvoiceDTO.builder()
+                .id(invoice.getId())
+                .title(invoice.getTitle())
+                .status(invoice.getStatus())
+                .issueDate(invoice.getIssueDate())
+                .dueDate(invoice.getDueDate())
+                .clientName(invoice.getClientName())
+                .billingAddress(invoice.getBillingAddress())
+                .notes(invoice.getNotes())
+                .paymentInstructions(invoice.getPaymentInstructions())
+                .amount(invoice.getAmount())
+                .createdAt(invoice.getCreatedAt())
+                .items(invoice.getItems())
+                .build();
+    }
+
     public List<InvoiceDTO> getInvoicesByStatus(InvoiceStatus status) {
-        return invoiceRepository.findByStatus(status).stream().map(this::toInvoiceDTO).toList();
+        if (status.equals(InvoiceStatus.ALL)) {
+            return invoiceRepository.findAll().stream().map(this::toInvoiceDTO).toList();
+        } else {
+            return invoiceRepository.findByStatus(status).stream().map(this::toInvoiceDTO).toList();
+        }
     }
 
     public GenericResponseDTO updateInvoice(InvoiceRequestDTO request, Long id) {
@@ -78,6 +106,10 @@ public class InvoiceService {
 
         if (!hasInvoiceDetailsChanged(invoice, request) && !hasInvoiceItemsDetailChanged(invoice, request)) {
             throw new DetailsUnchangedException("No changes were detected. Please modify at least one field before updating.");
+        }
+
+        if (!invoice.getTitle().equals(request.getTitle()) && invoiceRepository.existsByTitle(request.getTitle())) {
+            throw new InvoiceNameExistsException("The provided title is already used by another invoice.");
         }
 
         invoice.setTitle(request.getTitle());
@@ -91,53 +123,63 @@ public class InvoiceService {
         invoice.setAmount(request.getAmount());
 
         if (hasInvoiceItemsDetailChanged(invoice, request)) {
+
             List<InvoiceItem> existingItems = invoice.getItems();
 
             // 1. Remove deleted items
             existingItems.removeIf(existingItem ->
                     request.getItems().stream()
                             .noneMatch(reqItem ->
-                                    reqItem.getId() != null && reqItem.getId().equals(existingItem.getId())
+                                    reqItem.getId() != null &&
+                                            reqItem.getId().equals(existingItem.getId())
                             )
             );
 
-            // 2. Update existing + add new
+            // 2. Add / update items
             for (InvoiceItemRequestDTO itemRequest : request.getItems()) {
 
-                // NEW item
+                double total = itemRequest.getUnitPrice() * itemRequest.getQuantity();
+
+                // NEW ITEM
                 if (itemRequest.getId() == null) {
 
                     InvoiceItem newItem = InvoiceItem.builder()
                             .description(itemRequest.getDescription())
                             .quantity(itemRequest.getQuantity())
                             .unitPrice(itemRequest.getUnitPrice())
-                            .tax(itemRequest.getTax())
-                            .total(itemRequest.getTotal())
+                            .total(total)
                             .invoice(invoice)
                             .build();
 
                     existingItems.add(newItem);
                 }
 
-                // EXISTING item
+                // EXISTING ITEM
                 else {
+
                     InvoiceItem existingItem = existingItems.stream()
                             .filter(item -> item.getId().equals(itemRequest.getId()))
                             .findFirst()
-                            .orElseThrow(() -> new RuntimeException("Item not found"));
+                            .orElseThrow(() ->
+                                    new InvoiceItemNotFoundException("Item not found")
+                            );
 
                     existingItem.setDescription(itemRequest.getDescription());
                     existingItem.setQuantity(itemRequest.getQuantity());
                     existingItem.setUnitPrice(itemRequest.getUnitPrice());
-                    existingItem.setTax(itemRequest.getTax());
-                    existingItem.setTotal(itemRequest.getTotal());
+
+                    existingItem.setTotal(total);
                 }
             }
         }
 
         invoiceRepository.save(invoice);
 
-        return GenericResponseDTO.builder().build();
+        return GenericResponseDTO.builder()
+                .message("Invoice updated successfully")
+                .status(HttpStatus.OK.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
     }
 
     public GenericResponseDTO deleteInvoice(Long id) {
@@ -196,9 +238,7 @@ public class InvoiceService {
 
             if (!existing.getDescription().equals(incoming.getDescription()) ||
                     !existing.getQuantity().equals(incoming.getQuantity()) ||
-                    !existing.getUnitPrice().equals(incoming.getUnitPrice()) ||
-                    !existing.getTax().equals(incoming.getTax()) ||
-                    !existing.getTotal().equals(incoming.getTotal())) {
+                    !existing.getUnitPrice().equals(incoming.getUnitPrice())) {
 
                 return true;
             }

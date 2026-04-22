@@ -1,9 +1,8 @@
 package com.project.backend.user;
 
-import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
-import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
+import com.project.backend.DTO.users.*;
 import com.project.backend.DTO.responses.GenericResponseDTO;
-import com.project.backend.DTO.users.UserDTO;
+import com.project.backend.enums.UserRole;
 import com.project.backend.exceptions.*;
 import com.project.backend.jwt.JwtService;
 import jakarta.servlet.http.Cookie;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +23,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserRepository userRepository;
+
+    public List<UserTableDTO> getTableWorkers() {
+        return userRepository.findTop4ByRole(UserRole.WORKER).stream().map(this::toUserTableDTO).toList();
+    }
+
+    public List<PendingUserTableDTO> getPendingWorkers() {
+        return userRepository.findAllByIsEnabled(false).stream().map(this::toPendingUserTableDTO).toList();
+    }
 
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream().map(this::toUserDTO).toList();
@@ -46,7 +54,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("No user was found with the provided ID."));
 
         user.setEnabled(true);
-        user.setDateAdded(LocalDateTime.now());
+        user.setDateAdded(LocalDate.now());
         userRepository.save(user);
 
         return GenericResponseDTO.builder()
@@ -122,6 +130,28 @@ public class UserService {
                 !user.getLastName().equals(request.getLastName()) ||
                 !user.getEmail().equals(request.getEmail()) ||
                 !user.getPhoneNumber().equals(request.getPhoneNumber());
+    }
+
+    private PendingUserTableDTO toPendingUserTableDTO(User user) {
+        return PendingUserTableDTO.builder()
+                .id(user.getId())
+                .name(user.getFirstName() + " " + user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .requestedAt(user.getCreatedAt().toLocalDate().toString())
+                .build();
+    }
+
+    private UserTableDTO toUserTableDTO(User user) {
+        return UserTableDTO.builder()
+                .id(user.getId())
+                .name(user.getFirstName() + " " + user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .dateAdded(user.getDateAdded())
+                .build();
     }
 
     private UserDTO toUserDTO(User user) {

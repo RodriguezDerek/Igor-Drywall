@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -38,6 +40,10 @@ public class Quote {
 
     @Column(name = "phone_number", nullable = false)
     @NotBlank(message = "Phone number is required")
+    @Pattern(
+            regexp = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$",
+            message = "Phone number must be in the format 000-000-0000"
+    )
     private String phoneNumber;
 
     @Column(name = "property_address", nullable = false)
@@ -62,7 +68,7 @@ public class Quote {
 
     @Column(name = "start_date", nullable = false)
     @NotNull(message = "Start date is required")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

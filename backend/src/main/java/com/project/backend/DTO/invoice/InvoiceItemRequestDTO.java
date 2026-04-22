@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceItemRequestDTO {
-    @NotNull(message = "Id is required")
     private Long id;
 
     @NotBlank(message = "Description is required")
@@ -29,12 +28,4 @@ public class InvoiceItemRequestDTO {
     @NotNull(message = "Unit price is required")
     @DecimalMin(value = "0.0", message = "Unit price cannot be negative")
     private Double unitPrice;
-
-    @NotNull(message = "Tax is required")
-    @DecimalMin(value = "0.0", message = "Tax cannot be negative")
-    private Double tax;
-
-    @NotNull(message = "Total is required")
-    @DecimalMin(value = "0.0", message = "Total cannot be negative")
-    private Double total;
 }

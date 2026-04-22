@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DashboardStatsDTO {
-    private Integer activeJobs;
-    private Integer pendingQuotes;
-    private Integer totalInvoices;
-    private Integer totalWorkers;
+    private Long activeJobs;
+    private Long totalQuotes;
+    private Long unpaidInvoices;
+    private Long totalWorkers;
 }

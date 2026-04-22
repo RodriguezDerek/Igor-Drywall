@@ -151,4 +151,81 @@ public class GlobalExceptionHandler {
                 .localDateTime(LocalDateTime.now())
                 .build();
     }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleProjectNotFoundException(ProjectNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(MaterialSheetNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleMaterialSheetNotFoundException(MaterialSheetNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(InvoiceItemNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleInvoiceItemNotFoundException(InvoiceItemNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(MaterialTypeNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleMaterialTypeNotFoundException(MaterialTypeNotFoundException ex) {
+        return ErrorMessage.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(org.springframework.security.core.AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorMessage handleAuthenticationException(Exception ex) {
+        return ErrorMessage.builder()
+                .message("Invalid email or password")
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorMessage handleGenericException(Exception ex) {
+        return ErrorMessage.builder()
+                .message("Something went wrong. Please try again.")
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ErrorMessage handleAccessDenied(Exception ex) {
+        return ErrorMessage.builder()
+                .message("You are not authorized to access this resource")
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .localDateTime(LocalDateTime.now())
+                .build();
+    }
 }

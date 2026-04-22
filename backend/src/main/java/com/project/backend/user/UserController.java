@@ -1,9 +1,7 @@
 package com.project.backend.user;
 
-import com.project.backend.DTO.users.UpdateUserDetailsRequestDTO;
-import com.project.backend.DTO.users.UpdateUserPasswordRequestDTO;
+import com.project.backend.DTO.users.*;
 import com.project.backend.DTO.responses.GenericResponseDTO;
-import com.project.backend.DTO.users.UserDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,18 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN','WORKER')")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+    }
+
+    @GetMapping("/table")
+    @PreAuthorize("hasAnyRole('ADMIN', 'WORKER')")
+    public ResponseEntity<List<UserTableDTO>> getTableWorkers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getTableWorkers());
+    }
+
+    @GetMapping("/pending")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<PendingUserTableDTO>> getPendingWorkers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getPendingWorkers());
     }
 
     @DeleteMapping("/user/{id}")

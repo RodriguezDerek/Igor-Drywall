@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -27,7 +27,7 @@ public class UserRepositoryTest {
                 .phoneNumber("333-444-5555")
                 .password("test123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -47,7 +47,7 @@ public class UserRepositoryTest {
                 .phoneNumber("222-333-4444")
                 .password("test123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -66,7 +66,7 @@ public class UserRepositoryTest {
                 .phoneNumber("111-222-3333")
                 .password("admin123")
                 .role(UserRole.ADMIN)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -86,7 +86,7 @@ public class UserRepositoryTest {
                 .phoneNumber("444-555-6666")
                 .password("test123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -105,7 +105,7 @@ public class UserRepositoryTest {
                 .phoneNumber("777-888-9999")
                 .password("test123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -124,7 +124,7 @@ public class UserRepositoryTest {
                 .phoneNumber("999-888-7777")
                 .password("password123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -143,7 +143,7 @@ public class UserRepositoryTest {
                 .phoneNumber("555-666-7777")
                 .password("test123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);
@@ -162,7 +162,7 @@ public class UserRepositoryTest {
                 .phoneNumber("999-888-7777")
                 .password("password123")
                 .role(UserRole.WORKER)
-                .dateAdded(LocalDateTime.now())
+                .dateAdded(LocalDate.now())
                 .build();
 
         userRepository.save(user);

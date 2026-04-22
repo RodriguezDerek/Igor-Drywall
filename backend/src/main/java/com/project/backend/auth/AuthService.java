@@ -52,7 +52,7 @@ public class AuthService {
                 .isAccountNonExpired(true)
                 .isAccountNonLocked(true)
                 .isCredentialsNonExpired(true)
-                .isEnabled(false) // True for testing and False for production
+                .isEnabled(true) // True for testing and False for production
                 .build();
 
         userRepository.save(newUser);
@@ -115,5 +115,4 @@ public class AuthService {
                 .timeStamp(LocalDateTime.now())
                 .build();
     }
-
 }
