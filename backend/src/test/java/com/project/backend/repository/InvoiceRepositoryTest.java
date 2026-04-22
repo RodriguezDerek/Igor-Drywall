@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -22,8 +22,8 @@ public class InvoiceRepositoryTest {
         Invoice invoice = Invoice.builder()
                 .title("Test Project Invoice #1")
                 .status(InvoiceStatus.PAID)
-                .issueDate(LocalDateTime.now())
-                .dueDate(LocalDateTime.now())
+                .issueDate(LocalDate.now())
+                .dueDate(LocalDate.now())
                 .clientName("test")
                 .billingAddress("test")
                 .notes("test")
@@ -43,8 +43,8 @@ public class InvoiceRepositoryTest {
         Invoice invoice = Invoice.builder()
                 .title("Test Project Invoice #2")
                 .status(InvoiceStatus.UNPAID)
-                .issueDate(LocalDateTime.now())
-                .dueDate(LocalDateTime.now())
+                .issueDate(LocalDate.now())
+                .dueDate(LocalDate.now())
                 .clientName("test")
                 .billingAddress("test")
                 .notes("test")
