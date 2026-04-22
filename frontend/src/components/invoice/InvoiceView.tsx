@@ -86,7 +86,7 @@ export default function InvoiceView() {
                 setTimeout(() => {
                     setSuccessMessage(null)
                     navigate("/invoices");
-                }, 1500);
+                }, 1000);
             } else {
                 setErrorMessage(data.message);
                 setTimeout(() => setErrorMessage(null), 3000)
@@ -143,10 +143,6 @@ export default function InvoiceView() {
                             <div className="flex justify-center items-center mr-3">                    
                                 <Link to={`/invoices/edit/${id}`} type="button" className="text-xs sub-font rounded font-semibold cursor-pointer border border-[#333333] text-[#888888] hover:text-white px-4 py-2">Edit</Link>
                             </div>
-
-                            <div className="flex items-center">                    
-                                <button type="button" className="cursor-pointer rounded bg-[#C8102E] px-4 py-2 text-xs sub-font font-semibold text-white">Convert to Excel</button>
-                            </div>
                         </div>
 
                     </header>
@@ -157,7 +153,6 @@ export default function InvoiceView() {
                                 
                                 <div className="p-4 border-b border-[#333333] flex justify-between items-center">
                                     <span className="text-xs uppercase tracking-widest sub-font text-[#888888] font-semibold">Invoice Preview</span>
-                                    <button className="text-xs text-[#888888] sub-font cursor-pointer bg-transparent hover:bg-white/10 px-3 py-1.5 rounded border border-[#333333] flex items-center gap-2">↓ Download PDF</button>
                                 </div>
 
                                 <div className="p-8">
@@ -274,12 +269,11 @@ export default function InvoiceView() {
                                 </div>
                                 
                                 <div className="bg-[#0D0D0D] border border-[#333333] rounded-xl p-6">
-                                    <h5 className="text-[12px] text-[#888888] sub-font uppercase font-semibold tracking-widest pb-4">Details</h5>
+                                    <h5 className="text-[12px] text-[#888888] sub-font uppercase font-semibold tracking-widest pb-4">Actions</h5>
                                     
                                     <div className="space-y-3 sub-font">
-                                        <Link to={`/invoices/edit/${id}`} className="w-full border border-[#333333] text-white text-sm font-medium py-2 rounded-lg flex items-center justify-center gap-2">Edit Invoice</Link>
-                                        <button className="w-full border border-[#333333] text-white text-sm font-medium py-2 rounded-lg flex items-center justify-center gap-2">Download PDF</button>
-                                        <button onClick={() => id && deleteInvoice(id)}className="w-full bg-[#C8102E]/10 hover:bg-[#C8102E]/20 border border-[#C8102E] text-[#C8102E] text-sm font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition-all mt-4">Delete Invoice</button>
+                                        <Link to={`/invoices/edit/${id}`} className="w-full border border-[#333333] text-white text-sm font-medium py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-white/5">Edit Invoice</Link>
+                                        <button onClick={() => id && deleteInvoice(id)} className="w-full bg-[#C8102E]/10 hover:bg-[#C8102E]/20 border border-[#C8102E] text-[#C8102E] text-sm font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition-all mt-4">Delete Invoice</button>
                                     </div>
                                 </div>
                                 

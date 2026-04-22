@@ -124,7 +124,7 @@ export default function PendingWorkerList() {
 
     return (
         <>
-            <div className="min-h-screen pt-8">
+            <div className="pt-8">
                 <div className="mx-auto max-w-6xl">
                     <header className="mb-3">
                         <div className="flex items-center gap-3">

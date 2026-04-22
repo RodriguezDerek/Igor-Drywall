@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function InvoiceHeader() {
     const currentDate = new Intl.DateTimeFormat('en-US', {
         weekday: 'long',
@@ -24,7 +26,7 @@ export default function InvoiceHeader() {
                 <div className="h-6 w-px bg-gray-800" aria-hidden="true" />
 
                 <div className="flex items-center gap-3">                    
-                    <button type="button" className="cursor-pointer rounded bg-[#C8102E] px-4 py-2 text-xs sub-font font-semibold text-white">+ Create Invoice</button>
+                    <Link to={"/invoices/create"} type="button" className="cursor-pointer rounded bg-[#C8102E] px-4 py-2 text-xs sub-font font-semibold text-white">+ Create Invoice</Link>
                 </div>
             </div>
 

@@ -19,7 +19,7 @@ interface CreateQuoteRequestState {
 export default function QuoteForm() {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
-    const [formData, setFormData] = useState<CreateQuoteRequestState> ({
+    const [formData, setFormData] = useState<CreateQuoteRequestState>({
         firstName: '',
         lastName: '',
         email: '',
